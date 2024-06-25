@@ -26,6 +26,14 @@ export const Contact = () => {
           <img src={getImageUrl("contact/githubIcon.png")} alt="Github icon" />
           <a href="https://www.github.com/myname">github.com/myname</a>
         </li>
+        <a
+          href="https://www.flaticon.com/free-icons/software-development"
+          title="software development icons"
+        >Software development icons created by Freepik - Flaticon</a
+        >
+        <a href="https://www.flaticon.com/free-icons/development" title="development icons">Development icons created by Design Circle - Flaticon</a>
+        <a href="https://www.flaticon.com/free-icons/student" title="student icons">Student icons created by Freepik - Flaticon</a>
+        <a href="https://www.flaticon.com/free-icons/back-to-school" title="back to school icons">Back to school icons created by Triangle Squad - Flaticon</a>
       </ul>
     </footer>
   );

@@ -13,7 +13,7 @@ export const Hero = () => {
         <h1 className={styles.title}>Hi, I'm Maaz 👋</h1>
         <p className={styles.description}> I'm
           <Typewriter
-            words={[" a Developer 💻", " a Photographer 📸", " an Adventurer 🏞️", " a Music Lover 🎧", " a Sports Enthusiast 🏀"]}
+            words={[" a Software Developer 💻", "a Teaching Assistant 📚", " a Photographer 📸", " an Adventurer 🏞️", " a Music Lover 🎧", " a Sports Enthusiast 🏀"]}
             loop={0}
             cursor
             cursorStyle='_'
