@@ -1,0 +1,18 @@
+[
+    {
+      "degree": "Honors Bachelor of Science",
+      "school": "University of Toronto",
+      "startDate": "Sept. 2020",
+      "endDate": "Jun. 2024",
+      "desc": ["Major in Computer Science — Specialization in Software Engineering Stream", "University of Toronto Scholar", "Fall 2021 Dean's List"],
+      "imageSrc": "history/uoft.png"
+    },
+    {
+      "degree": "High School Diploma",
+      "school": "Fort Richmond Collegiate",
+      "startDate": "Sept. 2017",
+      "endDate": "Jun. 2020",
+      "desc": ["Magna Cum Laude", "Proficiency Awards: AP Computer Science A, AP Calculus AB, Pre-Calculus 40SH"],
+      "imageSrc": "history/frc.png"
+    }
+]

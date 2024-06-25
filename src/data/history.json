@@ -1,29 +1,29 @@
 [
   {
-    "role": "Software Engineer",
-    "organisation": "Google",
-    "startDate": "Sept, 2022",
+    "role": "Software Developer Co-op",
+    "organisation": "Royal Bank of Canada",
+    "startDate": "Jan. 2023",
+    "endDate": "Apr. 2023",
+    "experiences": ["Worked on numerous SpringBoot APIs", "Resolved 22 security vulnerabilities", "Migrated 2 backend services from Java 8 to 17"],
+    "imageSrc": "history/rbc.png"
+  },
+  {
+    "role": "Software Engineer Co-op/PT",
+    "organisation": "University Health Network",
+    "startDate": "Jan. 2022",
+    "endDate": "Dec. 2022",
+    "experiences": ["Streamlined data integration in Python", "Managed and maintained multiple SQL databases", ["Redesigned and implemented a website in React"]],
+    "imageSrc": "history/uhn.png"
+  },
+  {
+    "role": "Teaching Assistant",
+    "organisation": "University of Toronto",
+    "startDate": "Sept. 2022",
     "endDate": "Present",
-    "experiences": ["Worked on Google Maps", "Reduced load times by 50%"],
-    "imageSrc": "history/google.png"
-  },
-  {
-    "role": "UI Designer",
-    "organisation": "Mirosoft",
-    "startDate": "Aug, 2021",
-    "endDate": "Aug, 2022",
-    "experiences": ["Worked on Windows 11", "Designed the control panel"],
-    "imageSrc": "history/microsoft.png"
-  },
-  {
-    "role": "SWE Intern",
-    "organisation": "Netflix",
-    "startDate": "Apr, 2020",
-    "endDate": "Jun, 2020",
     "experiences": [
-      "Worked on component library",
-      "Helped create UI components"
+      "Assisted students with assignments and projects",
+      "Held office hours and weekly tutorial sessions"
     ],
-    "imageSrc": "history/netflix.png"
+    "imageSrc": "history/uoft.png"
   }
 ]
