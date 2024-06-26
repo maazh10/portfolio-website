@@ -26,8 +26,9 @@ export const Hero = () => {
           <SocialIcon style={{ width: "70px", height: "70px" }} url={socials.linkedin} target="_blank" />
           <SocialIcon style={{ width: "70px", height: "70px" }} url={socials.github} target="_blank" />
           <SocialIcon style={{ width: "70px", height: "70px" }} url={socials.instagram} target="_blank" />
-          <SocialIcon style={{ width: "70px", height: "70px" }} url={socials.twitter} target="_blank" />
-          <SocialIcon style={{ width: "70px", height: "70px" }} url={socials.facebook} target="_blank" />
+          {/* <SocialIcon style={{ width: "70px", height: "70px" }} url={socials.twitter} target="_blank" />
+          <SocialIcon style={{ width: "70px", height: "70px" }} url={socials.facebook} target="_blank" /> */}
+          <SocialIcon style={{ width: "70px", height: "70px" }} url={socials.email} target="_blank" />
         </div>
         <a href={socials.resume} className={styles.resumeBtn} target="_blank" >
           Resume
