@@ -13,7 +13,7 @@ export const Interests = () => {
                     <li className={styles.interestItem}>
                         <div className={styles.interestItemContent}>
                             <div className={styles.interestItemText}>
-                                <h3>Coding</h3>
+                                <h3>💻 Coding</h3>
                                 <p>
                                     Firstly and most importantly, I love coding. Even outside of work and school, I like to build projects, learn new technologies, and solve problems for the fun of it. See some of my most significant projects <a href="#projects">above</a> or check out my <a href={socials.github} target="_blank">GitHub</a> for more.
                                 </p>
@@ -28,7 +28,7 @@ export const Interests = () => {
                     <li className={styles.interestItem}>
                         <div className={styles.interestItemContent}>
                             <div className={styles.interestItemText}>
-                                <h3>Photography</h3>
+                                <h3>📸 Photography</h3>
                                 <p>
                                     I enjoy taking photos everywhere I go.  I like to capture moments, places, and people. I learned how to use a professional DSLR camera in high school and used it to learn different kinds of photography. Now I mostly take photos on my Pixel phone, which has an excellent camera and computational photography. I like to edit my photos using Adobe Lightroom and sometimes Photoshop. I like organize my photos of friends and particular events into albums on Google Photos. I also print photos or collages that I like the most and frame them or put them on my fridge for memories. Check out some of my photos on my <a href={socials.instagram} target="_blank">Instagram</a>.
                                 </p>
@@ -43,7 +43,7 @@ export const Interests = () => {
                     <li className={styles.interestItem}>
                         <div className={styles.interestItemContent}>
                             <div className={styles.interestItemText}>
-                                <h3>Sports</h3>
+                                <h3>🏀 Sports</h3>
                                 <p>
                                     I love playing sports, mostly basketball. I've played mostly recreational since around 2017. I like play wing defense and shoot 3s or midrange/corner jumpshots. I also enjoy watching various sports, especially the NBA, the Champions League and some NHL. I was a huge FC Barcelona fan around 2014-2019 era and Lionel Messi is my favourite player. I support the Toronto Raptors in the NBA for the city and also cheer for the Golden State Warriors and the Dallas Mavericks. Stephen Curry, Luka Doncic and Kyrie Irving are some of my favourite players.
                                 </p>
@@ -60,7 +60,7 @@ export const Interests = () => {
                     <li className={styles.interestItem}>
                         <div className={styles.interestItemContent}>
                             <div className={styles.interestItemText}>
-                                <h3>Music</h3>
+                                <h3>🎧 Music</h3>
                                 <p>
                                     Music is a big part of my life. I listen to a decent variety of genres, but mostly hip-hop, R&B and some pop. Some of my favourite artists include Drake, The Weeknd, Travis Scott, Dave, Justin Beiber and Ed Sheeran. Some of all time favourite albums include, Views by Drake, After Hours by The Weeknd, ASTROWORLD by Travis Scott, NOT ALL HEROES WEAR CAPES and HEROES & VILLIANS by Metro Boomin. I've been to The Weeknd concert in Toronto in 2022 as well as NAV's Never Sleep Tour in 2023 where Travis Scott made a special appearance. I also drove to Buffalo, NY to see a Drake concert in February 2024 alongside J. Cole. I always enjoy making playlists and discovering new music. Check out my <a href={socials.spotify} target="_blank">Spotify</a> profile to view playlists and more.
                                 </p>
@@ -77,7 +77,7 @@ export const Interests = () => {
                     <li className={styles.interestItem}>
                         <div className={styles.interestItemContent}>
                             <div className={styles.interestItemText}>
-                                <h3>TV Shows/Movies</h3>
+                                <h3>📺 TV Shows/Movies</h3>
                                 <p>
                                     In some of my free time, I like to watch TV shows and movies. I enjoy a variety of genres, but mostly watch action, comedy, drama and sci-fi. My all time favourite TV show is Silicon Valley and some of my other favourites include How I Met Your Mother, Breaking Bad, Money Heist, Black Mirror and F.R.I.E.N.D.S. Some of my favourite movies include The Dark Knight, Interstellar, The Avengers: Infinity War and Spiderman: No Way Home.
                                 </p>
@@ -95,7 +95,7 @@ export const Interests = () => {
                     <li className={styles.interestItem}>
                         <div className={styles.interestItemContent}>
                             <div className={styles.interestItemText}>
-                                <h3>Gaming</h3>
+                                <h3>🎮 Gaming</h3>
                                 <p>
                                     I like to game very casually on my PS5 in some of my free time. I mostly play career mode or online friendlies FIFA and NBA 2K. I've played through some open world that I really enjoyed including Ghost of Tsushima, Spiderman, Spiderman: Miles Morales and I'm currently playing Spiderman 2.
                                 </p>
@@ -112,7 +112,7 @@ export const Interests = () => {
                     <li className={`${styles.interestItem} ${styles.interestItemOutdoors}`}>
                         <div className={`${styles.interestItemContent} ${styles.interestItemContentOutdoors}`}>
                             <div className={`${styles.interestItemText} ${styles.interestItemTextOutdoors}`}>
-                                <h3>Being Outdoors</h3>
+                                <h3>🏞️ Being Outdoors</h3>
                                 <p>
                                     And lastly my most common hobby is just being outdoors. I like to go for drives, walks, hikes, bike rides, and just explore new places. I also enjoy going by lakes, parks, and just being in nature or taking a train downtown and biking through parks and buildings. I love taking photos and videos of the places I visit and share them with my friends and family. I also like to take trips with friends/family mostly within the country. So far, I've been to Montreal, Ottawa, Kingston, Calgary, Banff, Niagara Falls and Blue Mountain.
                                 </p>

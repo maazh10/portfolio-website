@@ -8,6 +8,8 @@ import { Interests } from "./components/Interests/Interests";
 import { Navbar } from "./components/Navbar/Navbar";
 import { Projects } from "./components/Projects/Projects";
 
+import AnimatedCursor from "react-animated-cursor"
+
 function App() {
   return (
     <div className={styles.App}>
@@ -19,6 +21,7 @@ function App() {
       <Projects />
       <Interests />
       <Credits />
+      <AnimatedCursor />
     </div>
   );
 }

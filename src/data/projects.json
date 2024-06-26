@@ -21,6 +21,13 @@
     "source": "https://github.com/maazh10/scholarly"
   },
   {
+    "title": "Urban Translate",
+    "imageSrc": "projects/urbantranslate.png",
+    "description": "An Android/IOS app which provides urban definitions to various slang terms and translates slang sentences to plain english using NLP.",
+    "skills": ["React Native", "Expo", "Node", "Express"],
+    "source": "https://github.com/maazh10/scholarly"
+  },
+  {
     "title": "Promedio",
     "imageSrc": "projects/promedio.png",
     "description": "A student companion web application that allows students to track their grades, calculate their GPA, and set goals for their academic performance.",
