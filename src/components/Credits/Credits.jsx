@@ -25,9 +25,12 @@ export const Credits = () => {
           <a href="https://www.flaticon.com/free-icons/back-to-school" title="back to school icons">Back to school icons created by Triangle Squad - Flaticon</a>
         </li>
         <li className={styles.link}>
+          <a href="https://www.flaticon.com/free-icons/sparkle" title="sparkle icons">Sparkle icons created by Yobany_MTOM - Flaticon</a>
+        </li>
+        <li className={styles.link}>
           <a href="https://github.com/CodeCompleteYT/react-portfolio">Template from: CodeCompleteYT</a>
         </li>
       </ul>
-    </footer>
+    </footer >
   );
 };

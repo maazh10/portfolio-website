@@ -32,6 +32,11 @@
   margin-bottom: 52px;
 }
 
+.signature {
+  margin-top: 100px;
+  width: 20%;
+}
+
 .heroImgContainer {
   width: 900px;
   height: 900px;
@@ -39,7 +44,6 @@
   overflow: hidden;
   z-index: 1;
 }
-
 
 .heroImg {
   width: 100%;

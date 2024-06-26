@@ -32,6 +32,7 @@ export const Hero = () => {
         <a href={socials.resume} className={styles.resumeBtn} target="_blank" >
           Resume
         </a>
+        <img src={getImageUrl("hero/signature.png")} alt="my signature" className={styles.signature} />
       </div>
       <div className={styles.heroImgContainer}>
         <img
