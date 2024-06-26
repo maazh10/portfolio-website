@@ -138,4 +138,20 @@
   .content {
     align-items: center;
   }
+
+  .heroImgContainer {
+    width: 350px;
+    height: 350px;
+  }
+
+  .title {
+    margin-top: 50px;
+    font-size: 40px;
+    text-align: center;
+  }
+
+  .description {
+    font-size: 25px;
+    text-align: center;
+  }
 }

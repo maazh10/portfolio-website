@@ -17,7 +17,7 @@ export const Hero = () => {
             loop={0}
             cursor
             cursorStyle='_'
-            typeSpeed={70}
+            typeSpeed={60}
             deleteSpeed={50}
             delaySpeed={1000}
           />
