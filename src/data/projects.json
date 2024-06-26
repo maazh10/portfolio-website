@@ -1,26 +1,37 @@
 [
   {
-    "title": "Project A",
-    "imageSrc": "projects/project.png",
-    "description": "This is a project made to learn the latest languages by building an app.",
-    "skills": ["React", "Express", "Node"],
-    "demo": "https://www.example.com",
-    "source": "https://www.github.com"
+    "title": "This Website",
+    "imageSrc": "projects/portfolio.png",
+    "description": "This is my personal portfolio website that I built to showcase my projects and skills.",
+    "skills": ["React", "CSS"],
+    "source": "https://github.com/maazh10/portfolio-website"
   },
   {
-    "title": "Project B",
-    "imageSrc": "projects/project.png",
-    "description": "This is a project made to learn the latest languages by building an app.",
-    "skills": ["React", "Express", "Node", "Sass"],
-    "demo": "https://www.example.com",
-    "source": "https://www.github.com"
+    "title": "Weast",
+    "imageSrc": "projects/weast.jpg",
+    "description": "A multi-purpose discord.py bot with over 500 active users.",
+    "skills": ["Python", "SQLite", "AWS", "Docker", "OpenAI"],
+    "source": "https://github.com/maazh10/KanyeWeast"
   },
   {
-    "title": "Project C",
-    "imageSrc": "projects/project.png",
-    "description": "This is a project made to learn the latest languages by building an app.",
-    "skills": ["React", "Express", "Node"],
-    "demo": "https://www.example.com",
-    "source": "https://www.github.com"
+    "title": "Scholarly",
+    "imageSrc": "projects/scholarly.png",
+    "description": "A real-time tutoring application designed for school and university students to schedule live video chat sessions with instructors to seek help.",
+    "skills": ["Next.js", "Node", "Express", "PostgreSQL", "TypeScript"],
+    "source": "https://github.com/maazh10/scholarly"
+  },
+  {
+    "title": "Promedio",
+    "imageSrc": "projects/promedio.png",
+    "description": "A student companion web application that allows students to track their grades, calculate their GPA, and set goals for their academic performance.",
+    "skills": ["React", "Node", "Express", "MongoDB"],
+    "source": "https://github.com/maazh10/promedio"
+  },
+  {
+    "title": "CartMax",
+    "imageSrc": "projects/cartmax.jpg",
+    "description": "An Android app that enabled users to shop for groceries online during the pandemic.",
+    "skills": ["Java", "Android Studio", "Firebase", "Mockito"],
+    "source": "https://github.com/maazh10/CartMax"
   }
 ]
