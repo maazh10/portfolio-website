@@ -48,5 +48,10 @@ jobs:
           key: ${{ secrets.KEY }}
           envs: IMAGE_NAME
           script: |
+            old_container=$(docker ps -q --filter "status=running")
+            if [ ! -z "$old_container" ]; then
+              docker stop $old_container
+              docker rm $old_container
+            fi
             docker pull ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME:latest
             docker run -d -p 80:80 ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME:latest
