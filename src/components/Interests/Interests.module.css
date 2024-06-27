@@ -67,8 +67,13 @@
     color: var(--color-primary);
     text-decoration: none;
     transition: 0.4s;
-  
   }
+
+
+  a:hover {
+    color: var(--color-secondary);
+  }
+
 }
 
 .interestItemContent {
