@@ -41,8 +41,8 @@ jobs:
       - name: Pull image from GitHub Container Registry on Google Cloud VM using remote SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
+          host: 104.155.153.58
+          username: maazh
           key: ${{ secrets.KEY }}
           script: |
             docker pull ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME:latest
