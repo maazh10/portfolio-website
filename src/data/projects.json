@@ -2,8 +2,8 @@
   {
     "title": "This Website",
     "imageSrc": "projects/portfolio.png",
-    "description": "This is my personal portfolio website that I built to showcase my projects and skills.",
-    "skills": ["React", "CSS"],
+    "description": "This is the personal portfolio website that I built and deployed to showcase my projects, skills, hobbies.",
+    "skills": ["React", "CSS", "Google Cloud"],
     "source": "https://github.com/maazh10/portfolio-website"
   },
   {
