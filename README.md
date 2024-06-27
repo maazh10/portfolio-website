@@ -1,3 +1,3 @@
 # Portfolio Website
 
-This is my personal portfolio website build using ReactJS.
+This is my personal portfolio website built using ReactJS and deployed on Google Cloud Compute Engine.
