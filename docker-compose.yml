@@ -23,6 +23,10 @@ services:
       - ./acme:/etc/acme.sh
     environment:
       - DEFAULT_EMAIL=mhashmi373@gmail.com
+    depends_on:
+      - nginx-proxy
+    volumes_from:
+      - nginx-proxy 
   app:
     image: ghcr.io/maazh10/app:latest
     container_name: app
