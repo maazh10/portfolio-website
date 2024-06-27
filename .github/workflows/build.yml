@@ -52,4 +52,5 @@ jobs:
           envs: IMAGE_NAME
           script: |
             cd portfolio-website
-            docker compose pull && docker compose restart
+            docker compose down
+            docker compose pull && docker compose up -d
