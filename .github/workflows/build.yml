@@ -37,3 +37,13 @@ jobs:
           echo VERSION=$VERSION
           docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
+
+      - name: Pull image from GitHub Container Registry on Google Cloud VM using remote SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            docker pull ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME:latest
+            docker run -d -p 80:80 ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME:latest
