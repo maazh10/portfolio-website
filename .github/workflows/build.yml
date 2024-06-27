@@ -44,7 +44,7 @@ jobs:
           IMAGE_NAME: "app"
         with:
           host: ${{ secrets.HOST }}
-          username: maazh
+          username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           envs: IMAGE_NAME
           script: |
