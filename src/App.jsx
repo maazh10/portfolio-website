@@ -17,7 +17,7 @@ function App() {
       <Helmet>
         <title>maaz h.</title>
         <meta property="og:title" content="maaz h." />
-        <meta property="og:description" content="My personal portfolio website" />
+        <meta property="og:description" content="my personal portfolio website ✨" />
         <meta property="og:image" content="https://i.ibb.co/PMkybzF/portfolio.png" />
         <meta property="og:url" content="https://maazh.tech" />
         <meta property="og:type" content="website" />
