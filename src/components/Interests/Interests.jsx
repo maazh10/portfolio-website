@@ -4,6 +4,9 @@ import socials from "../../data/socials.json";
 import styles from "./Interests.module.css";
 import { getImageUrl } from "../../utils";
 
+import LazyLoad from 'react-lazyload';
+
+
 export const Interests = () => {
     return (
         <section className={styles.container} id="interests">
@@ -19,9 +22,15 @@ export const Interests = () => {
                                 </p>
                             </div>
                             <div className={styles.interestItemImages}>
-                                <img src={getImageUrl("interests/coding/c1.jpg")} alt="c1" className={styles.image} />
-                                <img src={getImageUrl("interests/coding/c2.jpg")} alt="c2" className={styles.image} />
-                                <img src={getImageUrl("interests/coding/c3.jpg")} alt="c3" className={styles.image} />
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/coding/c1.jpg")} alt="c1" className={styles.image} />
+                                </LazyLoad>
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/coding/c2.jpg")} alt="c2" className={styles.image} />
+                                </LazyLoad>
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/coding/c3.jpg")} alt="c3" className={styles.image} />
+                                </LazyLoad>
                             </div>
                         </div>
                     </li>
@@ -34,9 +43,15 @@ export const Interests = () => {
                                 </p>
                             </div>
                             <div className={styles.interestItemImages}>
-                                <img src={getImageUrl("interests/photography/p1.jpg")} alt="c1" className={styles.image} />
-                                <img src={getImageUrl("interests/photography/p2.jpg")} alt="c2" className={styles.image} />
-                                <img src={getImageUrl("interests/photography/p3.jpg")} alt="c3" className={styles.image} />
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/photography/p1.jpg")} alt="c1" className={styles.image} />
+                                </LazyLoad>
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/photography/p2.jpg")} alt="c2" className={styles.image} />
+                                </LazyLoad>
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/photography/p3.jpg")} alt="c3" className={styles.image} />
+                                </LazyLoad>
                             </div>
                         </div>
                     </li>
@@ -49,11 +64,21 @@ export const Interests = () => {
                                 </p>
                             </div>
                             <div className={styles.interestItemImages}>
-                                <img src={getImageUrl("interests/sports/s1.jpg")} alt="s1" className={styles.image} />
-                                <img src={getImageUrl("interests/sports/s2.jpg")} alt="s2" className={styles.image} />
-                                <img src={getImageUrl("interests/sports/s3.jpg")} alt="s3" className={styles.image} />
-                                <img src={getImageUrl("interests/sports/s4.jpg")} alt="s4" className={styles.image} />
-                                <img src={getImageUrl("interests/sports/s5.jpg")} alt="s5" className={styles.image} />
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/sports/s1.jpg")} alt="s1" className={styles.image} />
+                                </LazyLoad>
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/sports/s2.jpg")} alt="s2" className={styles.image} />
+                                </LazyLoad>
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/sports/s3.jpg")} alt="s3" className={styles.image} />
+                                </LazyLoad>
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/sports/s4.jpg")} alt="s4" className={styles.image} />
+                                </LazyLoad>
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/sports/s5.jpg")} alt="s5" className={styles.image} />
+                                </LazyLoad>
                             </div>
                         </div>
                     </li>
@@ -66,11 +91,21 @@ export const Interests = () => {
                                 </p>
                             </div>
                             <div className={styles.interestItemImages}>
-                                <img src={getImageUrl("interests/music/m1.jpg")} alt="m1" className={styles.image} />
-                                <img src={getImageUrl("interests/music/m2.jpeg")} alt="m2" className={styles.image} />
-                                <img src={getImageUrl("interests/music/m3.png")} alt="m3" className={styles.image} />
-                                <img src={getImageUrl("interests/music/m4.png")} alt="m4" className={styles.image} />
-                                <img src={getImageUrl("interests/music/m5.jpeg")} alt="m5" className={styles.image} />
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/music/m1.jpg")} alt="m1" className={styles.image} />
+                                </LazyLoad>
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/music/m2.jpeg")} alt="m2" className={styles.image} />
+                                </LazyLoad>
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/music/m3.png")} alt="m3" className={styles.image} />
+                                </LazyLoad>
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/music/m4.png")} alt="m4" className={styles.image} />
+                                </LazyLoad>
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/music/m5.jpeg")} alt="m5" className={styles.image} />
+                                </LazyLoad>
                             </div>
                         </div>
                     </li>
@@ -83,12 +118,24 @@ export const Interests = () => {
                                 </p>
                             </div>
                             <div className={styles.interestItemImages}>
-                                <img src={getImageUrl("interests/tv/t1.jpg")} alt="t1" className={styles.image} />
-                                <img src={getImageUrl("interests/tv/t2.jpg")} alt="t2" className={styles.image} />
-                                <img src={getImageUrl("interests/tv/t3.jpg")} alt="t3" className={styles.image} />
-                                <img src={getImageUrl("interests/tv/t4.jpg")} alt="t4" className={styles.image} />
-                                <img src={getImageUrl("interests/tv/t5.jpg")} alt="t5" className={styles.image} />
-                                <img src={getImageUrl("interests/tv/t6.jpg")} alt="t6" className={styles.image} />
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/tv/t1.jpg")} alt="t1" className={styles.image} />
+                                </LazyLoad>
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/tv/t2.jpg")} alt="t2" className={styles.image} />
+                                </LazyLoad>
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/tv/t3.jpg")} alt="t3" className={styles.image} />
+                                </LazyLoad>
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/tv/t4.jpg")} alt="t4" className={styles.image} />
+                                </LazyLoad>
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/tv/t5.jpg")} alt="t5" className={styles.image} />
+                                </LazyLoad>
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/tv/t6.jpg")} alt="t6" className={styles.image} />
+                                </LazyLoad>
                             </div>
                         </div>
                     </li>
@@ -101,11 +148,22 @@ export const Interests = () => {
                                 </p>
                             </div>
                             <div className={styles.interestItemImages}>
-                                <img src={getImageUrl("interests/gaming/g1.jpg")} alt="g1" className={styles.image} />
-                                <img src={getImageUrl("interests/gaming/g2.jpg")} alt="g2" className={styles.image} />
-                                <img src={getImageUrl("interests/gaming/g3.jpg")} alt="g3" className={styles.image} />
-                                <img src={getImageUrl("interests/gaming/g4.jpg")} alt="g4" className={styles.image} />
-                                <img src={getImageUrl("interests/gaming/g5.jpg")} alt="g5" className={styles.image} />
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/gaming/g1.jpg")} alt="g1" className={styles.image} />
+                                </LazyLoad>
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/gaming/g2.jpg")} alt="g2" className={styles.image} />
+                                </LazyLoad>
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/gaming/g3.jpg")} alt="g3" className={styles.image} />
+                                </LazyLoad>
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/gaming/g4.jpg")} alt="g4" className={styles.image} />
+                                </LazyLoad>
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/gaming/g5.jpg")} alt="g5" className={styles.image} />
+                                </LazyLoad>
+
                             </div>
                         </div>
                     </li>
@@ -118,25 +176,63 @@ export const Interests = () => {
                                 </p>
                             </div>
                             <div className={`${styles.interestItemImages} ${styles.interestItemImagesOutdoors}`}>
-                                <img src={getImageUrl("interests/outdoors/o1.jpg")} alt="o1" className={styles.image} />
-                                <img src={getImageUrl("interests/outdoors/o2.jpg")} alt="o2" className={styles.image} />
-                                <img src={getImageUrl("interests/outdoors/o3.jpg")} alt="o3" className={styles.image} />
-                                <img src={getImageUrl("interests/outdoors/o4.jpg")} alt="o4" className={styles.image} />
-                                <img src={getImageUrl("interests/outdoors/o5.jpg")} alt="o5" className={styles.image} />
-                                <img src={getImageUrl("interests/outdoors/o6.jpg")} alt="o6" className={styles.image} />
-                                <img src={getImageUrl("interests/outdoors/o7.jpg")} alt="o7" className={styles.image} />
-                                <img src={getImageUrl("interests/outdoors/o8.jpg")} alt="o8" className={styles.image} />
-                                <img src={getImageUrl("interests/outdoors/o9.jpg")} alt="o9" className={styles.image} />
-                                <img src={getImageUrl("interests/outdoors/o10.jpg")} alt="o10" className={styles.image} />
-                                <img src={getImageUrl("interests/outdoors/o11.jpg")} alt="o11" className={styles.image} />
-                                <img src={getImageUrl("interests/outdoors/o12.jpg")} alt="o12" className={styles.image} />
-                                <img src={getImageUrl("interests/outdoors/o13.jpg")} alt="o13" className={styles.image} />
-                                <img src={getImageUrl("interests/outdoors/o14.jpg")} alt="o14" className={styles.image} />
-                                <img src={getImageUrl("interests/outdoors/o15.jpeg")} alt="o15" className={styles.image} />
-                                <img src={getImageUrl("interests/outdoors/o16.jpg")} alt="o16" className={styles.image} />
-                                <img src={getImageUrl("interests/outdoors/o17.jpg")} alt="o17" className={styles.image} />
-                                <img src={getImageUrl("interests/outdoors/o18.jpg")} alt="o18" className={styles.image} />
-                                <img src={getImageUrl("interests/outdoors/o19.jpg")} alt="o19" className={styles.image} />
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/outdoors/o1.jpg")} alt="o1" className={styles.image} />
+                                </LazyLoad>
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/outdoors/o2.jpg")} alt="o2" className={styles.image} />
+                                </LazyLoad>
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/outdoors/o3.jpg")} alt="o3" className={styles.image} />
+                                </LazyLoad>
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/outdoors/o4.jpg")} alt="o4" className={styles.image} />
+                                </LazyLoad>
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/outdoors/o5.jpg")} alt="o5" className={styles.image} />
+                                </LazyLoad>
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/outdoors/o6.jpg")} alt="o6" className={styles.image} />
+                                </LazyLoad>
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/outdoors/o7.jpg")} alt="o7" className={styles.image} />
+                                </LazyLoad>
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/outdoors/o8.jpg")} alt="o8" className={styles.image} />
+                                </LazyLoad>
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/outdoors/o9.jpg")} alt="o9" className={styles.image} />
+                                </LazyLoad>
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/outdoors/o10.jpg")} alt="o10" className={styles.image} />
+                                </LazyLoad>
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/outdoors/o11.jpg")} alt="o11" className={styles.image} />
+                                </LazyLoad>
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/outdoors/o12.jpg")} alt="o12" className={styles.image} />
+                                </LazyLoad>
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/outdoors/o13.jpg")} alt="o13" className={styles.image} />
+                                </LazyLoad>
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/outdoors/o14.jpg")} alt="o14" className={styles.image} />
+                                </LazyLoad>
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/outdoors/o15.jpeg")} alt="o15" className={styles.image} />
+                                </LazyLoad>
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/outdoors/o16.jpg")} alt="o16" className={styles.image} />
+                                </LazyLoad>
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/outdoors/o17.jpg")} alt="o17" className={styles.image} />
+                                </LazyLoad>
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/outdoors/o18.jpg")} alt="o18" className={styles.image} />
+                                </LazyLoad>
+                                <LazyLoad height={200} offset={100}>
+                                    <img src={getImageUrl("interests/outdoors/o19.jpg")} alt="o19" className={styles.image} />
+                                </LazyLoad>
                             </div>
                         </div>
                     </li>
