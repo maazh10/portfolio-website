@@ -103,5 +103,10 @@
   
   .historyItemDetails ul {
     font-size: 17px;
+
+    li span {
+      left: -10px;
+    }
   }
+
 }
