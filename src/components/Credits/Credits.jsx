@@ -10,6 +10,9 @@ export const Credits = () => {
       </div>
       <ul className={styles.links}>
         <li className={styles.link}>
+          <a href="https://www.flaticon.com/free-icons/working" title="working icons">Working icons created by Flat Icons - Flaticon</a>
+        </li>
+        <li className={styles.link}>
           <a href="https://www.flaticon.com/free-icons/software-development"
             title="software development icons"
           >Software development icons created by Freepik - Flaticon</a

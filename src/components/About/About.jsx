@@ -15,6 +15,15 @@ export const About = () => {
         />
         <ul className={styles.aboutItems}>
           <li className={styles.aboutItem}>
+            <img src={getImageUrl("about/aboutme.png")} alt="UI icon" />
+            <div className={styles.aboutItemText}>
+              <h3>About Me</h3>
+              <p>
+                I am software developer/recent grad based in Toronto, Ontario. I have a passion for software development and building things that live on the internet.  I have a keen interest in various fields of computer science, particularly in web development and software architecture. I am driven and excited by new technologies and always willing to learn more and more through either school or fun side projects. My aspiration is to contribute to something that has meaning and makes some sort of impact while also enhancing my skill set and making the world a better place.
+              </p>
+            </div>
+          </li>
+          <li className={styles.aboutItem}>
             <img src={getImageUrl("about/graduated.png")} alt="UI icon" />
             <div className={styles.aboutItemText}>
               <h3>Student</h3>
