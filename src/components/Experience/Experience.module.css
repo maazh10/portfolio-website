@@ -26,7 +26,7 @@
 }
 
 .skills {
-  width: 45%;
+  width: 35%;
   display: flex;
   flex-wrap: wrap;
   gap: 37px;
@@ -60,7 +60,7 @@
 }
 
 .history {
-  width: 45%;
+  width: 55%;
   display: flex;
   flex-direction: column;
   gap: 40px;
@@ -74,7 +74,7 @@
   background: #19376d;
   background: linear-gradient(90deg, #19376d 0%, rgba(25, 55, 109, 0) 100%);
   border-radius: 10px;
-  padding: 24px;
+  padding: 25px;
 }
 
 .historyItem img {
@@ -101,7 +101,14 @@
   font-size: 25px;
   list-style-type: disc;
   margin-left: 17px;
+
+  li span {
+    position: relative;
+    left: -17px;
+  }
 }
+
+
 
 @media screen and (max-width: 830px) {
   .content {
@@ -119,5 +126,18 @@
   .history {
     width: 100%;
     gap: 9px;
+  }
+
+  .historyItem img {
+    width: 40px;
+  }
+  
+  .historyItemDetails h3 {
+    font-size: 20px;
+    font-weight: 500;
+  }
+  
+  .historyItemDetails ul {
+    font-size: 17px;
   }
 }

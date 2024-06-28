@@ -77,3 +77,9 @@
   background: var(--color-text);
   color: var(--color-dark);
 }
+
+@media screen and (max-width: 830px) {
+  .container:hover {
+    transform: scale(1);
+  }
+}

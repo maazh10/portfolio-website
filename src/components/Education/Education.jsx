@@ -23,7 +23,7 @@ export const Education = () => {
                                     <p>{`${historyItem.startDate} - ${historyItem.endDate}`}</p>
                                     <ul>
                                         {historyItem.desc.map((item, id) => {
-                                            return <li key={id}>{item}</li>;
+                                            return <li key={id}><span>{item}</span></li>;
                                         })}
                                     </ul>
                                 </div>

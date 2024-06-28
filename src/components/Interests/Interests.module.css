@@ -69,7 +69,6 @@
     transition: 0.4s;
   }
 
-
   a:hover {
     color: var(--color-secondary);
   }
@@ -138,7 +137,7 @@
   }
 
   .interestItems {
-    margin-top: 29px;
+    gap: 50px;
   }
 
   .interestItem {
@@ -146,13 +145,37 @@
     padding-right: 0;
   }
 
+  .interestItemContent {
+    flex-wrap: wrap;
+  }
+
   .interestItemImages {
-    display: none;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+    width: 100%;
+    gap: 10px;
   }
 
   .interestItemContentOutdoors {
     align-items: center;
-    justify-content: center;
+    flex-direction: center;
   }
 
+  .interestItemImages img {
+    width: 130px;
+}
+
+  .interestItem h3 {
+    font-size: 20px;
+  }
+  
+  .interestItem p {
+    font-size: 17px;
+  }
+
+  .interestItemImages img:hover {
+    transform: scale(1.7);
+  }
+  
 }

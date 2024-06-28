@@ -172,7 +172,7 @@ export const Interests = () => {
                             <div className={`${styles.interestItemText} ${styles.interestItemTextOutdoors}`}>
                                 <h3>🏞️ Being Outdoors</h3>
                                 <p>
-                                    And lastly my most common hobby is just being outdoors. I like to go for drives, walks, hikes, bike rides, and just explore new places. I also enjoy going by lakes, parks, and just being in nature or taking a train downtown and biking through parks and buildings. I love taking photos and videos of the places I visit and share them with my friends and family. I also like to take trips with friends/family mostly within the country. So far, I've been to Montreal, Ottawa, Kingston, Calgary, Banff, Niagara Falls and Blue Mountain.
+                                    And lastly my most common hobby is just being outdoors. I like to go for drives, walks, hikes, bike rides, and just explore new places. I also enjoy going by lakes, parks, and just being in nature or taking a train downtown and biking through the city. I love taking photos and videos of the places I visit and share them with my friends and family. I also like to take trips with friends/family mostly within the country. So far, I've been to Montreal, Ottawa, Kingston, Calgary, Banff, Niagara Falls and Blue Mountain.
                                 </p>
                             </div>
                             <div className={`${styles.interestItemImages} ${styles.interestItemImagesOutdoors}`}>
@@ -196,9 +196,6 @@ export const Interests = () => {
                                 </LazyLoad>
                                 <LazyLoad height={200} offset={100}>
                                     <img src={getImageUrl("interests/outdoors/o7.jpg")} alt="o7" className={styles.image} />
-                                </LazyLoad>
-                                <LazyLoad height={200} offset={100}>
-                                    <img src={getImageUrl("interests/outdoors/o8.jpg")} alt="o8" className={styles.image} />
                                 </LazyLoad>
                                 <LazyLoad height={200} offset={100}>
                                     <img src={getImageUrl("interests/outdoors/o9.jpg")} alt="o9" className={styles.image} />
