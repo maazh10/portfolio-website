@@ -32,5 +32,5 @@ services:
     expose:
       - 80
     environment:
-      - VIRTUAL_HOST=maazh.tech
-      - LETSENCRYPT_HOST=maazh.tech
+      - VIRTUAL_HOST=www.maazh.tech
+      - LETSENCRYPT_HOST=www.maazh.tech
