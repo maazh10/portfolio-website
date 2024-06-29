@@ -7,6 +7,13 @@
     "source": "https://github.com/maazh10/portfolio-website"
   },
   {
+    "title": "Langchain - Open Source Contribution",
+    "imageSrc": "projects/langchain.png",
+    "description": "Expanded language support in Langchain within the LanguageParser module to enable Retrieval Augmented Generation (RAG) with source code files in 12 programming languages.",
+    "skills": ["Python"],
+    "source": "https://github.com/langchain-ai/langchain/pull/13318"
+  },
+  {
     "title": "Weast",
     "imageSrc": "projects/weast.jpg",
     "description": "A multi-purpose discord.py bot with over 500 active users.",
@@ -33,6 +40,13 @@
     "description": "A student companion web application that allows students to track their grades, calculate their GPA, and set goals for their academic performance.",
     "skills": ["React", "Node", "Express", "MongoDB"],
     "source": "https://github.com/maazh10/promedio"
+  },
+  {
+    "title": "SpideyBot",
+    "imageSrc": "projects/spideybot.jpg",
+    "description": "An AI chatbot, enabling exchange over selected network protocols (TCP/UDP) via socket programming as well as end-to-end encryption using RSA.",
+    "skills": ["Python", "tkinter", "socket", "rsa", "tcp/udp"],
+    "source": "https://github.com/maazh10/SpideyBot"
   },
   {
     "title": "CartMax",

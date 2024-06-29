@@ -5,10 +5,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 49px;
+  margin-top: 40px;
   z-index: 1;
   margin-left: 10%;
   margin-right: 10%;
+  height: 90vh;
 }
 
 .content {
@@ -137,10 +138,15 @@
 @media screen and (max-width: 830px) {
   .container {
     flex-direction: column-reverse;
+    height: 100vh;
   }
 
   .content {
     align-items: center;
+  }
+
+  .signature {
+    width: 50%;
   }
 
   .heroImgContainer {
