@@ -1,0 +1,39 @@
+.imageSlider {
+    position: relative;
+    width: 20vw;
+    height: 500px;
+    overflow: hidden;
+    transition: all 0.5s ease-in-out;
+}
+  
+.imageSlide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    border-radius: 50px;
+    border: 1px solid #000;
+}
+  
+.imageSlide.active {
+    opacity: 1;
+}
+
+.imageSlider:hover {
+    transform: scale(1.2);
+}
+
+@media screen and (max-width: 830px) {
+    .imageSlider {
+        width: 100%;
+        height: 500px;
+    }
+
+    .imageSlider:hover {
+        transform: scale(1);
+    }
+}
