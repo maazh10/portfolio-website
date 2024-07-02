@@ -76,6 +76,14 @@ export const Interests = () => {
         getImageUrl("interests/outdoors/o19.jpg"),
     ];
 
+    const shuffle = (array) => {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+
     return (
         <section className={styles.container} id="interests">
             <h2 className={styles.title}>Hobbies & Interests</h2>
@@ -90,7 +98,7 @@ export const Interests = () => {
                                 </p>
                             </div>
                             <div className={styles.imageSlider}>
-                                <ImageSlider images={codingImages} interval={Math.floor(Math.random() * 3000) + 2000} />
+                                <ImageSlider images={shuffle(codingImages)} interval={Math.floor(Math.random() * 3000) + 2000} />
                             </div>
                         </div>
                     </li>
@@ -99,11 +107,11 @@ export const Interests = () => {
                             <div className={styles.interestItemText}>
                                 <h3>📸 Photography</h3>
                                 <p>
-                                    I enjoy taking photos everywhere I go.  I like to capture moments, places, and people. I learned how to use a professional DSLR camera in high school and used it to learn different kinds of photography. Now I mostly take photos on my Pixel phone, which has an excellent camera and computational photography. I like to edit my photos using Adobe Lightroom and sometimes Photoshop. I like organize my photos of friends and particular events into albums on Google Photos. I also print photos or collages that I like the most and frame them or put them on my fridge for memories. Check out some of my photos on my <a href={socials.instagram} target="_blank">Instagram</a>.
+                                    I enjoy taking photos everywhere I go.  I like to capture moments, places, and people. I learned how to use a professional DSLR camera in high school and used it to learn different kinds of photography. Now I mostly take photos on my Pixel phone, which has an excellent camera and computational photography. I like to edit my photos using Adobe Lightroom and sometimes Photoshop. I organize my photos of friends and particular events into albums on Google Photos. I also print photos or collages that I like the most and frame them or put them on my fridge for memories. Check out some of my photos on my <a href={socials.instagram} target="_blank">Instagram</a>.
                                 </p>
                             </div>
                             <div className={styles.imageSlider}>
-                                <ImageSlider images={photographyImages} interval={Math.floor(Math.random() * 3000) + 2000} />
+                                <ImageSlider images={shuffle(photographyImages)} interval={Math.floor(Math.random() * 3000) + 2000} />
                             </div>
                         </div>
                     </li>
@@ -112,11 +120,11 @@ export const Interests = () => {
                             <div className={styles.interestItemText}>
                                 <h3>🏀 Sports</h3>
                                 <p>
-                                    I love playing sports, mostly basketball. I've played mostly recreational since around 2017. I like play wing defense and shoot 3s or midrange/corner jumpshots. I also enjoy watching various sports, especially the NBA, the Champions League and some NHL. I was a huge FC Barcelona fan around 2014-2019 era and Lionel Messi is my favourite player. I support the Toronto Raptors in the NBA for the city and also cheer for the Golden State Warriors and the Dallas Mavericks. Stephen Curry, Luka Doncic and Kyrie Irving are some of my favourite players.
+                                    I love playing sports, mostly basketball. I've played recreationally since around 2017. I like to play wing defense and shoot 3s or midrange/corner jumpshots. I also enjoy watching various sports, mainly the NBA, the Champions League and some NHL. I was a huge FC Barcelona fan around 2014-2019 era and Lionel Messi is my favorite player. I support the Toronto Raptors in the NBA to rep Toronto/Canada and also cheer for the Golden State Warriors and the Dallas Mavericks. Stephen Curry, Luka Doncic and Kyrie Irving are some of my favorite players.
                                 </p>
                             </div>
                             <div className={styles.imageSlider}>
-                                <ImageSlider images={sportsImages} interval={Math.floor(Math.random() * 3000) + 2000} />
+                                <ImageSlider images={shuffle(sportsImages)} interval={Math.floor(Math.random() * 3000) + 2000} />
                             </div>
                         </div>
                     </li>
@@ -125,11 +133,11 @@ export const Interests = () => {
                             <div className={styles.interestItemText}>
                                 <h3>🎧 Music</h3>
                                 <p>
-                                    Music is a big part of my life. I listen to a decent variety of genres, but mostly hip-hop, R&B and some pop. Some of my favourite artists include Drake, The Weeknd, Travis Scott, Dave, Justin Beiber and Ed Sheeran. Some of all time favourite albums include, Views by Drake, After Hours by The Weeknd, ASTROWORLD by Travis Scott, NOT ALL HEROES WEAR CAPES and HEROES & VILLIANS by Metro Boomin. I've been to The Weeknd concert in Toronto in 2022 as well as NAV's Never Sleep Tour in 2023 where Travis Scott made a special appearance. I also drove to Buffalo, NY to see a Drake concert in February 2024 alongside J. Cole. I always enjoy making playlists and discovering new music. Check out my <a href={socials.spotify} target="_blank">Spotify</a> profile to view playlists and more.
+                                    Music is a big part of my life. I listen to a decent variety of genres, but mostly hip-hop, R&B and some pop. Some of my favorite artists include Drake, The Weeknd, Travis Scott, Dave, Justin Beiber and Ed Sheeran. Some of my all time favorite albums include, Views by Drake, After Hours by The Weeknd, ASTROWORLD by Travis Scott, NOT ALL HEROES WEAR CAPES and HEROES & VILLIANS by Metro Boomin. I went to The Weeknd concert in Toronto in 2022 as well as NAV's Never Sleep Tour in 2023 where Travis Scott made a special appearance. I also drove to Buffalo, NY to see a Drake concert in February 2024 alongside J. Cole. I always enjoy making playlists and discovering new music. Check out my <a href={socials.spotify} target="_blank">Spotify</a> profile to view my playlists and more.
                                 </p>
                             </div>
                             <div className={styles.imageSlider}>
-                                <ImageSlider images={musicImages} interval={Math.floor(Math.random() * 3000) + 2000} />
+                                <ImageSlider images={shuffle(musicImages)} interval={Math.floor(Math.random() * 3000) + 2000} />
                             </div>
                         </div>
                     </li>
@@ -138,11 +146,11 @@ export const Interests = () => {
                             <div className={styles.interestItemText}>
                                 <h3>📺 TV Shows/Movies</h3>
                                 <p>
-                                    In some of my free time, I like to watch TV shows and movies. I enjoy a variety of genres, but mostly watch action, comedy, drama and sci-fi. My all time favourite TV show is Silicon Valley and some of my other favourites include How I Met Your Mother, Breaking Bad, Money Heist, Black Mirror and F.R.I.E.N.D.S. Some of my favourite movies include The Dark Knight, Interstellar, The Avengers: Infinity War and Spiderman: No Way Home.
+                                    In some of my free time, I like to watch TV shows and movies. I enjoy a variety of genres, but mostly watch action, comedy, drama and some sci-fi. My all time favorite TV show is Silicon Valley just because of how relatable it is. Some of my other favorites include How I Met Your Mother, Breaking Bad, Money Heist, Black Mirror and F.R.I.E.N.D.S.  The Dark Knight, Interstellar, The Avengers: Infinity War and Spiderman: No Way Home are some of my favorite movies.
                                 </p>
                             </div>
                             <div className={styles.imageSlider}>
-                                <ImageSlider images={tvImages} interval={Math.floor(Math.random() * 3000) + 2000} />
+                                <ImageSlider images={shuffle(tvImages)} interval={Math.floor(Math.random() * 3000) + 2000} />
                             </div>
                         </div>
                     </li>
@@ -151,11 +159,11 @@ export const Interests = () => {
                             <div className={styles.interestItemText}>
                                 <h3>🎮 Gaming</h3>
                                 <p>
-                                    I like to game very casually on my PS5 in some of my free time. I mostly play career mode or online friendlies FIFA and NBA 2K. I've played through some open world that I really enjoyed including Ghost of Tsushima, Spiderman, Spiderman: Miles Morales and I'm currently playing Spiderman 2.
+                                    I sometimes like to game very casually on my PS5 my free time. I mostly play career mode or online friendlies on FIFA and NBA 2K. I've played through some open world single-player titles that I really enjoyed including Ghost of Tsushima, Spiderman, Spiderman: Miles Morales and I'm currently playing through Spiderman 2.
                                 </p>
                             </div>
                             <div className={styles.imageSlider}>
-                                <ImageSlider images={gamingImages} interval={Math.floor(Math.random() * 3000) + 2000} />
+                                <ImageSlider images={shuffle(gamingImages)} interval={Math.floor(Math.random() * 3000) + 2000} />
                             </div>
                         </div>
                     </li>
@@ -164,12 +172,12 @@ export const Interests = () => {
                             <div className={styles.interestItemText}>
                                 <h3>🏞️ Being Outdoors</h3>
                                 <p>
-                                    And lastly my most common hobby is just being outdoors. I like to go for drives, walks, hikes, bike rides, and just explore new places. I also enjoy going by lakes, parks, and just being in nature or taking a train downtown and biking through the city. I love taking photos and videos of the places I visit and share them with my friends and family. I also like to take trips with friends/family mostly within the country. So far, I've been to Montreal, Ottawa, Kingston, Calgary, Banff, Niagara Falls and Blue Mountain.
+                                    And lastly my most beloved hobby is just being outdoors. I like to go for drives, walks, hikes, bike rides, and just explore new places. I also enjoy going by lakes, parks, and being in nature or taking a train downtown and simply biking through the city. I love taking photos and videos of the places I visit and share them with my friends and family. I also often go on trips with friends/family mostly within the country. So far, I've been to Montreal, Ottawa, Kingston, Calgary, Banff, Niagara Falls and Blue Mountain.
                                 </p>
                             </div>
                             <div className={styles.imageSlider}>
                                 <LazyLoad>
-                                    <ImageSlider images={outdoorsImages} interval={Math.floor(Math.random() * 4000) + 2000} />
+                                    <ImageSlider images={shuffle(outdoorsImages)} interval={Math.floor(Math.random() * 2000) + 1000} />
                                 </LazyLoad>
                             </div>
                         </div>

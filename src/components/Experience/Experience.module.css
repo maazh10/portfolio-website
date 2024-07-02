@@ -26,6 +26,7 @@
   flex-direction: row;
   justify-content: space-evenly;
   margin-top: 14px;
+  gap: 100px;
 }
 
 .skills {
@@ -63,7 +64,7 @@
 }
 
 .history {
-  width: 55%;
+  width: 65%;
   display: flex;
   flex-direction: column;
   gap: 40px;
@@ -111,8 +112,6 @@
   }
 }
 
-
-
 @media screen and (max-width: 830px) {
   .content {
     flex-direction: column;
@@ -134,12 +133,12 @@
   .historyItem img {
     width: 40px;
   }
-  
+
   .historyItemDetails h3 {
     font-size: 20px;
     font-weight: 500;
   }
-  
+
   .historyItemDetails ul {
     font-size: 17px;
 

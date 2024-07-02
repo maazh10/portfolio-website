@@ -4,15 +4,23 @@
     "organisation": "Royal Bank of Canada",
     "startDate": "Jan. 2023",
     "endDate": "Apr. 2023",
-    "experiences": ["Worked on numerous SpringBoot APIs", "Resolved 22 security vulnerabilities", "Migrated 2 backend services from Java 8 to 17"],
+    "experiences": [
+      "Enhanced existing SpringBoot APIs powering mainframe verification and transactions at over 4000 RBC ATMs.", 
+      "Investigated and resolved 22 critical security vulnerabilities in the codebase caused by specific Maven dependencies, twice as fast as estimated by the manager.", 
+      "Performed successful migration of legacy SpringBoot applications from Java 8 to Java 17 by rewriting incompatible code components into new syntax and updating sub-dependencies."
+    ],
     "imageSrc": "history/rbc.png"
   },
   {
-    "role": "Software Engineer Co-op/PT",
+    "role": "Software Engineer Co-op/Part-Time",
     "organisation": "University Health Network",
     "startDate": "Jan. 2022",
     "endDate": "Dec. 2022",
-    "experiences": ["Streamlined data integration in Python", "Managed and maintained multiple SQL databases", ["Redesigned and implemented a website in React"]],
+    "experiences": [
+      "Developed an automated ETL pipeline to transform custom clinical survey results into a normalized data model in pandas to enable standard data visualization practices.", 
+      "Proactively increased the team’s productivity by writing reusable scripts for generating clinical result reports.", 
+      "Commended by the team’s manager for exceeding expectations and invited back as a part-time Python developer."
+    ],
     "imageSrc": "history/uhn.png"
   },
   {
@@ -21,8 +29,8 @@
     "startDate": "Sept. 2022",
     "endDate": "Present",
     "experiences": [
-      "Assisted students with assignments and projects",
-      "Held office hours and weekly tutorial sessions"
+      "Courses: CSCC09, CSCC01, CSCB07, MATA32, MATA33, MATA34, MATA36",
+      "Conducted weekly tutorial sessions with over 30 students covering concepts in software engineering, object oriented programming and web development using Java, ReactJS, Node.js, etc."
     ],
     "imageSrc": "history/uoft.png"
   }
