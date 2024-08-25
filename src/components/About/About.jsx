@@ -19,7 +19,13 @@ export const About = () => {
             <div className={styles.aboutItemText}>
               <h3>About Me</h3>
               <p>
-                Hi, I'm Maaz! I am a software developer/recent grad based in Toronto, Ontario. I was born and raised in Karachi, Pakistan and moved to Canada in 2016. I ended off middle school, and completed my high school diploma in Winnipeg, Manitoba where I spent around 6 years of my life. I have a passion for software development and building things that live on the internet.  I have a keen interest in various fields of computer science, particularly in web development and software architecture. I am driven and excited by new technologies and always willing to learn more and more through either coursework or fun side projects. My aspiration is to contribute to something that has meaning or impact while also enhancing my skill set. I strive to grow as a professional and simply as a human while also making the world a better place :)
+                Hi, I'm Maaz! I am a software developer and recent grad based in Toronto, Ontario. I graduated from the University of Toronto in June 2024 with a major in Computer Science specializing in Software Engineering and I currently work as a Junior Software Developer at Intelliware Development. I was born and raised in Karachi, Pakistan and moved to Canada in 2016. I ended off middle school, and completed my high school diploma in Winnipeg, Manitoba where I spent around 6 years of my life. I moved to Toronto to attend UofT in 2021 and have been living here ever since.
+              </p>
+              <p>
+                I have a keen interest in building innovative software and solving complex problems, particularly on the web. I have a broad range of school/professional experiences in data manipulation, automation, full-stack web development, dev-ops, as well as designing complex software architecture.
+              </p>
+              <p>
+                I'm extremely knowledge-driven, aspired by cutting-edge technologies and I'm eager to grow and use my skills to change the world someday :)
               </p>
             </div>
           </li>
