@@ -65,7 +65,7 @@
 }
 
 .interestItem p {
-  font-size: 25px;
+  font-size: 20px;
 
   a {
     color: var(--color-primary);
@@ -76,7 +76,6 @@
   a:hover {
     color: var(--color-secondary);
   }
-
 }
 
 .interestItemContent {
@@ -90,14 +89,12 @@
 
 .interestItemText {
   display: flex;
-  flex-direction: column;  
+  flex-direction: column;
   justify-content: center;
   width: 70%;
 }
 
-
 @media screen and (max-width: 830px) {
-
   .container {
     background-color: transparent;
     padding-left: 0;
@@ -128,7 +125,7 @@
   .interestItem h3 {
     font-size: 20px;
   }
-  
+
   .interestItem p {
     font-size: 17px;
   }
@@ -136,5 +133,4 @@
   .imageSlider {
     width: 100%;
   }
-  
 }

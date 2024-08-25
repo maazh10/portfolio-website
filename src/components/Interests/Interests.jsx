@@ -5,9 +5,6 @@ import styles from "./Interests.module.css";
 import { getImageUrl } from "../../utils";
 import { ImageSlider } from "./ImageSlider";
 
-import LazyLoad from 'react-lazyload';
-
-
 export const Interests = () => {
 
     const codingImages = [
@@ -176,9 +173,7 @@ export const Interests = () => {
                                 </p>
                             </div>
                             <div className={styles.imageSlider}>
-                                <LazyLoad>
-                                    <ImageSlider images={shuffle(outdoorsImages)} interval={Math.floor(Math.random() * 2000) + 1000} />
-                                </LazyLoad>
+                                <ImageSlider images={shuffle(outdoorsImages)} interval={Math.floor(Math.random() * 2000) + 1000} />
                             </div>
                         </div>
                     </li>
