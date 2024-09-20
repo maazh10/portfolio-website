@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 import styles from "./App.module.css";
 import { About } from "./components/About/About";
@@ -10,18 +10,9 @@ import { Interests } from "./components/Interests/Interests";
 import { Navbar } from "./components/Navbar/Navbar";
 import { Projects } from "./components/Projects/Projects";
 
-import AnimatedCursor from "react-animated-cursor"
 import { Helmet } from 'react-helmet';
 
 function App() {
-  const [isDesktop, setIsDesktop] = useState(window.innerWidth > 830);
-
-  useEffect(() => {
-    const handleResize = () => setIsDesktop(window.innerWidth > 830);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
   return (
     <div className={styles.App}>
       <Helmet>
@@ -40,7 +31,6 @@ function App() {
       <Projects />
       <Interests />
       <Credits />
-      {isDesktop && <AnimatedCursor />}
     </div>
   );
 }
