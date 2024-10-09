@@ -46,5 +46,13 @@
   {
     "title": "AWS",
     "imageSrc": "skills/aws.png"
+  },
+  {
+    "title": "Azure",
+    "imageSrc": "skills/azure.png"
+  },
+  {
+    "title": "Kubernetes",
+    "imageSrc": "skills/kubernetes.png"
   }
 ]
