@@ -1,7 +1,7 @@
 [
   {
     "role": "Software Developer",
-    "organisation": "Intelliware",
+    "organisation": "Electric Mind",
     "startDate": "Aug. 2024",
     "endDate": "Present",
     "experiences": [
@@ -9,7 +9,7 @@
       "Researched and presented design-to-code tools from Figma to React, potentially cutting the company's POC-to-handoff time by 50% and reducing dev resources by 25%.",
       "Built and deployed an internal developer portal on top of Backstage by Spotify, including software catalogs, templates, and plugins, accelerating the company's developer onboarding process by 2x."
     ],
-    "imageSrc": "history/intelliware.png"
+    "imageSrc": "history/electricmind.png"
   },
   {
     "role": "Software Developer Co-op",

@@ -19,7 +19,7 @@ export const About = () => {
             <div className={styles.aboutItemText}>
               <h3>About Me</h3>
               <p>
-                Hi, I'm Maaz! I am a software developer and recent grad based in Toronto, Ontario. I graduated from the University of Toronto in June 2024 with a major in Computer Science and I currently work as a Software Developer at Intelliware. I was born and raised in Karachi, Pakistan and moved to Canada in 2016. I ended off middle school, and completed my high school diploma in Winnipeg, Manitoba where I spent around 6 years of my life. I moved to Toronto to attend UofT in 2021 and have been living here ever since.
+                Hi, I'm Maaz! I am a software developer and recent grad based in Toronto, Ontario. I graduated from the University of Toronto in June 2024 with a major in Computer Science and I currently work as a Software Developer at Electric Mind. I was born and raised in Karachi, Pakistan and moved to Canada in 2016. I ended off middle school, and completed my high school diploma in Winnipeg, Manitoba where I spent around 6 years of my life. I moved to Toronto to attend UofT in 2021 and have been living here ever since.
               </p>
               <p>
                 I have a keen interest in building innovative software and solving complex problems, particularly on the web. I have a broad range of school/professional experiences in data manipulation, automation, full-stack web development, dev-ops, as well as designing complex software architecture.
@@ -44,7 +44,7 @@ export const About = () => {
             <div className={styles.aboutItemText}>
               <h3>Software Developer</h3>
               <p>
-                I currently work at Intelliware as a Junior Software Developer. As a student I completed two 4 month co-ops as a Software Engineer at UHN and RBC. I have experience as both a frontend and backend web developer building responsive
+                I currently work at Electric Mind (prev. Intelliware) as a Junior Software Developer. As a student I completed two 4 month co-ops as a Software Engineer at UHN and RBC. I have experience as both a frontend and backend web developer building responsive
                 sites as well as fast and optimized back-end systems and APIs. I'm also experienced in
                 object oriented programming, design principles, functional programming, and software architecture.
               </p>
