@@ -50,11 +50,20 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: opacity 0.5s ease-in-out;
 
   animation-name: floating;
   animation-duration: 3s;
   animation-iteration-count: infinite;
   animation-timing-function: ease-in-out;
+}
+
+.fadeIn {
+  opacity: 1;
+}
+
+.fadeOut {
+  opacity: 0;
 }
 
 @keyframes floating {
@@ -176,4 +185,3 @@
     height: 50px !important;
   }
 }
-

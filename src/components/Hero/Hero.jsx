@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { SocialIcon } from 'react-social-icons'
 import { Typewriter } from 'react-simple-typewriter'
 
@@ -7,6 +7,34 @@ import socials from "../../data/socials.json";
 import { getImageUrl } from "../../utils";
 
 export const Hero = () => {
+
+  const images = [
+    getImageUrl("hero/hero1.jpg"),
+    getImageUrl("hero/hero2.jpg"),
+    getImageUrl("hero/hero3.jpg"),
+    getImageUrl("hero/hero4.jpg"),
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [fade, setFade] = useState(false);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      nextImage();
+    }, 2500);
+
+    return () => clearInterval(intervalId);
+  }, [images.length]);
+
+  const nextImage = () => {
+    setFade(true);
+    setTimeout(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+      setFade(false);
+    }, 350);
+  };
+
+
   return (
     <section className={styles.container}>
       <div className={styles.content}>
@@ -36,9 +64,9 @@ export const Hero = () => {
       </div>
       <div className={styles.heroImgContainer}>
         <img
-          src={getImageUrl("hero/hero.jpg")}
-          alt="Hero image of me"
-          className={styles.heroImg}
+          src={images[currentIndex]}
+          alt="Hero"
+          className={`${styles.heroImg} ${fade ? styles.fadeOut : styles.fadeIn}`}
         />
       </div>
       <div className={styles.topBlur} />
