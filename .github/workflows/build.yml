@@ -24,7 +24,7 @@ jobs:
         run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
       - name: Build Portfolio Image
-        run: docker build . --file Dockerfile --tag $PORTFOLIO_IMAGE_NAME
+        run: docker build portfolio/. --file Dockerfile --tag $PORTFOLIO_IMAGE_NAME
 
       - name: Build Blog Image
         run: docker build blog/ --file blog/Dockerfile --tag $BLOG_IMAGE_NAME
