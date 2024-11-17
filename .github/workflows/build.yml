@@ -9,7 +9,8 @@ on:
       - main
 
 env:
-  IMAGE_NAME: app
+  PORTFOLIO_IMAGE_NAME: portfolio
+  BLOG_IMAGE_NAME: blog
 
 jobs:
   push:
@@ -22,38 +23,43 @@ jobs:
       - name: Log into Docker Hub
         run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
-      - name: Build image
-        run: docker build . --file Dockerfile --tag $IMAGE_NAME
+      - name: Build Portfolio Image
+        run: docker build . --file Dockerfile --tag $PORTFOLIO_IMAGE_NAME
+
+      - name: Build Blog Image
+        run: docker build blog/ --file blog/Dockerfile --tag $BLOG_IMAGE_NAME
 
       - name: Log into GitHub Container Registry
         run: echo "${{ secrets.CR_PAT }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
 
-      - name: Push image to GitHub Container Registry
+      - name: Push Portfolio App Image to GitHub Container Registry
         run: |
-          IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME
-          # Change all uppercase to lowercase
-          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-          # Strip git ref prefix from version
+          PORTFOLIO_IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$PORTFOLIO_IMAGE_NAME
+          PORTFOLIO_IMAGE_ID=$(echo $PORTFOLIO_IMAGE_ID | tr '[A-Z]' '[a-z]')
           VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-          # Strip "v" prefix from tag name
           [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
-          # Use Docker `latest` tag convention
           [ "$VERSION" == "main" ] && VERSION=latest
-          echo IMAGE_ID=$IMAGE_ID
-          echo VERSION=$VERSION
-          docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
-          docker push $IMAGE_ID:$VERSION
+          docker tag $PORTFOLIO_IMAGE_NAME $PORTFOLIO_IMAGE_ID:$VERSION
+          docker push $PORTFOLIO_IMAGE_ID:$VERSION
 
-      - name: Pull image from GitHub Container Registry on Google Cloud VM using remote SSH
+      - name: Push Blog App Image to GitHub Container Registry
+        run: |
+          BLOG_IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$BLOG_IMAGE_NAME
+          BLOG_IMAGE_ID=$(echo $BLOG_IMAGE_ID | tr '[A-Z]' '[a-z]')
+          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
+          [ "$VERSION" == "main" ] && VERSION=latest
+          docker tag $BLOG_IMAGE_NAME $BLOG_IMAGE_ID:$VERSION
+          docker push $BLOG_IMAGE_ID:$VERSION
+
+      - name: Pull Images and Restart Containers on Google Cloud VM
         uses: appleboy/ssh-action@v1.0.3
-        env:
-          IMAGE_NAME: "app"
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
-          envs: IMAGE_NAME
           script: |
             cd portfolio-website
             docker-compose down
-            docker-compose pull && docker-compose up -d
+            docker-compose pull
+            docker-compose up -d
