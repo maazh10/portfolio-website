@@ -57,21 +57,14 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-      - ./certs:/etc/nginx/certs
-      - ./vhost:/etc/nginx/vhost.d
-      - ./html:/usr/share/nginx/html
+      - ...
   nginx-proxy-acme:
     image: nginxproxy/acme-companion
     container_name: nginx-proxy-acme
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./certs:/etc/nginx/certs
-      - ./vhost:/etc/nginx/vhost.d
-      - ./html:/usr/share/nginx/html
-      - ./acme:/etc/acme.sh
+      - ...
     environment:
-      - DEFAULT_EMAIL=MY_EMAIL
+      - ...
     depends_on:
       - nginx-proxy
     volumes_from:
@@ -126,31 +119,10 @@ Now, all I had to do was to update the `docker-compose.yml` adding a new service
 services:
 
   nginx-proxy:
-    image: jwilder/nginx-proxy
-    container_name: nginx-proxy
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-      - ./certs:/etc/nginx/certs
-      - ./vhost:/etc/nginx/vhost.d
-      - ./html:/usr/share/nginx/html
+    ...
+
   nginx-proxy-acme:
-    image: nginxproxy/acme-companion
-    container_name: nginx-proxy-acme
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./certs:/etc/nginx/certs
-      - ./vhost:/etc/nginx/vhost.d
-      - ./html:/usr/share/nginx/html
-      - ./acme:/etc/acme.sh
-    environment:
-      - DEFAULT_EMAIL=MY_EMAIL
-    depends_on:
-      - nginx-proxy
-    volumes_from:
-      - nginx-proxy 
+    ...
 
   portfolio:
     image: ghcr.io/GHCR_USERNAME/portfolio:latest
