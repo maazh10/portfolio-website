@@ -57,9 +57,14 @@ export const Hero = () => {
           <SocialIcon className={styles.socialIcon} style={{ width: "70px", height: "70px" }} url={socials.spotify} target="_blank" />
           <SocialIcon className={styles.socialIcon} style={{ width: "70px", height: "70px" }} url={socials.email} target="_blank" />
         </div>
-        <a href={getImageUrl("hero/resume.pdf")} className={styles.resumeBtn} target="_blank" >
-          Resume
-        </a>
+        <div className={styles.heroBtnContainer}>
+          <a href="/blog" className={styles.heroBtn} >
+            Blog
+          </a>
+          <a href={getImageUrl("hero/resume.pdf")} className={styles.heroBtn} target="_blank" >
+            Resume
+          </a>
+        </div>
         <img src={getImageUrl("hero/signature.png")} alt="my signature" className={styles.signature} />
       </div>
       <div className={styles.heroImgContainer}>
