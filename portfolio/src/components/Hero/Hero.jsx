@@ -31,7 +31,7 @@ export const Hero = () => {
     setTimeout(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
       setFade(false);
-    }, 350);
+    }, 600);
   };
 
 
