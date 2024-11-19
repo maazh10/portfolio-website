@@ -109,6 +109,7 @@
   display: flex;
   gap: 20px;
   margin-top: 20px;
+  width: 100%;
 }
 
 .socialBtn {
@@ -127,6 +128,7 @@
 .heroBtnContainer {
   display: flex;
   gap: 20px;
+  width: 100%;
 }
 
 .heroBtn {
@@ -143,6 +145,7 @@
   margin-top: 40px;
   transition: all ease-in-out 0.3s;
   text-align: center;
+  flex: 50%;
 }
 
 .heroBtn:hover {

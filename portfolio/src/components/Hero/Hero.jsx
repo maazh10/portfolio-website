@@ -50,20 +50,22 @@ export const Hero = () => {
             delaySpeed={1000}
           />
         </p>
-        <div className={styles.socialLinks}>
-          <SocialIcon className={styles.socialIcon} style={{ width: "70px", height: "70px" }} url={socials.linkedin} target="_blank" />
-          <SocialIcon className={styles.socialIcon} style={{ width: "70px", height: "70px" }} url={socials.github} target="_blank" />
-          <SocialIcon className={styles.socialIcon} style={{ width: "70px", height: "70px" }} url={socials.instagram} target="_blank" />
-          <SocialIcon className={styles.socialIcon} style={{ width: "70px", height: "70px" }} url={socials.spotify} target="_blank" />
-          <SocialIcon className={styles.socialIcon} style={{ width: "70px", height: "70px" }} url={socials.email} target="_blank" />
-        </div>
-        <div className={styles.heroBtnContainer}>
-          <a href="/blog" className={styles.heroBtn} >
-            Blog
-          </a>
-          <a href={getImageUrl("hero/resume.pdf")} className={styles.heroBtn} target="_blank" >
-            Resume
-          </a>
+        <div>
+          <div className={styles.socialLinks}>
+            <SocialIcon className={styles.socialIcon} style={{ width: "70px", height: "70px" }} url={socials.linkedin} target="_blank" />
+            <SocialIcon className={styles.socialIcon} style={{ width: "70px", height: "70px" }} url={socials.github} target="_blank" />
+            <SocialIcon className={styles.socialIcon} style={{ width: "70px", height: "70px" }} url={socials.instagram} target="_blank" />
+            <SocialIcon className={styles.socialIcon} style={{ width: "70px", height: "70px" }} url={socials.spotify} target="_blank" />
+            <SocialIcon className={styles.socialIcon} style={{ width: "70px", height: "70px" }} url={socials.email} target="_blank" />
+          </div>
+          <div className={styles.heroBtnContainer}>
+            <a href="/blog" className={styles.heroBtn} >
+              Blog
+            </a>
+            <a href={getImageUrl("hero/resume.pdf")} className={styles.heroBtn} target="_blank" >
+              Resume
+            </a>
+          </div>
         </div>
         <img src={getImageUrl("hero/signature.png")} alt="my signature" className={styles.signature} />
       </div>

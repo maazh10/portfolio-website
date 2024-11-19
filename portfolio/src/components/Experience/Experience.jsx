@@ -26,20 +26,24 @@ export const Experience = () => {
           {history.map((historyItem, id) => {
             return (
               <li key={id} className={styles.historyItem}>
-                <img
-                  src={getImageUrl(historyItem.imageSrc)}
-                  alt={`${historyItem.organisation} Logo`}
-                />
-                <div className={styles.historyItemDetails}>
-                  <h3>{historyItem.organisation}</h3>
-                  <h3>{historyItem.role}</h3>
-                  <p>{`${historyItem.startDate} - ${historyItem.endDate}`}</p>
-                  <ul>
-                    {historyItem.experiences.map((experience, id) => {
-                      return <li key={id}><span>{experience}</span></li>;
-                    })}
-                  </ul>
+                <div className={styles.historyItemHeader}>
+                  <div className={styles.historyItemImg}>
+                    <img
+                      src={getImageUrl(historyItem.imageSrc)}
+                      alt={`${historyItem.organisation} Logo`}
+                    />
+                  </div>
+                  <div className={styles.historyItemDetails}>
+                    <h3>{historyItem.organisation}</h3>
+                    <h3>{historyItem.role}</h3>
+                    <p>{`${historyItem.startDate} - ${historyItem.endDate}`}</p>
+                  </div>
                 </div>
+                <ul>
+                  {historyItem.experiences.map((experience, id) => {
+                    return <li key={id}><span>{experience}</span></li>;
+                  })}
+                </ul>
               </li>
             );
           })}
