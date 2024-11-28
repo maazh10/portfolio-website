@@ -8,31 +8,21 @@ import { getImageUrl } from "../../utils";
 
 export const Hero = () => {
 
-  const images = [
-    getImageUrl("hero/hero1.jpg"),
-    getImageUrl("hero/hero2.jpg"),
-    getImageUrl("hero/hero3.jpg"),
-    getImageUrl("hero/hero4.jpg"),
-  ];
+  const imageCount = 4;
+  const images = [];
+  for (let i = 1; i <= imageCount; i++) {
+    images.push(getImageUrl(`hero/hero${i}.jpg`));
+  }
 
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [fade, setFade] = useState(false);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      nextImage();
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
     }, 2500);
 
     return () => clearInterval(intervalId);
   }, [images.length]);
-
-  const nextImage = () => {
-    setFade(true);
-    setTimeout(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-      setFade(false);
-    }, 600);
-  };
 
 
   return (
@@ -73,7 +63,7 @@ export const Hero = () => {
         <img
           src={images[currentIndex]}
           alt="Hero"
-          className={`${styles.heroImg} ${fade ? styles.fadeOut : styles.fadeIn}`}
+          className={styles.heroImg}
         />
       </div>
       <div className={styles.topBlur} />
