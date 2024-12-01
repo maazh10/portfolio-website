@@ -46,10 +46,6 @@
   padding: 24px;
 }
 
-.historyItemDetails {
-  font-family: var(--font-roboto);
-}
-
 .historyItem img {
   width: 60px;
 }
