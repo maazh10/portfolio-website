@@ -130,7 +130,17 @@ export const Interests = () => {
                             <div className={styles.interestItemText}>
                                 <h3>🎧 Music</h3>
                                 <p>
-                                    Music is a big part of my life. I listen to a decent variety of genres, but mostly hip-hop, R&B and some pop. Some of my favorite artists include Drake, The Weeknd, Travis Scott, Dave, Justin Beiber and Ed Sheeran. Some of my all time favorite albums include, Views by Drake, After Hours by The Weeknd, ASTROWORLD by Travis Scott, NOT ALL HEROES WEAR CAPES and HEROES & VILLIANS by Metro Boomin. I went to The Weeknd concert in Toronto in 2022 as well as NAV's Never Sleep Tour in 2023 where Travis Scott made a special appearance. I also drove to Buffalo, NY to see a Drake concert in February 2024 alongside J. Cole. I always enjoy making playlists and discovering new music. Below are a couple of my heavy rotation playlists. Check out my <a href={socials.spotify} target="_blank">Spotify</a> profile for more.
+                                    Music is a big part of my life. I listen to a decent variety of genres, but mostly hip-hop, R&B and some pop. Some of my favorite artists include Drake, The Weeknd, Travis Scott, Dave, Ed Sheeran, and Coldplay. These are some of my all time favorite albums:
+                                    <ul className={styles.albumList}>
+                                        <li>Dave - We're All Alone in This Together</li>
+                                        <li>Drake - Views</li>
+                                        <li>The Weeknd - After Hours</li>
+                                        <li>The Weeknd - Starboy</li>
+                                        <li>Ed Sheeran - ÷</li>
+                                        <li>Travis Scott - ASTROWORLD</li>
+                                        <li>Metro Boomin - NOT ALL HEROES WEAR CAPES</li>
+                                    </ul>
+                                    I went to The Weeknd's concert in Toronto in 2022 as well as NAV's Never Sleep Tour in 2023 where Travis Scott made a guest appearance. I also drove to Buffalo, NY to see a Drake concert in February 2024 alongside J. Cole. I enjoy curating playlists and discovering new music. Below are a couple of my heavy rotation playlists. Check out my <a href={socials.spotify} target="_blank">Spotify</a> profile for more.
 
                                     <iframe title="hiphop" style={{ borderRadius: '12px', marginTop: '25px' }} src="https://open.spotify.com/embed/playlist/2oVUUmZ7uxboD9GGx07rVe?utm_source=generator" width="100%" height="152" frameBorder="0" allowFullScreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 

@@ -94,6 +94,11 @@
   width: 70%;
 }
 
+.albumList {
+  margin: 10px 0;
+  padding: 17px;
+}
+
 @media screen and (max-width: 830px) {
   .container {
     background-color: transparent;
