@@ -10,9 +10,9 @@ export const Education = () => {
             <h2 className={styles.title}>Education</h2>
             <div className={styles.content}>
                 <ul className={styles.history}>
-                    {history.map((historyItem, id) => {
+                    {history.map((historyItem) => {
                         return (
-                            <li key={id} className={styles.historyItem}>
+                            <li key={historyItem.school} className={styles.historyItem}>
                                 <img
                                     src={getImageUrl(historyItem.imageSrc)}
                                     alt={`${historyItem.school} Logo`}
@@ -22,8 +22,8 @@ export const Education = () => {
                                     <h3>{historyItem.degree}</h3>
                                     <p>{`${historyItem.startDate} - ${historyItem.endDate}`}</p>
                                     <ul>
-                                        {historyItem.desc.map((item, id) => {
-                                            return <li key={id}><span>{item}</span></li>;
+                                        {historyItem.desc.map((item) => {
+                                            return <li key={item}><span>{item}</span></li>;
                                         })}
                                     </ul>
                                 </div>
