@@ -2,7 +2,7 @@
 title: 'Blogging? The Why and The How ✨'
 description: 'My first blog'
 pubDate: 'Nov 17 2024'
-heroImage: '/1/blog-1.jpg'
+heroImage: '/blog-1/cover.jpg'
 ---
 
 # Why?
