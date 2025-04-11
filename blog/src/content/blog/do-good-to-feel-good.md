@@ -2,14 +2,14 @@
 title: 'Do good to feel good 💖'
 description: 'The significance of kindness and compassion in our careers and lives'
 pubDate: 'Apr 10 2025'
-heroImage: '/blog2_cover.jpg'
+heroImage: 'https://pub-8d4c1f26a27d41ffb9985a84b03a8038.r2.dev/blog/2/cover.jpg'
 ---
 
 I recently came across this organization called [80,000 Hours](https://80000hours.org) through some form of advertisement. Their mission caught my interest, so I decided to look them up. In essence, it's a nonprofit organization that researches the world's most pressing problems and encourages people—particularly the younger generation, to pursue careers that can make a meaningful impact on these issues. They offer extensive resources, including career guides, advice columns, research, and even a job board to help people find high-impact careers. While this might sound like an advertisement for the organization, it's not, though I happily support their cause as it strongly aligns with my own values.
 
 While browsing their website, I discovered that they offer a career guide in various digital formats, as well as a free paperback version-which I ordered. Since receiving the book, I've only completed the first chapter, but it was incredibly inspirational and sparked the idea for this blog. Though reading the entire book would give me more insights to share, my goal is not to simply review or summarize the book itself as you can read it yourself. Instead, I want to explore the essence of kindness and the importance of doing good for others and the world, particularly through our careers but also just as individuals navigating society. 
 
-![Busy London street](/blog2_a.jpg)
+![Busy London street](https://pub-8d4c1f26a27d41ffb9985a84b03a8038.r2.dev/blog/2/a.jpg)
 
 We largely live in a world centered around capitalism, where societal expectations often predefine the structure of our lives. In developed nations, the typical path involves progressing from birth through grade school to post-secondary education (college, university, etc.), potentially followed by post-graduate studies (master's, doctorate, etc.), entering the workforce, or starting a business. The focus then often shifts to earning money for rent, bills, debt repayment, mortgages, and retirement savings, continuing until retirement and, eventually, death. While this trajectory varies from person to person, some enter the workforce right after high school, others pursue graduate education while working full-time or running a business—the underlying structure can often feel self-focused and mundane. We're conditioned to focus primarily on day-to-day necessities and only securing our own happiness, along with that of our loved ones.
 
@@ -17,7 +17,7 @@ This prescribed life cycle honestly sounds reasonable, and for many, it *is* ade
 
 A common misconception I often encounter is that career dissatisfaction stems solely from doing work one doesn't enjoy or isn't passionate about. However, finding your 'passion' and being fortunate enough for it to align with a high-demand and well-compensated field is genuinely challenging. Another misconception attributes this dissatisfaction purely to insufficient income. While low pay can certainly contribute to job dissatisfaction, many highly compensated individuals still feel unfulfilled in their careers. Anecdotally, I've encountered more people dissatisfied with their jobs, ready to quit instantly, than satisfied ones, regardless of salary or alignment with this 'dream job' narrative. This brings me to a third, often-overlooked component of our careers, and in fact, our lives: impact.
 
-![Man tobogganing with a child](/blog2_c.jpg)
+![Man tobogganing with a child](https://pub-8d4c1f26a27d41ffb9985a84b03a8038.r2.dev/blog/2/b.jpg)
 
 Humans are inherently social creatures. Consequently, we tend to seek connection and support from one another. We frequently find happiness in contributing to the happiness of others. Strong morals and a sense of shared humanity are concepts prevalent across almost all religions, cultures, and spiritual traditions. Below are some quotes from notable figures from different backgrounds that highlight this very idea:
 
@@ -41,7 +41,7 @@ Since it may be relevant: as a personal example, the cover photo for this blog w
 
 The scope of these global issues may seem overwhelming, but that shouldn't lead to apathy or ignorance. Instead, we should strive to contribute to solutions, because even small actions matter.
 
-![Fall colors](/blog2_b.jpg)
+![Fall colors](https://pub-8d4c1f26a27d41ffb9985a84b03a8038.r2.dev/blog/2/c.jpg)
 
 We can start by consciously practicing kindness towards those around us, through our words, actions, or simply being present for someone in need. We can also seek opportunities to give back to our communities, perhaps through volunteering, donating to charities, or advocating for social justice. And for those able, consider aligning your career path with your values to make a positive global impact. Crucially, however, and something often overlooked, is the vital importance of just staying informed. We should educate ourselves on issues extending beyond our immediate experience or community. Follow local and global politics, and exercise our right to vote. Support leaders committed to addressing important issues and hold them accountable. It's vital to recognize our collective responsibility to oppose mistreatment and injustice, regardless of where it occurs or who is affected. Staying up-to-date with current events, reading diverse perspectives, or engaging with informative content all over the internet can deepen our understanding of global struggles and propagate empathy. The information is out there; we just have to be willing to seek it, learn from it, while also critically evaluating the trustworthiness and potential biases of our sources.
 
