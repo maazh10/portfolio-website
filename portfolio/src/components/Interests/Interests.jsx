@@ -52,26 +52,9 @@ export const Interests = () => {
         getImageUrl("interests/gaming/g5.jpg"),
     ];
 
-    const outdoorsImages = [
-        getImageUrl("interests/outdoors/o1.jpg"),
-        getImageUrl("interests/outdoors/o2.jpg"),
-        getImageUrl("interests/outdoors/o3.jpg"),
-        getImageUrl("interests/outdoors/o4.jpg"),
-        getImageUrl("interests/outdoors/o5.jpg"),
-        getImageUrl("interests/outdoors/o6.jpg"),
-        getImageUrl("interests/outdoors/o7.jpg"),
-        getImageUrl("interests/outdoors/o9.jpg"),
-        getImageUrl("interests/outdoors/o10.jpg"),
-        getImageUrl("interests/outdoors/o11.jpg"),
-        getImageUrl("interests/outdoors/o12.jpg"),
-        getImageUrl("interests/outdoors/o13.jpg"),
-        getImageUrl("interests/outdoors/o14.jpg"),
-        getImageUrl("interests/outdoors/o15.jpeg"),
-        getImageUrl("interests/outdoors/o16.jpg"),
-        getImageUrl("interests/outdoors/o17.jpg"),
-        getImageUrl("interests/outdoors/o18.jpg"),
-        getImageUrl("interests/outdoors/o19.jpg"),
-    ];
+    const outdoorsImages = Array.from({ length: 25 }, (_, i) => 
+        getImageUrl(`interests/outdoors/o${i + 1}.jpg`)
+    );
 
     const shuffle = (array) => {
         for (let i = array.length - 1; i > 0; i--) {
@@ -91,7 +74,7 @@ export const Interests = () => {
                             <div className={styles.interestItemText}>
                                 <h3>💻 Coding</h3>
                                 <p>
-                                    Firstly and most importantly, I love coding. Even outside of work and school, I like to build projects, learn new technologies, and solve problems for the fun of it. See some of my most significant projects <a href="#projects">above</a> or check out my <a href={socials.github} target="_blank">GitHub</a> for more.
+                                    First and foremost, I love coding. Beyond work and school, I genuinely enjoy building projects, exploring new technologies, and solving problems just for the fun of it. You can check out some of my most meaningful projects <a href="#projects">above</a>, or visit my <a href={socials.github} target="_blank">GitHub</a> to see more of what I’ve been working on.
                                 </p>
                             </div>
                             <div className={styles.imageSlider}>
@@ -104,7 +87,8 @@ export const Interests = () => {
                             <div className={styles.interestItemText}>
                                 <h3>📸 Photography</h3>
                                 <p>
-                                    I enjoy taking photos everywhere I go.  I like to capture moments, places, and people. I learned how to use a professional DSLR camera in high school and used it to learn different kinds of photography. Now I mostly take photos on my Pixel phone, which has an excellent camera and computational photography. I like to edit my photos using Adobe Lightroom and sometimes Photoshop. I organize my photos of friends and particular events into albums on Google Photos. I also print photos or collages that I like the most and frame them or put them on my fridge for memories. Check out some of my photos on my <a href={socials.instagram} target="_blank">Instagram</a>.
+                                    I love taking photos wherever I go—capturing moments, places, and people is something that's always brought me joy. I first learned how to use a professional DSLR camera back in high school, which gave me a solid foundation in different types of photography. These days, I mostly shoot with my Pixel phone, which has an incredible camera and powerful computational photography features.
+                                    I edit my photos with Adobe Lightroom, or just light touch ups in Google Photos, to bring out the best in each shot. I organize photos of friends and special events into albums on Google Photos, and I like to print my favorites—sometimes as collages—to frame or put into a physical photo album as keepsakes. You can check out some of my own photos on my <a href={socials.instagram} target="_blank">Instagram</a>.
                                 </p>
                             </div>
                             <div className={styles.imageSlider}>
@@ -117,7 +101,8 @@ export const Interests = () => {
                             <div className={styles.interestItemText}>
                                 <h3>🏀 Sports</h3>
                                 <p>
-                                    I love playing sports, mostly basketball. I've played recreationally since around 2017. I like to play wing defense and shoot 3s or midrange/corner jumpshots. I also enjoy watching various sports, mainly the NBA, the Champions League and some NHL. I was a huge FC Barcelona fan around 2014-2019 era and Lionel Messi is my favorite player. I support the Toronto Raptors in the NBA to rep Toronto/Canada and also cheer for the Golden State Warriors and the Dallas Mavericks. Stephen Curry, Luka Doncic and Kyrie Irving are some of my favorite players.
+                                    I've always enjoyed playing sports, mainly basketball. I've been playing recreationally since around 2017, usually focusing on wing defense and shooting threes or midrange and corner jump shots. I'm also a big fan of watching sports—mainly the NBA, the Champions League, and occasionally some NHL.
+                                    Back in the 2014-2019 era, I was a huge FC Barcelona fan, and Lionel Messi has always been my favorite player. In the NBA, I rep the Toronto Raptors to support my city, but I also cheer for the Golden State Warriors. Some of my favorite players include Stephen Curry, Luka Dončić, and Kyrie Irving.
                                 </p>
                             </div>
                             <div className={styles.imageSlider}>
@@ -130,17 +115,16 @@ export const Interests = () => {
                             <div className={styles.interestItemText}>
                                 <h3>🎧 Music</h3>
                                 <p>
-                                    Music is a big part of my life. I listen to a decent variety of genres, but mostly hip-hop, R&B and some pop. Some of my favorite artists include Drake, The Weeknd, Travis Scott, Dave, Ed Sheeran, and Coldplay. These are some of my all time favorite albums:
+                                    Music plays a huge role in my life. While I listen to a fairly wide range of genres, I mostly gravitate toward hip-hop, R&B, and a bit of pop. Some of my favorite artists include Drake, The Weeknd, Travis Scott, Dave, Ed Sheeran, and Coldplay. Here are a few of my all-time favorite albums:
                                     <ul className={styles.albumList}>
                                         <li>Dave - We're All Alone in This Together</li>
                                         <li>Drake - Views</li>
+                                        <li>The Weeknd - Hurry Up Tomorrow</li>
                                         <li>The Weeknd - After Hours</li>
-                                        <li>The Weeknd - Starboy</li>
-                                        <li>Ed Sheeran - ÷</li>
                                         <li>Travis Scott - ASTROWORLD</li>
                                         <li>Metro Boomin - NOT ALL HEROES WEAR CAPES</li>
                                     </ul>
-                                    I went to The Weeknd's concert in Toronto in 2022 as well as NAV's Never Sleep Tour in 2023 where Travis Scott made a guest appearance. I also drove to Buffalo, NY to see a Drake concert in February 2024 alongside J. Cole. I enjoy curating playlists and discovering new music. Below are a couple of my heavy rotation playlists. Check out my <a href={socials.spotify} target="_blank">Spotify</a> profile for more.
+                                    I had the chance to see The Weeknd live in Toronto in 2022 and attended NAV's Never Sleep Tour in 2023, where Travis Scott made a surprise appearance. In February 2024, I even drove down to Buffalo, NY to catch a Drake concert featuring J. Cole. I love curating playlists and discovering new music. Below are a couple of my current heavy rotation playlists. You can also check out my full collection on <a href={socials.spotify} target="_blank">Spotify</a>.
 
                                     <iframe title="hiphop" style={{ borderRadius: '12px', marginTop: '25px' }} src="https://open.spotify.com/embed/playlist/2oVUUmZ7uxboD9GGx07rVe?utm_source=generator" width="100%" height="152" frameBorder="0" allowFullScreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 
@@ -157,7 +141,7 @@ export const Interests = () => {
                             <div className={styles.interestItemText}>
                                 <h3>📺 TV Shows/Movies</h3>
                                 <p>
-                                    In some of my free time, I like to watch TV shows and movies. I enjoy a variety of genres, but mostly watch action, comedy, drama and some sci-fi. My all time favorite TV show is Silicon Valley just because of how relatable it is. Some of my other favorites include How I Met Your Mother, Breaking Bad, Money Heist, Black Mirror and F.R.I.E.N.D.S.  The Dark Knight, Interstellar, The Avengers: Infinity War and Spiderman: No Way Home are some of my favorite movies.
+                                    In some of my free time, I enjoy watching TV shows and movies across a variety of genres, with a preference for action, comedy, drama, and sci-fi. My all-time favorite TV show is Silicon Valley because of how relatable it is to my career. Some of my other favorites include How I Met Your Mother, Breaking Bad, Money Heist, and Black Mirror. As for movies, My all-time favorite movie is Interstellar. I also love The Dark Knight trilogy, The Avengers: Infinity War, and Spider-Man: No Way Home.
                                 </p>
                             </div>
                             <div className={styles.imageSlider}>
@@ -170,7 +154,7 @@ export const Interests = () => {
                             <div className={styles.interestItemText}>
                                 <h3>🎮 Gaming</h3>
                                 <p>
-                                    I sometimes like to game very casually on my PS5 my free time. I mostly play career mode or online friendlies on FIFA and NBA 2K. I've played through some open world single-player titles that I really enjoyed including Ghost of Tsushima, Spiderman, Spiderman: Miles Morales and I'm currently playing through Spiderman 2.
+                                    I occasionally enjoy casual gaming on my PS5 during my free time. I mostly play career mode or online friendlies in FIFA or NBA 2K. I've also played and thoroughly enjoyed some open-world single-player titles, including Ghost of Tsushima, Spider-Man, Spider-Man: Miles Morales, and I'm currently making my way through Spider-Man 2.
                                 </p>
                             </div>
                             <div className={styles.imageSlider}>
@@ -183,7 +167,7 @@ export const Interests = () => {
                             <div className={styles.interestItemText}>
                                 <h3>🏞️ Being Outdoors</h3>
                                 <p>
-                                    And lastly my most beloved hobby is just being outdoors. I like to go for drives, walks, hikes, bike rides, and just explore new places. I also enjoy going by lakes, parks, and being in nature or taking a train downtown and simply biking through the city. I love taking photos and videos of the places I visit and share them with my friends and family. I also often go on trips with friends/family mostly within the country. So far, I've been to Montreal, Ottawa, Kingston, Calgary, Banff, Niagara Falls and Blue Mountain.
+                                    And lastly, one of my favorite hobbies is just spending time outdoors. I enjoy going for drives, walks, hikes, and bike rides, and I love exploring new places. Whether it's relaxing by a lake, strolling through a park, immersing myself in nature, or biking through the city after taking the train downtown—I find joy in it all. I also love capturing photos and videos of the places I visit and sharing them with friends and family. I often travel with loved ones, mostly within Canada. So far, I've been to Montreal, Ottawa, Kingston, Calgary, Banff, Niagara Falls, and Blue Mountain. In early 2025, I also had the chance to travel to Europe, where I visited London, Paris, and drove through some countryside in Northern England.
                                 </p>
                             </div>
                             <div className={styles.imageSlider}>

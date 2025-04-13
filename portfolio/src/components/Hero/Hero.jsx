@@ -8,7 +8,7 @@ import { getImageUrl } from "../../utils";
 
 export const Hero = () => {
 
-  const imageCount = 4;
+  const imageCount = 5;
   const images = [];
   for (let i = 1; i <= imageCount; i++) {
     images.push(getImageUrl(`hero/hero${i}.jpg`));
