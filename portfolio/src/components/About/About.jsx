@@ -19,13 +19,13 @@ export const About = () => {
             <div className={styles.aboutItemText}>
               <h3>About Me</h3>
               <p>
-                Hi, I'm Maaz! I am a software developer and recent grad based in Toronto, Ontario. I graduated from the University of Toronto in June 2024 with a major in Computer Science and I currently work as a Software Developer at Electric Mind. I was born and raised in Pakistan and moved to Canada in 2016. I ended off middle school, and completed my high school diploma in Winnipeg, Manitoba where I spent around 6 years of my life. I moved to Toronto to attend UofT in 2021 and have been living here ever since.
+                 Hello 👋 I am a software developer and recent grad based in Toronto, Ontario. I graduated from the University of Toronto in June 2024 with a major in Computer Science and I currently work as a Software Developer at Electric Mind. I was born and raised in Pakistan and moved to Canada in 2016. I ended off middle school, and completed my high school diploma in Winnipeg, Manitoba where I spent around 6 years of my life. I moved to Toronto to attend university in 2021 and have been living here ever since. In my free time, I like to play basketball 🏀, listen to music 🎶, watch TV shows 📺, read interesting articles and blogs 📖, and explore the world 🌎.
               </p>
               <p>
-                I have a keen interest in building innovative software and solving complex problems, particularly on the web. I have a broad range of school/professional experiences in data manipulation, automation, full-stack web development, dev-ops, as well as designing complex software architecture.
+                I have a keen interest in building innovative software and solving complex problems, particularly on the web. I have a broad range of school and professional experiences in full-stack web development, data transformation and manipulation, cloud automation and DevOps, networking and security, as well as designing complex software architectures. 👨🏽‍💻
               </p>
               <p>
-                I am extremely knowledge-driven, aspired by cutting-edge technologies and I'm eager to grow and use my skills to change the world someday 😊
+                I'm extremely knowledge-driven, inspired by cutting-edge technologies, and I'm eager to grow and utilize my skills to make a positive impact on the world. ✨
               </p>
             </div>
           </li>
