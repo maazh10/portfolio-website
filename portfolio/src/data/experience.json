@@ -7,9 +7,7 @@
     "experiences": [
       "Developed a Master Data Management system for an insurance broker using Django, SQL, and Azure automating data ingestion, cleansing, and role-based approvals, significantly reducing the client's data management overhead by at least 30%.",
       "Designed and implemented an automated schema deployment framework with Liquibase and Azure DevOps, optimizing SQL schema migrations across environments and improving the client's deployment efficiency by 20-30%.",
-      "Engineered an AI calling agent for automating fleet service appointments, streamlining the client’s staff operations.",
-      "Researched and presented design-to-code tools from Figma to React, potentially cutting the company's POC-to-handoff time by 50% and reducing dev resources by 25%.",
-      "Built and deployed an internal developer portal on top of Backstage by Spotify, including software catalogs, templates, and plugins, accelerating the company's developer onboarding process by 2x."
+      "Engineered an AI calling agent for automating fleet service appointments, streamlining the client’s staff operations."
     ],
     "imageSrc": "history/electricmind.png"
   },
