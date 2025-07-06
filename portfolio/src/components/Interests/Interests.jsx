@@ -17,6 +17,7 @@ export const Interests = () => {
         getImageUrl("interests/photography/p1.jpg"),
         getImageUrl("interests/photography/p2.jpg"),
         getImageUrl("interests/photography/p3.jpg"),
+        getImageUrl("interests/photography/p4.jpg"),
     ];
 
     const sportsImages = [
@@ -52,7 +53,7 @@ export const Interests = () => {
         getImageUrl("interests/gaming/g5.jpg"),
     ];
 
-    const outdoorsImages = Array.from({ length: 25 }, (_, i) => 
+    const outdoorsImages = Array.from({ length: 25 }, (_, i) =>
         getImageUrl(`interests/outdoors/o${i + 1}.jpg`)
     );
 
@@ -87,8 +88,7 @@ export const Interests = () => {
                             <div className={styles.interestItemText}>
                                 <h3>📸 Photography</h3>
                                 <p>
-                                    I love taking photos wherever I go—capturing moments, places, and people is something that's always brought me joy. I first learned how to use a professional DSLR camera back in high school, which gave me a solid foundation in different types of photography. These days, I mostly shoot with my Pixel phone, which has an incredible camera and powerful computational photography features.
-                                    I edit my photos with Adobe Lightroom, or just light touch ups in Google Photos, to bring out the best in each shot. I organize photos of friends and special events into albums on Google Photos, and I like to print my favorites—sometimes as collages—to frame or put into a physical photo album as keepsakes. You can check out some of my own photos on my <a href={socials.instagram} target="_blank">Instagram</a>.
+                                    I love taking photos wherever I go. Capturing moments, places, and people is something that's always brought me joy. I first learned how to use a professional DSLR camera back in high school, which gave me a solid foundation in some basic techniques and compositions. These days, I like to go out and shoot landscapes or cityscapes using my Canon DSLR. When I don't have my camera on me, I mostly shoot with my Pixel, which has an incredible camera and powerful computational photography features. I edit and color grade my photos in Adobe Lightroom, or just light touch ups in Google Photos, to bring out the best in each shot. I organize photos of friends and special events into albums on Google Photos, and I like to print my favorites, to frame or put into a physical photo album as keepsakes. I post most of favorite photos on <a href={socials.instagram} target="_blank">Instagram</a> stories or by writing a <a href="/blog" target="_blank">blog</a> post.
                                 </p>
                             </div>
                             <div className={styles.imageSlider}>
@@ -165,7 +165,7 @@ export const Interests = () => {
                     <li className={styles.interestItem}>
                         <div className={styles.interestItemContent}>
                             <div className={styles.interestItemText}>
-                                <h3>🏞️ Being Outdoors</h3>
+                                <h3>🏞️ Exploring</h3>
                                 <p>
                                     And lastly, one of my favorite hobbies is just spending time outdoors. I enjoy going for drives, walks, hikes, and bike rides, and I love exploring new places. Whether it's relaxing by a lake, strolling through a park, immersing myself in nature, or biking through the city after taking the train downtown—I find joy in it all. I also love capturing photos and videos of the places I visit and sharing them with friends and family. I often travel with loved ones, mostly within Canada. So far, I've been to Montreal, Ottawa, Kingston, Calgary, Banff, Niagara Falls, and Blue Mountain. In early 2025, I also had the chance to travel to Europe, where I visited London, Paris, and drove through some countryside in Northern England.
                                 </p>

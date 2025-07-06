@@ -15,10 +15,6 @@
   cursor: default;
 }
 
-.container:hover {
-  transform: scale(1.2);
-}
-
 .image {
   border-radius: 20px;
   width: 80%;
@@ -26,13 +22,14 @@
 }
 
 .title {
+  text-align: center;
   font-size: 25px;
   font-weight: 700;
 }
 
 .description {
   margin-top: 6px;
-  font-size: 25px;
+  font-size: 20px;
   font-weight: 400;
 }
 
@@ -47,16 +44,15 @@
 }
 
 .skill {
-  font-size: 25px;
+  font-size: 15px;
   font-weight: 400;
   border-radius: 100px;
   background: var(--color-dark);
-  padding: 2px 22px;
+  padding: 11px 22px;
 }
 
 .links {
   width: 100%;
-  margin-top: 30px;
   display: flex;
   justify-content: space-around;
 }
@@ -64,22 +60,16 @@
 .link {
   text-decoration: none;
   color: var(--color-text);
-  font-size: 30px;
+  font-size: 15px;
   font-weight: 400;
   border-radius: 100px;
   background: transparent;
   border: 2px solid var(--color-text);
-  padding: 1px 22px;
+  padding: 11px 22px;
   transition: all ease-in-out 0.2s;
 }
 
 .link:hover {
   background: var(--color-text);
   color: var(--color-dark);
-}
-
-@media screen and (max-width: 830px) {
-  .container:hover {
-    transform: scale(1);
-  }
 }
