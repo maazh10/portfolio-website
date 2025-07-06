@@ -62,15 +62,10 @@
 
 .historyItemDetails ul {
   margin-top: 10px;
-  list-style-position: inside;
+  list-style-position: outside;
   list-style-type: disc;
-  margin-left: 17px;
+  padding-left: 25px;
   font-size: 20px;
-
-  li span {
-    position: relative;
-    left: -10px;
-  }
 }
 
 @media screen and (max-width: 830px) {
@@ -102,9 +97,5 @@
 
   .historyItemDetails ul {
     font-size: 17px;
-
-    li span {
-      left: -10px;
-    }
   }
 }
