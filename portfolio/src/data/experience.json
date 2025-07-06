@@ -7,7 +7,7 @@
     "experiences": [
       "Developed a Master Data Management system for an insurance broker using Django, SQL, and Azure automating data ingestion, cleansing, and role-based approvals, significantly reducing the client's data management overhead by at least 30%.",
       "Designed and implemented an automated schema deployment framework with Liquibase and Azure DevOps, optimizing SQL schema migrations across environments and improving the client's deployment efficiency by 20-30%.",
-      "Engineered an AI calling agent for automating fleet service appointments, streamlining the client’s staff operations."
+      "Collaborated with client QA/DevOps teams to align the framework with their critical pain points, leading to high adoption and positive feedback during multiple demos."
     ],
     "imageSrc": "history/electricmind.png"
   },
