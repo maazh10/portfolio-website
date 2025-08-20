@@ -7,7 +7,10 @@ import FormattedDate from "../components/FormattedDate.astro";
 
 type Props = CollectionEntry<"blog">["data"];
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const { title, type, description, pubDate, updatedDate, heroImage } =
+  Astro.props;
+
+const favicon = type === "photo" ? "📸" : "📝";
 ---
 
 <html lang="en">
@@ -26,7 +29,12 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 
       gtag("config", "G-FM09DN20X0");
     </script>
-    <BaseHead title={title} description={description} image={heroImage} />
+    <BaseHead
+      title={title}
+      description={description}
+      image={heroImage}
+      favicon={favicon}
+    />
     <style>
       main {
         width: calc(100% - 2em);

@@ -114,7 +114,10 @@ const posts = (await getCollection("blog")).sort(
                     src={post.data.heroImage}
                     alt=""
                   />
-                  <h4 class="title">{post.data.title}</h4>
+                  <h4 class="title">
+                    {post.data.type === "photo" ? "📸 " : "📝 "}
+                    {post.data.title}
+                  </h4>
                   <p class="date">
                     <FormattedDate date={post.data.pubDate} />
                   </p>
