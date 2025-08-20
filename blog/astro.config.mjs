@@ -1,6 +1,5 @@
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
-import partytown from '@astrojs/partytown'
 
 import sitemap from '@astrojs/sitemap';
 
@@ -10,18 +9,5 @@ export default defineConfig({
 	integrations: [
 		mdx(),
 		sitemap(),
-		partytown({
-			config: {
-				forward: ["dataLayer.push"],
-				resolveUrl(url) {
-					if (url.pathname.startsWith('/_astro/')) {
-						return url;
-					}
-					const replaceUrl = new URL(url, 'https://maazh.tech');
-					return replaceUrl;
-				},
-				debug: false,
-			},
-		}),
 	],
 });
