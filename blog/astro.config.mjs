@@ -6,13 +6,17 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://astro-article.netlify.app/',
+	site: 'https://maazh.tech',
 	integrations: [
 		mdx(),
 		sitemap(),
 		partytown({
 			config: {
 				forward: ["dataLayer.push"],
+				resolveUrl: (url) => {
+					const replaceUrl = new URL(url, 'https://maazh.tech');
+					return replaceUrl.toString();
+				},
 			},
 		}),
 	],
