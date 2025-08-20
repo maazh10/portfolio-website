@@ -34,15 +34,16 @@ const posts = (await getCollection("blog")).sort(
         width: 960px;
       }
       ul {
-        display: flex;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
         gap: 2rem;
         list-style-type: none;
         margin: 0;
         padding: 0;
       }
       ul li {
-        width: calc(50% - 1rem);
+        display: flex;
+        flex-direction: column;
       }
       ul li * {
         text-decoration: none;
@@ -84,10 +85,10 @@ const posts = (await getCollection("blog")).sort(
       }
       @media (max-width: 720px) {
         ul {
-          gap: 0.5em;
+          grid-template-columns: 1fr;
+          gap: 2rem;
         }
         ul li {
-          width: 100%;
           text-align: center;
         }
         ul li:first-child {
