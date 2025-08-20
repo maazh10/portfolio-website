@@ -13,10 +13,14 @@ export default defineConfig({
 		partytown({
 			config: {
 				forward: ["dataLayer.push"],
-				resolveUrl: (url) => {
+				resolveUrl(url) {
+					if (url.pathname.startsWith('/_astro/')) {
+						return url;
+					}
 					const replaceUrl = new URL(url, 'https://maazh.tech');
-					return replaceUrl.toString();
+					return replaceUrl;
 				},
+				debug: false,
 			},
 		}),
 	],
