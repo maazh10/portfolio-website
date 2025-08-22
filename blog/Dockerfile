@@ -12,4 +12,4 @@ RUN npm run build
 
 FROM nginx:alpine AS runtime
 
-COPY --from=build /app/dist /usr/share/nginx/html
+COPY --from=build /app/dist /usr/share/nginx/html/blog
