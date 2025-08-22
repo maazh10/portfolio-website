@@ -62,7 +62,7 @@ jobs:
           key: ${{ secrets.KEY }}
           script: |
             cd portfolio-website
-            export VERSION=${{ env.VERSION }}
+            VERSION=$(echo "${{ github.ref_name }}" | tr '/' '-')
             docker-compose down
             docker-compose pull
             VERSION=$VERSION docker-compose up -d
