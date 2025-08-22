@@ -38,8 +38,8 @@ jobs:
         run: |
           PORTFOLIO_IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$PORTFOLIO_IMAGE_NAME
           PORTFOLIO_IMAGE_ID=$(echo $PORTFOLIO_IMAGE_ID | tr '[A-Z]' '[a-z]')
-          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
+          RAW_VERSION=${{ github.ref_name }}
+          VERSION=$(echo "$RAW_VERSION" | tr '/' '-')
           [ "$VERSION" == "main" ] && VERSION=latest
           docker tag $PORTFOLIO_IMAGE_NAME $PORTFOLIO_IMAGE_ID:$VERSION
           docker push $PORTFOLIO_IMAGE_ID:$VERSION
@@ -48,8 +48,8 @@ jobs:
         run: |
           BLOG_IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$BLOG_IMAGE_NAME
           BLOG_IMAGE_ID=$(echo $BLOG_IMAGE_ID | tr '[A-Z]' '[a-z]')
-          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
+          RAW_VERSION=${{ github.ref_name }}
+          VERSION=$(echo "$RAW_VERSION" | tr '/' '-')
           [ "$VERSION" == "main" ] && VERSION=latest
           docker tag $BLOG_IMAGE_NAME $BLOG_IMAGE_ID:$VERSION
           docker push $BLOG_IMAGE_ID:$VERSION
