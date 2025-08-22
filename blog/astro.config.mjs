@@ -6,7 +6,7 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://maazh.tech',
-	base: '/blog',
+	base: process.env.NODE_ENV === 'production' ? '/blog' : '',
 	build: {
 		assets: '_astro',
 	},
