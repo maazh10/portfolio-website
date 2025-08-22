@@ -28,7 +28,7 @@ services:
       - nginx-proxy 
 
   portfolio:
-    image: ghcr.io/maazh10/portfolio:latest
+    image: ghcr.io/maazh10/portfolio:${VERSION:-latest}
     container_name: portfolio
     restart: always
     expose:
@@ -38,7 +38,7 @@ services:
       - LETSENCRYPT_HOST=maazh.tech
 
   blog:
-    image: ghcr.io/maazh10/blog:latest
+    image: ghcr.io/maazh10/blog:${VERSION:-latest}
     container_name: blog
     restart: always
     expose:
