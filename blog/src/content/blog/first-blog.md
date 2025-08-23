@@ -12,13 +12,13 @@ If I'm ever lying awake in bed at night or sitting idle on my couch on a Sunday 
 
 There are times when I have found that sharing a thought with someone who might have an interest or an alternative perspective on it, helps spark an intellectual discussion. This often leads to better insights into the original thought, which I find beneficial. For this reason, I often refer back to recent ideas or thoughts when I’m conversing with a friend, family member, or a colleague.
 
-I was never particularly big on writing when I was in school—I used to despise those long creative writing assignments in English class. But as I’ve grown older, I’ve learned to appreciate the written form of communication. I’ve found that I can organize and convey my thoughts much more coherently when I write compared to when I speak.  
+I was never particularly big on writing when I was in school, I used to despise those long creative writing assignments in English class. But as I’ve grown older, I’ve learned to appreciate the written form of communication. I’ve found that I can organize and convey my thoughts much more coherently when I write compared to when I speak.  
 
 Getting ideas out of my head and into written words also helps clear my mental space and gives me a new perspective. For example, when tackling a complex problem, instead of overwhelming my brain with information, I’ve found it helpful to write out the context, sketch possible approaches, or explain the issue to someone else. This technique has often led to breakthroughs for me in the past.  
 
 I have a wide range of interests and an endless curiosity to learn and educate myself about new things. I also find joy in sharing knowledge with others in areas where I might have some expertise.  
 
-Combining these goals with the spare time I occasionally find on weekends, I decided to start this blog. I want to use this space to share interesting thoughts, opinions, ideas, solutions—whatever comes to mind.  
+Combining these goals with the spare time I occasionally find on weekends, I decided to start this blog. I want to use this space to share interesting thoughts, opinions, ideas, solutions, whatever comes to mind.  
 
 I don't want this blog to be confined to any single topic. It could be technical or non-technical. I might write about some random interests of mine like photography or basketball, share anecdotes from a movie I watched recently, or even explore the lyrics of a song I love.  
 
