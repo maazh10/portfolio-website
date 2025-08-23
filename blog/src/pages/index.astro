@@ -1,14 +1,17 @@
 ---
-import BaseHead from "../../components/BaseHead.astro";
-import Header from "../../components/Header.astro";
-import Footer from "../../components/Footer.astro";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import { getCollection } from "astro:content";
-import FormattedDate from "../../components/FormattedDate.astro";
+import FormattedDate from "../components/FormattedDate.astro";
 
 const posts = (await getCollection("blog")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
+
+const isProduction = process.env.NODE_ENV === 'production';
+const postBaseUrl = isProduction ? '/blog' : '';
 ---
 
 <!doctype html>
@@ -106,7 +109,7 @@ const posts = (await getCollection("blog")).sort(
           {
             posts.map((post) => (
               <li>
-                <a href={`/blog/${post.slug}/`}>
+                <a href={`${postBaseUrl}/${post.slug}/`}>
                   <img
                     width={720}
                     height={360}

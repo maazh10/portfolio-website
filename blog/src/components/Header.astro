@@ -1,6 +1,9 @@
 ---
 import HeaderLink from "./HeaderLink.astro";
 import { SITE_TITLE } from "../consts";
+
+const isProduction = process.env.NODE_ENV === 'production';
+const blogUrl = isProduction ? '/blog' : '/';
 ---
 
 <header>
@@ -8,7 +11,7 @@ import { SITE_TITLE } from "../consts";
     <h2><a href="/">{SITE_TITLE}</a></h2>
     <div class="internal-links">
       <HeaderLink href="/">Home</HeaderLink>
-      <HeaderLink href="/blog">Blog</HeaderLink>
+      <HeaderLink href={blogUrl}>Blog</HeaderLink>
     </div>
     <div class="social-links">
       <a href="https://www.linkedin.com/in/maaz-hashmi" target="_blank">
