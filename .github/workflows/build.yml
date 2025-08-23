@@ -19,10 +19,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
-      - name: Log into Docker Hub
-        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
-
       - name: Build Portfolio Image
         run: docker build portfolio/ --file portfolio/Dockerfile --tag $PORTFOLIO_IMAGE_NAME
 
