@@ -1,0 +1,33 @@
+services:
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    container_name: nginx-proxy-local
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+
+  portfolio:
+    build:
+      context: ./portfolio
+      dockerfile: Dockerfile
+    container_name: portfolio-local
+    restart: always
+    expose:
+      - 80
+    environment:
+      - VIRTUAL_HOST=localhost
+      - VIRTUAL_PORT=80
+
+  blog:
+    build:
+      context: ./blog
+      dockerfile: Dockerfile
+    container_name: blog-local
+    restart: always
+    expose:
+      - 80
+    environment:
+      - VIRTUAL_HOST=localhost
+      - VIRTUAL_PATH=/blog
+      - VIRTUAL_PORT=80
