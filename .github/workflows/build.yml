@@ -48,6 +48,15 @@ jobs:
           docker tag $BLOG_IMAGE_NAME $BLOG_IMAGE_ID:$VERSION
           docker push $BLOG_IMAGE_ID:$VERSION
 
+      - name: Copy docker-compose.yml to Google Cloud VM
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          source: "docker-compose.yml"
+          target: "portfolio-website/"
+
       - name: Pull Images and Restart Containers on Google Cloud VM
         uses: appleboy/ssh-action@v1.0.3
         with:
