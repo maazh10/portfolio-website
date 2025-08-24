@@ -104,12 +104,11 @@ function getTimeColor(timeString: string): string {
 <style>
   .slideshow-container {
     padding: 50px 0;
-    border-bottom: 1px solid #b7b7b7;
+    border-bottom: 1px solid var(--hr-color);
     position: relative;
   }
 
   .custom-swiper {
-    width: 100%;
     position: relative;
     overflow: hidden;
   }
@@ -133,6 +132,8 @@ function getTimeColor(timeString: string): string {
   }
 
   .custom-swiper-slide a img {
+    width: calc(100% - 2px);
+
     transition:
       filter 0.2s,
       box-shadow 0.2s;
@@ -150,6 +151,8 @@ function getTimeColor(timeString: string): string {
     max-height: 75vh;
     object-fit: contain;
     margin: 0 auto;
+    border-radius: 12px;
+    border: 1px solid var(--stroke);
   }
 
   .custom-swiper-button-prev,
@@ -176,6 +179,12 @@ function getTimeColor(timeString: string): string {
       box-shadow 0.2s;
   }
 
+  [data-theme="dark"] .custom-swiper-button-prev,
+  [data-theme="dark"] .custom-swiper-button-next {
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+
   .custom-swiper-button-prev {
     left: 16px;
   }
@@ -199,18 +208,18 @@ function getTimeColor(timeString: string): string {
 
   .photo-details h3 {
     margin-bottom: 5px;
-    color: #333;
+    color: var(--text-secondary);
     font-weight: 600;
   }
 
   .photo-details p {
     margin: 0;
     font-size: 0.9em;
-    color: #555;
+    color: var(--text-primary);
   }
 
   .location {
-    color: #007bff;
+    color: var(--accent);
     font-weight: 500;
   }
 
@@ -220,7 +229,7 @@ function getTimeColor(timeString: string): string {
 
   .caption {
     font-style: italic;
-    color: #666;
+    color: var(--text-muted);
     margin-top: 10px !important;
   }
 </style>

@@ -1,6 +1,4 @@
 ---
-// Import the global.css file here so that it is included on
-// all pages through the use of the <BaseHead /> component.
 import "../styles/global.css";
 
 interface Props {
@@ -65,3 +63,68 @@ const {
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image, Astro.url)} />
+
+<!-- Dark Mode Script -->
+<script is:inline>
+  (function () {
+    function getSunsetTime(date, lat = 43.6532) {
+      const dayOfYear = Math.floor(
+        (date - new Date(date.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24)
+      );
+
+      let sunsetHour = 18;
+
+      if (dayOfYear >= 80 && dayOfYear <= 172) {
+        sunsetHour = 19 + ((dayOfYear - 80) / 92) * 0.5;
+      } else if (dayOfYear > 172 && dayOfYear <= 266) {
+        sunsetHour = 19.5 - ((dayOfYear - 172) / 94) * 1;
+      } else if (dayOfYear > 266 && dayOfYear <= 355) {
+        sunsetHour = 18.5 - ((dayOfYear - 266) / 89) * 1.5;
+      } else {
+        sunsetHour =
+          17 + ((dayOfYear > 355 ? dayOfYear - 355 : dayOfYear + 10) / 80) * 1;
+      }
+
+      const latAdjustment = Math.abs(lat) > 40 ? 0.5 : 0;
+      sunsetHour += latAdjustment;
+
+      const sunset = new Date(date);
+      sunset.setHours(
+        Math.floor(sunsetHour),
+        Math.round((sunsetHour % 1) * 60),
+        0,
+        0
+      );
+
+      return sunset;
+    }
+
+    function getSunriseTime(date, lat = 43.6532) {
+      const sunset = getSunsetTime(date, lat);
+      const sunrise = new Date(sunset);
+      sunrise.setHours(sunrise.getHours() - 12);
+
+      return sunrise;
+    }
+
+    function shouldUseDarkMode() {
+      const now = new Date();
+      const sunset = getSunsetTime(now);
+      const sunrise = getSunriseTime(now);
+
+      return now >= sunset || now < sunrise;
+    }
+
+    function applyTheme() {
+      if (shouldUseDarkMode()) {
+        document.documentElement.setAttribute("data-theme", "dark");
+      } else {
+        document.documentElement.setAttribute("data-theme", "light");
+      }
+    }
+
+    applyTheme();
+
+    setInterval(applyTheme, 300000);
+  })();
+</script>
