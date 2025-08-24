@@ -26,7 +26,7 @@ The possibilities are endless, but my primary aim is simple:
 - To educate, inspire, or add value to even a single person’s life.  
 - To use this platform as a way to explore new topics and educate myself on things I wouldn’t normally dive into.
 
-<br><br>
+<br>
 
 # How?
 

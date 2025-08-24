@@ -54,19 +54,19 @@ h6 {
   line-height: 1.2;
 }
 h1 {
-  font-size: 2.5em;
-}
-h2 {
   font-size: 2em;
 }
-h3 {
+h2 {
   font-size: 1.5em;
 }
-h4 {
+h3 {
   font-size: 1.2em;
 }
-h5 {
+h4 {
   font-size: 1em;
+}
+h5 {
+  font-size: 0.9em;
 }
 strong,
 b {
@@ -78,8 +78,8 @@ a {
 a:hover {
   color: var(--accent);
 }
-p {
-  font-size: 0.9em;
+li, p {
+  font-size: 0.8em;
   margin-bottom: 1em;
 }
 .prose p {
@@ -104,19 +104,21 @@ code {
   padding: 2px 5px;
   background-color: rgb(var(--gray-light));
   border-radius: 2px;
+  font-size: 0.8em;
 }
 pre {
   padding: 1.5em;
   border-radius: 8px;
+  font-size: 0.7em;
 }
 pre > code {
   all: unset;
 }
 blockquote {
   border-left: 4px solid var(--accent);
-  padding: 0 0 0 20px;
+  padding: 0 0 0 10px;
   margin: 0px;
-  font-size: 1.333em;
+  font-size: 1.1em;
 }
 hr {
   border: none;
