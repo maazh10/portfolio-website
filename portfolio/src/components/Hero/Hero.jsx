@@ -39,7 +39,7 @@ export const Hero = () => {
         <h1 className={styles.title}>Hi, I'm Maaz 👋</h1>
         <p className={styles.description}>
           <Typewriter
-            words={[" Software Developer 💻", " Photographer 📸", " Adventurer 🏞️", " Music Lover 🎧", " Sports Enthusiast 🏀"]}
+            words={[" Software Engineer 💻", " Photographer 📸", " Adventurer 🏞️", " Music Lover 🎧", " Sports Enthusiast 🏀"]}
             loop={0}
             cursor
             cursorStyle='_'
