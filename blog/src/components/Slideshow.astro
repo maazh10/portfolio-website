@@ -1,14 +1,14 @@
 ---
 type Props = {
-  title: string;
-  location: string;
-  time: string;
-  caption: string;
+  titles?: string[];
+  locations?: string[];
+  times?: string[];
+  captions?: string[];
   imagePaths: string[];
   alt: string;
 };
 
-const { title, location, time, caption, imagePaths, alt } = Astro.props;
+const { titles, locations, times, captions, imagePaths, alt } = Astro.props;
 
 function getTimeColor(timeString: string): string {
   const times = timeString.split(" / ");
@@ -89,22 +89,38 @@ function getTimeColor(timeString: string): string {
       )
     }
   </div>
-  <div class="photo-details">
-    <h3>{title}</h3>
-    <p>
-      <span class="location">📍 {location}</span>
-      &nbsp;•&nbsp;
-      <span class="time" style={`color: ${getTimeColor(time)};`}>🕒 {time}</span
-      >
-    </p>
-    {caption && <p class="caption">{caption}</p>}
-  </div>
+  {
+    (titles || locations || times || captions) && (
+      <div class="photo-details">
+        {
+          imagePaths.map((_, index) => (
+            <div class="photo-detail" data-index={index} style={index === 0 ? 'display: block;' : 'display: none;'}>
+              {titles && (titles[index] || titles[0]) && <h3>{titles[index] || titles[0]}</h3>}
+              {(locations || times) && (
+                <p>
+                  {locations && (locations[index] || locations[0]) && (
+                    <span class="location">📍 {locations[index] || locations[0]}</span>
+                  )}
+                  {locations && (locations[index] || locations[0]) && times && (times[index] || times[0]) && (
+                    <>&nbsp;•&nbsp;</>
+                  )}
+                  {times && (times[index] || times[0]) && (
+                    <span class="time" style={`color: ${getTimeColor(times[index] || times[0])};`}>🕒 {times[index] || times[0]}</span>
+                  )}
+                </p>
+              )}
+              {captions && (captions[index] || captions[0]) && <p class="caption">{captions[index] || captions[0]}</p>}
+            </div>
+          ))
+        }
+      </div>
+    )
+  }
 </div>
 
 <style>
   .slideshow-container {
     padding: 50px 0;
-    border-bottom: 1px solid var(--hr-color);
     position: relative;
   }
 
@@ -259,6 +275,16 @@ function getTimeColor(timeString: string): string {
         currentIndex = index;
         if (wrapper instanceof HTMLElement) {
           wrapper.style.transform = `translateX(-${currentIndex * 100}%)`;
+        }
+        
+        // Update photo details
+        const photoDetails = slideshow.querySelectorAll('.photo-detail');
+        if (photoDetails.length > 0) {
+          photoDetails.forEach((detail, i) => {
+            if (detail instanceof HTMLElement) {
+              detail.style.display = i === currentIndex ? 'block' : 'none';
+            }
+          });
         }
       }
 
