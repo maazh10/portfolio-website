@@ -78,9 +78,16 @@ const {
 
     function setTheme(theme) {
       document.documentElement.setAttribute("data-theme", theme);
+      localStorage.setItem("theme", theme);
     }
 
-    function applyDefaultTheme() {
+    function applyTheme() {
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme) {
+        setTheme(savedTheme);
+        return;
+      }
+
       if (shouldUseDarkMode()) {
         setTheme("dark");
       } else {
@@ -96,15 +103,12 @@ const {
 
     window.toggleTheme = toggleTheme;
 
-    applyDefaultTheme();
+    applyTheme();
 
     setInterval(() => {
-
-      const currentTheme = getCurrentTheme();
-      const defaultTheme = shouldUseDarkMode() ? "dark" : "light";
-      
-      if (currentTheme === defaultTheme) {
-        applyDefaultTheme();
+      const savedTheme = localStorage.getItem("theme");
+      if (!savedTheme) {
+        applyTheme();
       }
     }, 60000);
 
