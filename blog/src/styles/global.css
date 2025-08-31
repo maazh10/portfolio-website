@@ -17,7 +17,7 @@
     0 16px 32px rgba(var(--gray), 33%);
   
   /* Light mode colors */
-  --bg-primary: #ffffff;
+  --bg-primary: #F8F8FF;
   --bg-secondary: linear-gradient(var(--gray-gradient)) no-repeat;
   --text-primary: rgb(var(--gray-dark));
   --text-secondary: rgb(var(--black));
@@ -29,6 +29,7 @@
 
 /* Dark mode colors */
 [data-theme="dark"] {
+  --accent: #4a5eff;
   --bg-primary: linear-gradient(135deg, #0a0a0f, #111827, #1e293b);
   --bg-secondary: linear-gradient(rgba(40, 40, 40, 0.5), #1a1a1a) no-repeat;
   --text-primary: #e0e0e0;

@@ -10,6 +10,26 @@ type Props = {
 
 const { titles, locations, times, captions, imagePaths, alt } = Astro.props;
 
+const normalizedTitles =
+  titles && titles.length === 1 && imagePaths.length > 1
+    ? Array(imagePaths.length).fill(titles[0])
+    : titles;
+
+const normalizedLocations =
+  locations && locations.length === 1 && imagePaths.length > 1
+    ? Array(imagePaths.length).fill(locations[0])
+    : locations;
+
+const normalizedTimes =
+  times && times.length === 1 && imagePaths.length > 1
+    ? Array(imagePaths.length).fill(times[0])
+    : times;
+
+const normalizedCaptions =
+  captions && captions.length === 1 && imagePaths.length > 1
+    ? Array(imagePaths.length).fill(captions[0])
+    : captions;
+
 function getTimeColor(timeString: string): string {
   const times = timeString.split(" / ");
   const firstTime = times[0];
@@ -90,29 +110,54 @@ function getTimeColor(timeString: string): string {
     }
   </div>
   {
-    (titles || locations || times || captions) && (
+    (normalizedTitles ||
+      normalizedLocations ||
+      normalizedTimes ||
+      normalizedCaptions) && (
       <div class="photo-details">
-        {
-          imagePaths.map((_, index) => (
-            <div class="photo-detail" data-index={index} style={index === 0 ? 'display: block;' : 'display: none;'}>
-              {titles && (titles[index] || titles[0]) && <h3>{titles[index] || titles[0]}</h3>}
-              {(locations || times) && (
-                <p>
-                  {locations && (locations[index] || locations[0]) && (
-                    <span class="location">📍 {locations[index] || locations[0]}</span>
+        {imagePaths.map((_, index) => (
+          <div
+            class="photo-detail"
+            data-index={index}
+            style={index === 0 ? "display: block;" : "display: none;"}
+          >
+            {normalizedTitles &&
+              (normalizedTitles[index] || normalizedTitles[0]) && (
+                <h3>{normalizedTitles[index] || normalizedTitles[0]}</h3>
+              )}
+            {(normalizedLocations || normalizedTimes) && (
+              <p>
+                {normalizedLocations &&
+                  (normalizedLocations[index] || normalizedLocations[0]) && (
+                    <span class="location">
+                      📍 {normalizedLocations[index] || normalizedLocations[0]}
+                    </span>
                   )}
-                  {locations && (locations[index] || locations[0]) && times && (times[index] || times[0]) && (
+                {normalizedLocations &&
+                  (normalizedLocations[index] || normalizedLocations[0]) &&
+                  normalizedTimes &&
+                  (normalizedTimes[index] || normalizedTimes[0]) && (
                     <>&nbsp;•&nbsp;</>
                   )}
-                  {times && (times[index] || times[0]) && (
-                    <span class="time" style={`color: ${getTimeColor(times[index] || times[0])};`}>🕒 {times[index] || times[0]}</span>
+                {normalizedTimes &&
+                  (normalizedTimes[index] || normalizedTimes[0]) && (
+                    <span
+                      class="time"
+                      style={`color: ${getTimeColor(normalizedTimes[index] || normalizedTimes[0])};`}
+                    >
+                      🕒 {normalizedTimes[index] || normalizedTimes[0]}
+                    </span>
                   )}
+              </p>
+            )}
+            {normalizedCaptions &&
+              (normalizedCaptions[index] || normalizedCaptions[0]) && (
+                <p class="caption">
+                  {normalizedCaptions[index] || normalizedCaptions[0]}
                 </p>
               )}
-              {captions && (captions[index] || captions[0]) && <p class="caption">{captions[index] || captions[0]}</p>}
-            </div>
-          ))
-        }
+          </div>
+        ))}
       </div>
     )
   }
@@ -219,7 +264,7 @@ function getTimeColor(timeString: string): string {
 
   .photo-details {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 40px;
   }
 
   .photo-details h3 {
@@ -232,6 +277,10 @@ function getTimeColor(timeString: string): string {
     margin: 0;
     font-size: 0.9em;
     color: var(--text-primary);
+  }
+
+  .caption {
+    font-size: 0.8em !important;
   }
 
   .location {
@@ -276,13 +325,13 @@ function getTimeColor(timeString: string): string {
         if (wrapper instanceof HTMLElement) {
           wrapper.style.transform = `translateX(-${currentIndex * 100}%)`;
         }
-        
+
         // Update photo details
-        const photoDetails = slideshow.querySelectorAll('.photo-detail');
+        const photoDetails = slideshow.querySelectorAll(".photo-detail");
         if (photoDetails.length > 0) {
           photoDetails.forEach((detail, i) => {
             if (detail instanceof HTMLElement) {
-              detail.style.display = i === currentIndex ? 'block' : 'none';
+              detail.style.display = i === currentIndex ? "block" : "none";
             }
           });
         }
