@@ -1,5 +1,5 @@
 ---
-title: 'Do good to feel good'
+title: 'Do Good To Feel Good'
 type: 'text'
 description: 'A reflective exploration of how kindness, compassion, and purpose can redefine the way we think about our careers and lives in a world driven by routine and egotism.'
 pubDate: 'Apr 10 2025'
