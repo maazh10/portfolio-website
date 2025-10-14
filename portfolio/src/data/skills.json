@@ -24,8 +24,20 @@
     "imageSrc": "skills/react.png"
   },
   {
+    "title": "Angular",
+    "imageSrc": "skills/angular.png"
+  },
+  {
     "title": "Node",
     "imageSrc": "skills/node.png"
+  },
+  {
+    "title": "Spring Boot",
+    "imageSrc": "skills/springboot.png"
+  },
+  {
+    "title": "Django",
+    "imageSrc": "skills/django.png"
   },
   {
     "title": "PostgreSQL",
@@ -34,6 +46,10 @@
   {
     "title": "MongoDB",
     "imageSrc": "skills/mongodb.png"
+  },
+  {
+    "title": "Elastic Search",
+    "imageSrc": "skills/elasticsearch.png"
   },
   {
     "title": "Docker",
