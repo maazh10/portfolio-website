@@ -5,9 +5,10 @@
     "startDate": "Aug. 2024",
     "endDate": "Present",
     "experiences": [
-      "Developed a Master Data Management system for an insurance broker using Django, SQL, and Azure automating data ingestion, cleansing, and role-based approvals, significantly reducing the client's data management overhead by at least 30%.",
-      "Designed and implemented an automated schema deployment framework with Liquibase and Azure DevOps, optimizing SQL schema migrations across environments and improving the client's deployment efficiency by 20-30%.",
-      "Collaborated with client QA/DevOps teams to align the framework with their critical pain points, leading to high adoption and positive feedback during multiple demos."
+      "Refreshed a legacy Angular dashboard and built a platform-wide search feature for an RBC IS client portal.",
+      "Resolved a major performance bottleneck, cutting load times from 20s to under a second across platform apps.",
+      "Built a Master Data Management system for an insurance broker to automate data ingestion, cleansing, and approvals.",
+      "Designed an automated schema deployment framework to streamline database migrations to improve a client's deployment efficiency."
     ],
     "imageSrc": "history/electricmind.png"
   },
@@ -17,9 +18,9 @@
     "startDate": "Jan. 2023",
     "endDate": "Apr. 2023",
     "experiences": [
-      "Enhanced existing SpringBoot APIs powering mainframe verification and transactions at over 4000 RBC ATMs.",
-      "Investigated and resolved 22 critical security vulnerabilities in the codebase caused by specific Maven dependencies, twice as fast as estimated by the manager.",
-      "Performed successful migration of legacy SpringBoot applications from Java 8 to Java 17 by rewriting incompatible code components into new syntax and updating sub-dependencies."
+      "Improved Spring Boot APIs supporting mainframe verification and transactions across 4000+ RBC ATMs.",
+      "Fixed 22 critical Maven-related security vulnerabilities in the codebase ahead of schedule.",
+      "Migrated legacy Spring Boot apps from Java 8 to Java 17 by updating code syntax and dependencies."
     ],
     "imageSrc": "history/rbc.png"
   },
@@ -29,9 +30,9 @@
     "startDate": "Jan. 2022",
     "endDate": "Dec. 2022",
     "experiences": [
-      "Developed an automated ETL pipeline to transform custom clinical survey results into a normalized data model in pandas to enable standard data visualization practices.",
-      "Proactively increased the team’s productivity by writing reusable scripts for generating clinical result reports.",
-      "Commended by the team’s manager for exceeding expectations and invited back as a part-time Python developer."
+      "Improved team productivity by creating reusable Python scripts to automate clinical report generation.",
+      "Built an automated ETL pipeline in pandas to transform clinical survey data into a standardized format for visualization.",
+      "Redesigned a legacy WordPress site with a modern tech stack and UX to boost user engagement."
     ],
     "imageSrc": "history/uhn.png"
   },
@@ -42,7 +43,7 @@
     "endDate": "Aug. 2024",
     "experiences": [
       "Courses: CSCC09, CSCC01, CSCB07, MATA32, MATA33, MATA34, MATA36",
-      "Conducted weekly tutorial sessions with over 30 students covering concepts in software engineering, object oriented programming and web development using Java, ReactJS, Node.js, etc."
+      "Mentored 30+ students weekly in Computer Science and Software Engineering fundamentals, focusing on Java, React, and Node.js."
     ],
     "imageSrc": "history/uoft.png"
   }
