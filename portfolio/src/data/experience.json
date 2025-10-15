@@ -18,7 +18,7 @@
     "startDate": "Jan. 2023",
     "endDate": "Apr. 2023",
     "experiences": [
-      "Improved Spring Boot APIs supporting mainframe verification and transactions across 4000+ RBC ATMs.",
+      "Maintained Spring Boot APIs supporting mainframe verification and transactions across 4000+ RBC ATMs.",
       "Fixed 22 critical Maven-related security vulnerabilities in the codebase ahead of schedule.",
       "Migrated legacy Spring Boot apps from Java 8 to Java 17 by updating code syntax and dependencies."
     ],
