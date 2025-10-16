@@ -1,7 +1,7 @@
 ---
 title: 'Blogging? Why and How'
 type: 'text'
-description: 'My first blog'
+description: 'In my first post, I share my reasons for starting a blog and the technical journey of integrating it with my portfolio site using Docker and nginx.'
 pubDate: 'Nov 17 2024'
 heroImage: 'https://pub-8d4c1f26a27d41ffb9985a84b03a8038.r2.dev/blog/1/cover.jpg'
 ---
