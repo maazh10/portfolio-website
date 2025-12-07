@@ -1,0 +1,21 @@
+{
+  "name": "portfolio-website",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "blog",
+    "portfolio"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev --workspace=blog\" \"npm run dev --workspace=portfolio\"",
+    "build": "npm run build --workspaces",
+    "preview": "npm run preview --workspaces",
+    "blog:dev": "npm run dev --workspace=blog",
+    "blog:build": "npm run build --workspace=blog",
+    "portfolio:dev": "npm run dev --workspace=portfolio",
+    "portfolio:build": "npm run build --workspace=portfolio"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
