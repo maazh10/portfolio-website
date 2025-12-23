@@ -101,7 +101,7 @@ export const Interests = () => {
                             <div className={styles.interestItemText}>
                                 <h3>🏀 Sports</h3>
                                 <p>
-                                    I've always enjoyed playing sports, mainly basketball. I've been playing recreationally since around 2017, usually focusing on wing defense and shooting threes or midrange and corner jump shots. I'm also a big fan of watching sports—mainly the NBA, the Champions League, and occasionally some NHL.
+                                    I've always enjoyed playing sports, mainly basketball. I've been playing recreationally since around 2017, usually focusing on wing defense and shooting threes or midrange and corner jump shots. I'm also a big fan of watching sports, mainly the NBA, the Champions League, and occasionally some NHL.
                                     Back in the 2014-2019 era, I was a huge FC Barcelona fan, and Lionel Messi has always been my favorite player. In the NBA, I rep the Toronto Raptors to support my city, but I also cheer for the Golden State Warriors. Some of my favorite players include Stephen Curry, Luka Dončić, and Kyrie Irving.
                                 </p>
                             </div>
@@ -141,7 +141,7 @@ export const Interests = () => {
                             <div className={styles.interestItemText}>
                                 <h3>📺 TV Shows/Movies</h3>
                                 <p>
-                                    In some of my free time, I enjoy watching TV shows and movies across a variety of genres, with a preference for action, comedy, drama, and sci-fi. My all-time favorite TV show is Silicon Valley because of how relatable it is to my career. Some of my other favorites include How I Met Your Mother, Breaking Bad, Money Heist, and Black Mirror. As for movies, My all-time favorite movie is Interstellar. I also love The Dark Knight trilogy, The Avengers: Infinity War, and Spider-Man: No Way Home.
+                                    In some of my free time, I enjoy watching TV shows and movies across a variety of genres, with a preference for thriller, comedy, drama, and sci-fi. My all-time favorite TV show is Silicon Valley because of how relatable it is to my career. Some of my other favorites include How I Met Your Mother, Breaking Bad, Money Heist, and Black Mirror. As for movies, My favorite movie is Interstellar. I also love The Dark Knight trilogy, The Avengers: Infinity War, and Spider-Man: No Way Home.
                                 </p>
                             </div>
                             <div className={styles.imageSlider}>
@@ -167,7 +167,7 @@ export const Interests = () => {
                             <div className={styles.interestItemText}>
                                 <h3>🏞️ Exploring</h3>
                                 <p>
-                                    And lastly, one of my favorite hobbies is just spending time outdoors. I enjoy going for drives, walks, hikes, and bike rides, and I love exploring new places. Whether it's relaxing by a lake, strolling through a park, immersing myself in nature, or biking through the city after taking the train downtown—I find joy in it all. I also love capturing photos and videos of the places I visit and sharing them with friends and family. I often travel with loved ones, mostly within Canada. So far, I've been to Montreal, Ottawa, Kingston, Calgary, Banff, Niagara Falls, and Blue Mountain. In early 2025, I also had the chance to travel to Europe, where I visited London, Paris, and drove through some countryside in Northern England.
+                                    And lastly, one of my favorite hobbies is just spending time outdoors. I enjoy going for drives, walks, hikes, and bike rides, and I love exploring new places. Whether it's relaxing by a lake, strolling through a park, immersing myself in nature, or biking through the city after taking the train downtown, I find joy in all of it. I also love capturing photos and videos of the places I visit and sharing them with friends and family. I've been to quite a few places by road within Canada such as Montreal, Ottawa, Kingston, Calgary, Banff, Niagara Falls, and Blue Mountain. In early 2025, I also had the chance to travel to Europe, where I visited London, Paris, and drove through some countryside in Northern England.
                                 </p>
                             </div>
                             <div className={styles.imageSlider}>
