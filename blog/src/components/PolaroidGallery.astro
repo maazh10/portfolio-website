@@ -1,0 +1,151 @@
+---
+interface Props {
+  images: Array<{
+    src: string;
+    alt: string;
+  }>;
+}
+
+const { images } = Astro.props;
+
+const shuffledImages = [...images].sort(() => Math.random() - 0.5);
+---
+
+<div class="gallery-container">
+  {
+    shuffledImages.map((image, index) => (
+      <a
+        href={image.src}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="polaroid-item"
+        style={`--delay: ${index * 0.05}s`}
+      >
+        <img src={image.src} alt={image.alt} loading="lazy" />
+      </a>
+    ))
+  }
+</div>
+
+<style>
+  .gallery-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    padding: 2rem 1rem;
+    perspective: 1000px;
+    justify-content: center;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .polaroid-item {
+    aspect-ratio: 1;
+    display: block;
+    background: white;
+    padding: 12px;
+    border: 1px solid #2a2a2a;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transform: rotate(var(--rotation, 0deg));
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    cursor: pointer;
+    animation: fadeInUp 0.6s ease-out backwards;
+    animation-delay: var(--delay, 0s);
+  }
+
+  .polaroid-item:nth-child(1) {
+    --rotation: -3.5deg;
+  }
+  .polaroid-item:nth-child(2) {
+    --rotation: 2.1deg;
+  }
+  .polaroid-item:nth-child(3) {
+    --rotation: -1.8deg;
+  }
+  .polaroid-item:nth-child(4) {
+    --rotation: 3.2deg;
+  }
+  .polaroid-item:nth-child(5) {
+    --rotation: -2.3deg;
+  }
+  .polaroid-item:nth-child(6) {
+    --rotation: 1.5deg;
+  }
+  .polaroid-item:nth-child(7) {
+    --rotation: -2.8deg;
+  }
+  .polaroid-item:nth-child(8) {
+    --rotation: 2.7deg;
+  }
+  .polaroid-item:nth-child(9) {
+    --rotation: -1.2deg;
+  }
+  .polaroid-item:nth-child(10) {
+    --rotation: 3.1deg;
+  }
+  .polaroid-item:nth-child(11) {
+    --rotation: -2.5deg;
+  }
+  .polaroid-item:nth-child(12) {
+    --rotation: 1.9deg;
+  }
+  .polaroid-item:nth-child(13) {
+    --rotation: -3deg;
+  }
+  .polaroid-item:nth-child(14) {
+    --rotation: 2.4deg;
+  }
+  .polaroid-item:nth-child(15) {
+    --rotation: -1.5deg;
+  }
+  .polaroid-item:nth-child(16) {
+    --rotation: 2.9deg;
+  }
+  .polaroid-item:nth-child(17) {
+    --rotation: -2.1deg;
+  }
+
+  .polaroid-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .polaroid-item:hover {
+    transform: rotate(0deg) translateY(-15px) scale(1.05);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+    z-index: 10;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px) rotate(var(--rotation, 0deg));
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) rotate(var(--rotation, 0deg));
+    }
+  }
+
+  @media (max-width: 768px) {
+    .gallery-container {
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1.5rem;
+      padding: 1.5rem 0.5rem;
+    }
+
+    .polaroid-item {
+      padding: 10px;
+      border: 1px solid #2a2a2a;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .gallery-container {
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 1rem;
+    }
+  }
+</style>
