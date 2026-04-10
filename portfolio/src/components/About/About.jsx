@@ -19,13 +19,13 @@ export const About = () => {
             <div className={styles.aboutItemText}>
               <h3>About Me</h3>
               <p>
-                 Hello 👋 I am a software developer and recent grad based in Toronto, Ontario. I graduated from the University of Toronto in June 2024 with a major in Computer Science and I currently work as a Software Developer at Electric Mind. I was born and raised in Pakistan and moved to Canada in 2016. I ended off middle school, and completed my high school diploma in Winnipeg, Manitoba where I spent around 6 years of my life. I moved to Toronto to attend university in 2021 and have been living here ever since. In my free time, I like to play basketball 🏀, listen to music 🎶, watch TV shows 📺, read interesting articles and blogs 📖, and explore the world 🌎.
+                 Hello 👋 I am a software developer and recent grad based in Toronto, Ontario. I graduated from the University of Toronto in June 2024 with a major in Computer Science and I currently work as a Software Engineer full-time. I was born and raised in Pakistan and moved to Canada in 2016. I ended off middle school, and completed my high school diploma in Winnipeg, Manitoba where I spent around 6 years of my life. I moved to Toronto to attend university in 2021 and have been living here ever since. In my free time, I like to do some casual photography, play basketball, listen to music, watch TV or movies, read interesting articles and blogs, and explore the world.
               </p>
               <p>
-                I have a keen interest in building innovative software and solving complex problems, particularly on the web. I have a broad range of school and professional experiences in full-stack web development, data transformation and manipulation, cloud automation and DevOps, networking and security, as well as designing complex software architectures. 👨🏽‍💻
+                I have a keen interest in building innovative software and solving complex problems, particularly on the web. I have a broad range of school and professional experiences in full-stack web development, data transformation and manipulation, cloud automation and DevOps, networking and security, as well as designing complex software architectures.
               </p>
               <p>
-                I'm extremely knowledge-driven, inspired by cutting-edge technologies, and I'm eager to grow and utilize my skills to make a positive impact on the world. ✨
+                I'm knowledge-driven, inspired by cutting-edge technologies, and I'm eager to grow and utilize my skills to make a positive impact on the world.
               </p>
             </div>
           </li>
@@ -34,7 +34,7 @@ export const About = () => {
             <div className={styles.aboutItemText}>
               <h3>Student</h3>
               <p>
-                I am a recent graduate from the University of Toronto with a Bachelor's of Science
+                I am a graduate from the University of Toronto with a Bachelor's of Science
                 majoring in Computer Science and specializing in Software Engineering.
               </p>
             </div>
@@ -44,7 +44,7 @@ export const About = () => {
             <div className={styles.aboutItemText}>
               <h3>Software Developer</h3>
               <p>
-                I currently work at Electric Mind (prev. Intelliware) as a Junior Software Developer. As a student I completed two 4 month co-ops as a Software Engineer at UHN and RBC. I have experience as both a frontend and backend web developer building responsive
+                I currently work at Electric Mind as a Software Developer. As a student I completed two 4 month co-ops as a Software Engineer at UHN and RBC. I have experience as both a frontend and backend web developer building responsive
                 sites as well as fast and optimized back-end systems and APIs. I'm also experienced in
                 object oriented programming, design principles, functional programming, and software architecture.
               </p>
@@ -55,8 +55,7 @@ export const About = () => {
             <div className={styles.aboutItemText}>
               <h3>Teaching Assistant</h3>
               <p>
-                During my time at UofT, I served as a teaching assistant for multiple courses and have
-                helped students understand complex topics in computer science such as
+                During my time at UofT, I served as a teaching assistant for multiple courses and assisted students in understanding complex topics in computer science such as
                 object-oriented programming, software engineering principles,
                 web development, and more.
               </p>
