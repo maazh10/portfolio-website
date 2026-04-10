@@ -1,0 +1,156 @@
+---
+interface Props {
+  images: Array<{
+    src: string;
+    alt: string;
+  }>;
+  columns?: number;
+}
+
+const { images, columns = 3 } = Astro.props;
+const galleryId = `masonry-${Math.random().toString(36).slice(2, 8)}`;
+---
+
+<div class="masonry-gallery" id={galleryId} style={`--columns: ${columns}`}>
+  {
+    images.map((image, index) => (
+      <a
+        href={image.src}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="masonry-item"
+        style={`--delay: ${index * 0.04}s`}
+      >
+        <img src={image.src} alt={image.alt} loading="lazy" />
+      </a>
+    ))
+  }
+</div>
+
+<style>
+  .masonry-gallery {
+    position: relative;
+    padding: 2rem 1rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .masonry-item {
+    position: absolute;
+    display: block;
+    overflow: hidden;
+    border-radius: 3px;
+    cursor: pointer;
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                filter 0.4s ease;
+  }
+
+  .masonry-item.visible {
+    animation: fadeIn 0.5s ease-out forwards;
+    animation-delay: var(--delay, 0s);
+  }
+
+  .masonry-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: brightness(0.97);
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                filter 0.4s ease;
+  }
+
+  .masonry-item:hover img {
+    transform: scale(1.03);
+    filter: brightness(1.03);
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<script define:vars={{ galleryId, defaultColumns: columns }}>
+  function getColumnCount() {
+    const w = window.innerWidth;
+    if (w <= 480) return 1;
+    if (w <= 900) return 2;
+    return defaultColumns;
+  }
+
+  function layout() {
+    const gallery = document.getElementById(galleryId);
+    if (!gallery) return;
+
+    const items = Array.from(gallery.querySelectorAll('.masonry-item'));
+    const gap = 12;
+    const cols = getColumnCount();
+    const totalWidth = gallery.clientWidth;
+    const colWidth = (totalWidth - gap * (cols - 1)) / cols;
+
+    const colHeights = Array(cols).fill(0);
+
+    items.forEach((item) => {
+      const minHeight = Math.min(...colHeights);
+      const colIndex = colHeights.indexOf(minHeight);
+
+      const x = colIndex * (colWidth + gap);
+      const y = colHeights[colIndex];
+
+      item.style.width = `${colWidth}px`;
+      item.style.left = `${x}px`;
+      item.style.top = `${y}px`;
+
+      colHeights[colIndex] += item.offsetHeight + gap;
+    });
+
+    gallery.style.height = `${Math.max(...colHeights)}px`;
+  }
+
+  function init() {
+    const gallery = document.getElementById(galleryId);
+    if (!gallery) return;
+
+    const items = Array.from(gallery.querySelectorAll('.masonry-item'));
+    const images = items.map((item) => item.querySelector('img'));
+
+    let loaded = 0;
+    const total = images.length;
+
+    function onLoad() {
+      loaded++;
+      layout();
+      if (loaded === total) {
+        items.forEach((item) => item.classList.add('visible'));
+      }
+    }
+
+    images.forEach((img) => {
+      if (img.complete) {
+        onLoad();
+      } else {
+        img.addEventListener('load', onLoad);
+        img.addEventListener('error', onLoad);
+      }
+    });
+
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(layout, 100);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+</script>
