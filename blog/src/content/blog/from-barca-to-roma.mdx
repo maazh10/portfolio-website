@@ -1,0 +1,24 @@
+---
+title: 'From Barça to Roma'
+type: 'photo'
+description: "Photo montage from vibrant Catalan colors to ancient Roman wonders."
+pubDate: 'Apr 09 2026'
+heroImage: 'https://pub-8d4c1f26a27d41ffb9985a84b03a8038.r2.dev/blog/7/cover.jpg'
+---
+
+import MasonryGallery from '../../components/MasonryGallery.astro';
+
+
+# Barcelona
+<br></br>
+<MasonryGallery images={Array.from({ length: 40 }, (_, i) => ({
+  src: `https://pub-8d4c1f26a27d41ffb9985a84b03a8038.r2.dev/blog/7/bcn/${i + 1}.JPG`,
+  alt: `Photo ${i + 1}`
+}))} />
+
+# Rome
+<br></br>
+<MasonryGallery images={Array.from({ length: 49 }, (_, i) => ({
+  src: `https://pub-8d4c1f26a27d41ffb9985a84b03a8038.r2.dev/blog/7/rome/${i + 1}.JPG`,
+  alt: `Photo ${i + 1}`
+}))} />
