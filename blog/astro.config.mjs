@@ -6,7 +6,9 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://maazh.tech',
-	base: process.env.NODE_ENV === 'production' ? '/blog' : '',
+	// This app now serves the homepage at `/` and the blog at `/blog`.
+	// Keeping `base` empty ensures routes are generated correctly in production.
+	base: '',
 	integrations: [
 		mdx(),
 		sitemap(),
