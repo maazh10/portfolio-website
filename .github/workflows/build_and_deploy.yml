@@ -19,7 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Build portfolio image (Astro)
+      - name: Build portfolio image
         run: docker build . --file Dockerfile --tag $PORTFOLIO_IMAGE_NAME
 
       - name: Log into GitHub Container Registry
