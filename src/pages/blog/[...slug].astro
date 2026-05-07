@@ -15,7 +15,15 @@ const post = Astro.props;
 const { Content } = await post.render();
 ---
 
-<BlogPost {...post.data}>
-  <Content />
-</BlogPost>
+<div class="blog-container">
+  <BlogPost {...post.data}>
+    <Content />
+  </BlogPost>
+</div>
+
+<style>
+  .blog-container {
+    margin-top: 70px;
+  }
+</style>
 
