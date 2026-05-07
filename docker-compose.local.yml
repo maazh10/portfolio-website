@@ -9,7 +9,7 @@ services:
 
   portfolio:
     build:
-      context: ./blog
+      context: .
       dockerfile: Dockerfile
     container_name: portfolio-local
     restart: always

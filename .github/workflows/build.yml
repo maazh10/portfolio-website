@@ -20,7 +20,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Build portfolio image (Astro)
-        run: docker build blog/ --file blog/Dockerfile --tag $PORTFOLIO_IMAGE_NAME
+        run: docker build . --file Dockerfile --tag $PORTFOLIO_IMAGE_NAME
 
       - name: Log into GitHub Container Registry
         run: echo "${{ secrets.CR_PAT }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
