@@ -1,6 +1,6 @@
 # maazh.tech
 
-Personal site built with [Astro](https://astro.build): portfolio home page at `/` and blog posts at `/blog`.
+Personal site built with [Astro](https://astro.build)
 
 **Live:** https://maazh.tech  
 
@@ -23,7 +23,5 @@ npm run preview
 Static site is built in the `Dockerfile` and served with nginx. For local proxy testing:
 
 ```bash
-docker compose -f docker-compose.local.yml up --build
+docker-compose up
 ```
-
-Production deploy uses `docker-compose.yml` on a VM behind `jwilder/nginx-proxy` (see `.github/workflows/build.yml`).
