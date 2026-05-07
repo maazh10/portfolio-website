@@ -1,0 +1,74 @@
+[
+  {
+    "title": "This Website",
+    "skills": ["AstroJS", "Docker", "Google Cloud"],
+    "description": [
+      "Designed and shipped a personal site to showcase work, writing, and photography in one place.",
+      "Containerized the build and deployed with a repeatable pipeline for easy updates."
+    ],
+    "source": "https://github.com/maazh10/portfolio-website"
+  },
+  {
+    "title": "Langchain - Open Source Contribution",
+    "skills": ["Python"],
+    "description": [
+      "Extended parsing so more languages could be indexed for RAG-style workflows.",
+      "Collaborated via review feedback until the change landed in the main project."
+    ],
+    "source": "https://github.com/langchain-ai/langchain/pull/13318"
+  },
+  {
+    "title": "Weast",
+    "skills": ["Python", "SQLite", "AWS", "Docker", "OpenAI"],
+    "description": [
+      "Built a Discord bot used day-to-day by a mid-size community.",
+      "Experimented with different APIs and integrations to enhance the bot's functionality."
+    ],
+    "source": "https://github.com/maazh10/KanyeWeast"
+  },
+  {
+    "title": "Scholarly",
+    "skills": ["Next.js", "Node", "Express", "PostgreSQL", "TypeScript"],
+    "description": [
+      "Prototype for scheduling live tutoring sessions with real-time-friendly flows.",
+      "Backed by a relational schema for users, bookings, and availability."
+    ],
+    "source": "https://github.com/maazh10/scholarly"
+  },
+  {
+    "title": "Urban Translate",
+    "skills": ["React Native", "Expo", "Node", "Express"],
+    "description": [
+      "Mobile app concept for turning informal slang into plain language.",
+      "Explored NLP-backed flows with a small Node API behind the client."
+    ],
+    "source": "https://github.com/maazh10/scholarly"
+  },
+  {
+    "title": "Promedio",
+    "skills": ["React", "Node", "Express", "MongoDB"],
+    "description": [
+      "Grade and GPA tracking for students who want a single place for progress.",
+      "CRUD-heavy UI with validation so term data does not get out of sync."
+    ],
+    "source": "https://github.com/maazh10/promedio"
+  },
+  {
+    "title": "SpideyBot",
+    "skills": ["Python", "tkinter", "socket", "rsa", "tcp/udp"],
+    "description": [
+      "Chat-style client experimenting with raw sockets over TCP and UDP.",
+      "Layered RSA ideas for toy end-to-end messaging between peers."
+    ],
+    "source": "https://github.com/maazh10/SpideyBot"
+  },
+  {
+    "title": "CartMax",
+    "skills": ["Java", "Android Studio", "Firebase", "Mockito"],
+    "description": [
+      "Android grocery-ordering flow aimed at peak pandemic constraints.",
+      "Firebase for auth and data with Mockito-backed unit tests on core logic."
+    ],
+    "source": "https://github.com/maazh10/CartMax"
+  }
+]
