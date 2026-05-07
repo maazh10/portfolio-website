@@ -27,22 +27,12 @@ services:
     volumes_from:
       - nginx-proxy 
 
-  portfolio:
-    image: ghcr.io/maazh10/portfolio:latest
-    container_name: portfolio
+  portfolio-app:
+    image: ghcr.io/maazh10/portfolio-app:latest
+    container_name: portfolio-app
     restart: always
     expose:
       - 80
     environment:
       - VIRTUAL_HOST=maazh.tech
       - LETSENCRYPT_HOST=maazh.tech
-
-  blog:
-    image: ghcr.io/maazh10/blog:latest
-    container_name: blog
-    restart: always
-    expose:
-      - 80
-    environment:
-      - VIRTUAL_HOST=maazh.tech
-      - VIRTUAL_PATH=/blog

@@ -1,0 +1,61 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+env:
+  PORTFOLIO_IMAGE_NAME: portfolio-app
+
+jobs:
+  push:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build portfolio image
+        run: docker build . --file Dockerfile --tag $PORTFOLIO_IMAGE_NAME
+
+      - name: Log into GitHub Container Registry
+        run: echo "${{ secrets.CR_PAT }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Push portfolio image to GitHub Container Registry
+        run: |
+          PORTFOLIO_IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$PORTFOLIO_IMAGE_NAME
+          PORTFOLIO_IMAGE_ID=$(echo $PORTFOLIO_IMAGE_ID | tr '[A-Z]' '[a-z]')
+          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
+          [ "$VERSION" == "main" ] && VERSION=latest
+          echo "Tagging image: $PORTFOLIO_IMAGE_NAME as $PORTFOLIO_IMAGE_ID:$VERSION"
+          docker tag $PORTFOLIO_IMAGE_NAME $PORTFOLIO_IMAGE_ID:$VERSION
+          docker images | grep portfolio
+          echo "Pushing image: $PORTFOLIO_IMAGE_ID:$VERSION"
+          docker push $PORTFOLIO_IMAGE_ID:$VERSION
+
+      - name: Copy docker-compose.yml to Google Cloud VM
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          source: "docker-compose.yml"
+          target: "portfolio-website/"
+
+      - name: Pull images and restart containers on Google Cloud VM
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          script: |
+            cd portfolio-website
+            echo "${{ secrets.CR_PAT }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+            docker-compose down --remove-orphans
+            docker-compose pull
+            docker-compose up -d

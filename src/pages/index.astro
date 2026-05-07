@@ -1,0 +1,544 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import education from "../data/education.json";
+import experience from "../data/experience.json";
+import projects from "../data/projects.json";
+import socials from "../data/socials.json";
+
+const cdnBase =
+  "https://pub-8d4c1f26a27d41ffb9985a84b03a8038.r2.dev/portfolio/";
+const heroCarouselUrls = Array.from(
+  { length: 6 },
+  (_, i) => `${cdnBase}hero/hero${i + 1}.jpg`,
+);
+const heroImageOg = heroCarouselUrls[0];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FM09DN20X0"
+    ></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-FM09DN20X0");
+    </script>
+    <BaseHead
+      title={SITE_TITLE}
+      description={SITE_DESCRIPTION}
+      image={heroImageOg}
+    />
+    <style>
+      main {
+        width: 960px;
+        max-width: calc(100% - 2em);
+        margin: auto;
+        padding: 6.5rem 1em 3em;
+      }
+
+      .pill {
+        display: inline-flex;
+        gap: 0.6rem;
+        align-items: center;
+        padding: 0.35rem 0.7rem;
+        border-radius: 999px;
+        border: 1px solid rgba(var(--gray), 20%);
+        background: rgba(var(--gray-light), 18%);
+        color: var(--text-muted);
+        font-size: 0.8rem;
+      }
+      [data-theme="dark"] .pill {
+        background: rgba(var(--gray-dark), 40%);
+        border-color: rgba(var(--gray-light), 12%);
+      }
+      .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: var(--accent);
+        box-shadow: 0 0 14px rgba(74, 94, 255, 0.35);
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        align-items: center;
+      }
+      .hero h1 {
+        font-size: 2.4em;
+        letter-spacing: -0.02em;
+      }
+      .accent {
+        color: var(--accent);
+      }
+      .lead {
+        color: var(--text-muted);
+        max-width: 34rem;
+        margin-top: 0.75rem;
+      }
+      .cta {
+        display: flex;
+        gap: 0.75rem;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-top: 1.25rem;
+        font-size: 0.9rem;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.7rem 1.1rem;
+        border-radius: 999px;
+        border: 1px solid rgba(var(--gray), 22%);
+        text-decoration: none;
+        color: var(--text-secondary);
+        background: rgba(var(--gray-light), 16%);
+        transition:
+          transform 0.2s ease,
+          border-color 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+      [data-theme="dark"] .btn {
+        background: rgba(var(--gray-dark), 35%);
+      }
+      .btn.primary {
+        background: var(--accent);
+        border-color: transparent;
+        color: white;
+        box-shadow: 0 0 22px rgba(74, 94, 255, 0.22);
+      }
+      [data-theme="dark"] .btn.primary {
+        background: var(--accent);
+        border-color: transparent;
+        color: white;
+      }
+      .btn:hover {
+        transform: translateY(-1px);
+        box-shadow: var(--box-shadow);
+      }
+
+      .heroImage {
+        --hero-frame-max-height: 70vh;
+        position: relative;
+        box-sizing: border-box;
+        /* 3:4 frame; cap height ~viewport so it’s large but not overwhelming */
+        width: min(100%, calc(var(--hero-frame-max-height) * 3 / 4));
+        max-width: 100%;
+        max-height: var(--hero-frame-max-height);
+        margin-inline: auto;
+        aspect-ratio: 3 / 4;
+        border-radius: 14px;
+        overflow: hidden;
+        border: 1px solid rgba(var(--gray), 18%);
+        box-shadow: 0 18px 48px rgba(var(--black), 25%);
+        background: rgba(var(--gray-dark), 0.12);
+      }
+      [data-theme="dark"] .heroImage {
+        background: rgba(0, 0, 0, 0.25);
+      }
+      .heroImage img.heroImage-layer {
+        position: absolute;
+        inset: 0;
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 0;
+        opacity: 0;
+        z-index: 1;
+        transition: opacity 0.65s ease-in-out;
+        will-change: opacity;
+      }
+      .heroImage img.heroImage-layer.is-active {
+        opacity: 1;
+        z-index: 2;
+      }
+
+      .section {
+        margin-top: 4.5rem;
+      }
+      .sectionHeader {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 1.25rem;
+      }
+      .sectionHeader p {
+        margin: 0;
+        color: var(--text-muted);
+        font-size: 0.8em;
+      }
+
+      .grid2 {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .card {
+        background: rgba(var(--gray-light), 16%);
+        border: 1px solid rgba(var(--gray), 18%);
+        border-radius: 14px;
+        padding: 1.25rem;
+        transition:
+          transform 0.25s ease,
+          box-shadow 0.25s ease,
+          border-color 0.25s ease;
+      }
+      [data-theme="dark"] .card {
+        background: rgba(var(--gray-dark), 35%);
+        border-color: rgba(var(--gray-light), 10%);
+      }
+      .card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 18px 50px rgba(var(--black), 18%);
+        border-color: rgba(var(--gray), 28%);
+      }
+      .meta {
+        color: var(--text-muted);
+        font-size: 0.75em;
+        margin-top: 0.1rem;
+      }
+      .bullets {
+        margin: 0.75rem 0 0;
+        padding-left: 1.1rem;
+      }
+      .bullets li {
+        margin-bottom: 0.35rem;
+      }
+
+      .cardLink {
+        display: inline-block;
+        margin-top: 0.5rem;
+        font-size: 0.8em;
+        font-weight: 500;
+        color: var(--accent);
+        text-decoration: none;
+      }
+      .cardLink:hover {
+        text-decoration: underline;
+      }
+
+      .socialRow {
+        display: flex;
+        gap: 0.65rem;
+        flex-wrap: wrap;
+        margin-top: 1.1rem;
+      }
+      .socialRow a {
+        width: 2.4rem;
+        height: 2.4rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        border: 1px solid rgba(var(--gray), 22%);
+        background: rgba(var(--gray-light), 16%);
+        color: var(--text-secondary);
+        text-decoration: none;
+        transition:
+          transform 0.2s ease,
+          border-color 0.2s ease,
+          color 0.2s ease;
+      }
+      .socialRow a:hover {
+        transform: translateY(-1px);
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+      [data-theme="dark"] .socialRow a {
+        background: rgba(var(--gray-dark), 35%);
+      }
+
+      @media (min-width: 980px) {
+        main {
+          width: 1200px;
+        }
+        .hero {
+          grid-template-columns: 5fr 7fr;
+          gap: 2.25rem;
+        }
+        .grid2 {
+          grid-template-columns: 1fr 1fr;
+          gap: 1.25rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <section class="hero">
+        <div>
+          <div class="pill">
+            <span class="dot"></span>
+            <span>System.out.println("Hello World");</span>
+          </div>
+          <h1>
+            I'm <span class="accent">Maaz</span>.
+          </h1>
+          <p class="lead">
+            I'm a software engineer and hobbyist photographer who enjoys
+            building things and solving complex problems at scale. I strive to
+            make positive impact in the world inside and outside of my career.
+            In my free time, I like to explore the world and capture everything
+            from landscapes to architecture through my lens.
+          </p>
+          <div class="cta">
+            <a class="btn primary" href="/blog">Read the blog →</a>
+            <a
+              class="btn"
+              href="https://github.com/maazh10/resume/blob/main/resume.pdf"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Resume
+            </a>
+          </div>
+          <div class="socialRow">
+            <a
+              href={socials.linkedin}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="LinkedIn"
+            >
+              <svg viewBox="0 0 16 16" aria-hidden="true" width="18" height="18"
+                ><path
+                  fill="currentColor"
+                  d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"
+                ></path></svg
+              >
+            </a>
+            <a
+              href={socials.github}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="GitHub"
+            >
+              <svg viewBox="0 0 16 16" aria-hidden="true" width="18" height="18"
+                ><path
+                  fill="currentColor"
+                  d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
+                ></path></svg
+              >
+            </a>
+            <a
+              href={socials.instagram}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Instagram"
+            >
+              <svg viewBox="0 0 16 16" aria-hidden="true" width="18" height="18"
+                ><path
+                  fill="currentColor"
+                  d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"
+                ></path></svg
+              >
+            </a>
+            <a
+              href={socials.spotify}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Spotify"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18"
+                ><path
+                  fill="currentColor"
+                  d="M12 0C5.372 0 0 5.373 0 12s5.372 12 12 12c6.627 0 12-5.373 12-12S18.627 0 12 0zm5.506 17.307a.75.75 0 0 1-1.032.247c-2.829-1.729-6.389-2.121-10.58-1.167a.75.75 0 1 1-.333-1.463c4.59-1.045 8.52-.602 11.694 1.338a.75.75 0 0 1 .251 1.045zm1.474-3.282a.938.938 0 0 1-1.29.309c-3.238-1.991-8.171-2.568-11.999-1.405a.938.938 0 0 1-.546-1.793c4.373-1.33 9.81-.688 13.528 1.598.441.271.578.848.307 1.291zm.127-3.418C15.23 8.302 8.81 8.092 5.108 9.214a1.125 1.125 0 1 1-.653-2.153c4.25-1.287 11.319-1.038 15.83 1.644a1.125 1.125 0 1 1-1.178 1.902z"
+                ></path></svg
+              >
+            </a>
+            <a href={socials.email} aria-label="Email">
+              <svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18"
+                ><path
+                  fill="currentColor"
+                  d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 3.236-8 5.334-8-5.334V6l8 5.333L20 6v1.236z"
+                ></path></svg
+              >
+            </a>
+          </div>
+        </div>
+
+        <div class="heroImage">
+          <img
+            class="heroImage-layer heroImage-layer--a is-active"
+            src={heroCarouselUrls[0]}
+            alt="Portrait photo"
+            loading="eager"
+            decoding="async"
+          />
+          <img
+            class="heroImage-layer heroImage-layer--b"
+            src={heroCarouselUrls[0]}
+            alt=""
+            aria-hidden="true"
+            loading="eager"
+            decoding="async"
+          />
+        </div>
+      </section>
+
+      <section class="section" id="experience">
+        <div class="sectionHeader">
+          <h2>Experience</h2>
+          <p>What I’ve been working on.</p>
+        </div>
+        <div class="grid2">
+          {
+            experience.slice(0, 4).map((job) => (
+              <article class="card">
+                <h3>{job.organisation}</h3>
+                <div class="meta">
+                  {job.role} · {job.startDate} — {job.endDate}
+                </div>
+                <ul class="bullets">
+                  {job.experiences.slice(0, 3).map((line) => (
+                    <li>{line}</li>
+                  ))}
+                </ul>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <section class="section" id="education">
+        <div class="sectionHeader">
+          <h2>Education</h2>
+          <p>Where I studied.</p>
+        </div>
+        <div class="grid2">
+          {
+            education.map((ed) => (
+              <article class="card">
+                <h3>{ed.school}</h3>
+                <div class="meta">
+                  {ed.degree} · {ed.startDate} — {ed.endDate}
+                </div>
+                <ul class="bullets">
+                  {ed.desc.map((line) => (
+                    <li>{line}</li>
+                  ))}
+                </ul>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <section class="section" id="projects">
+        <div class="sectionHeader">
+          <h2>Projects</h2>
+          <p>What I've built.</p>
+        </div>
+        <div class="grid2">
+          {
+            projects.map((project) => (
+              <article class="card">
+                <h3>{project.title}</h3>
+                <div class="meta">{project.skills.join(" / ")}</div>
+                <ul class="bullets">
+                  {project.description.map((line) => (
+                    <li>{line}</li>
+                  ))}
+                </ul>
+                <a
+                  class="cardLink"
+                  href={project.source}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Source →
+                </a>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+    </main>
+    <Footer />
+    <script is:inline define:vars={{ heroCarouselUrls }}>
+      (function () {
+        var urls = heroCarouselUrls;
+        if (!urls || urls.length < 2) return;
+        var root = document.querySelector(".heroImage");
+        if (!root) return;
+        var a = root.querySelector(".heroImage-layer--a");
+        var b = root.querySelector(".heroImage-layer--b");
+        if (!a || !b) return;
+        var layers = [a, b];
+        var activeLayer = 0;
+        var urlIndex = 0;
+        var busy = false;
+
+        function setLayerAccessibility(activeIdx) {
+          for (var k = 0; k < 2; k++) {
+            var el = layers[k];
+            if (k === activeIdx) {
+              el.removeAttribute("aria-hidden");
+              el.alt = "Portrait photo";
+            } else {
+              el.setAttribute("aria-hidden", "true");
+              el.alt = "";
+            }
+          }
+        }
+
+        function tick() {
+          if (busy) return;
+          urlIndex = (urlIndex + 1) % urls.length;
+          var u = urls[urlIndex];
+          var incomingIdx = 1 - activeLayer;
+          var inc = layers[incomingIdx];
+          var out = layers[activeLayer];
+          if (inc.src === u || inc.getAttribute("src") === u) {
+            inc.classList.add("is-active");
+            out.classList.remove("is-active");
+            activeLayer = incomingIdx;
+            setLayerAccessibility(activeLayer);
+            return;
+          }
+          busy = true;
+          function finish() {
+            inc.classList.add("is-active");
+            out.classList.remove("is-active");
+            activeLayer = incomingIdx;
+            setLayerAccessibility(activeLayer);
+            busy = false;
+          }
+          function onLoad() {
+            inc.removeEventListener("load", onLoad);
+            inc.removeEventListener("error", onError);
+            finish();
+          }
+          function onError() {
+            inc.removeEventListener("load", onLoad);
+            inc.removeEventListener("error", onError);
+            busy = false;
+          }
+          inc.addEventListener("load", onLoad);
+          inc.addEventListener("error", onError);
+          inc.src = u;
+          if (inc.complete && inc.naturalWidth > 0) {
+            inc.removeEventListener("load", onLoad);
+            inc.removeEventListener("error", onError);
+            finish();
+          }
+        }
+
+        setInterval(tick, 2500);
+      })();
+    </script>
+  </body>
+</html>
