@@ -27,7 +27,7 @@ services:
     volumes_from:
       - nginx-proxy 
 
-  portfolio:
+  portfolio-app:
     image: ghcr.io/maazh10/portfolio-app:latest
     container_name: portfolio-app
     restart: always
