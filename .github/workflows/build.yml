@@ -10,7 +10,6 @@ on:
 
 env:
   PORTFOLIO_IMAGE_NAME: portfolio
-  BLOG_IMAGE_NAME: blog
 
 jobs:
   push:
@@ -19,16 +18,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Build Portfolio Image
-        run: docker build portfolio/ --file portfolio/Dockerfile --tag $PORTFOLIO_IMAGE_NAME
 
-      - name: Build Blog Image
-        run: docker build blog/ --file blog/Dockerfile --tag $BLOG_IMAGE_NAME
+      - name: Build portfolio image (Astro)
+        run: docker build blog/ --file blog/Dockerfile --tag $PORTFOLIO_IMAGE_NAME
 
       - name: Log into GitHub Container Registry
         run: echo "${{ secrets.CR_PAT }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
 
-      - name: Push Portfolio App Image to GitHub Container Registry
+      - name: Push portfolio image to GitHub Container Registry
         run: |
           PORTFOLIO_IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$PORTFOLIO_IMAGE_NAME
           PORTFOLIO_IMAGE_ID=$(echo $PORTFOLIO_IMAGE_ID | tr '[A-Z]' '[a-z]')
@@ -37,16 +34,6 @@ jobs:
           [ "$VERSION" == "main" ] && VERSION=latest
           docker tag $PORTFOLIO_IMAGE_NAME $PORTFOLIO_IMAGE_ID:$VERSION
           docker push $PORTFOLIO_IMAGE_ID:$VERSION
-
-      - name: Push Blog App Image to GitHub Container Registry
-        run: |
-          BLOG_IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$BLOG_IMAGE_NAME
-          BLOG_IMAGE_ID=$(echo $BLOG_IMAGE_ID | tr '[A-Z]' '[a-z]')
-          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
-          [ "$VERSION" == "main" ] && VERSION=latest
-          docker tag $BLOG_IMAGE_NAME $BLOG_IMAGE_ID:$VERSION
-          docker push $BLOG_IMAGE_ID:$VERSION
 
       - name: Copy docker-compose.yml to Google Cloud VM
         uses: appleboy/scp-action@v0.1.7
@@ -57,7 +44,7 @@ jobs:
           source: "docker-compose.yml"
           target: "portfolio-website/"
 
-      - name: Pull Images and Restart Containers on Google Cloud VM
+      - name: Pull images and restart containers on Google Cloud VM
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.HOST }}
@@ -65,6 +52,6 @@ jobs:
           key: ${{ secrets.KEY }}
           script: |
             cd portfolio-website
-            docker-compose down
+            docker-compose down --remove-orphans
             docker-compose pull
             docker-compose up -d

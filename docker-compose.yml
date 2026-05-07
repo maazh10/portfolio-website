@@ -36,13 +36,3 @@ services:
     environment:
       - VIRTUAL_HOST=maazh.tech
       - LETSENCRYPT_HOST=maazh.tech
-
-  blog:
-    image: ghcr.io/maazh10/blog:latest
-    container_name: blog
-    restart: always
-    expose:
-      - 80
-    environment:
-      - VIRTUAL_HOST=maazh.tech
-      - VIRTUAL_PATH=/blog
