@@ -9,12 +9,12 @@ on:
       - main
 
 env:
-  PORTFOLIO_IMAGE_NAME: portfolio
+  PORTFOLIO_IMAGE_NAME: portfolio-app
 
 jobs:
   push:
     runs-on: ubuntu-latest
-    
+
     steps:
       - uses: actions/checkout@v2
 

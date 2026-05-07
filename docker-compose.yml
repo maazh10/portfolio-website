@@ -28,8 +28,8 @@ services:
       - nginx-proxy 
 
   portfolio:
-    image: ghcr.io/maazh10/portfolio:latest
-    container_name: portfolio
+    image: ghcr.io/maazh10/portfolio-app:latest
+    container_name: portfolio-app
     restart: always
     expose:
       - 80
