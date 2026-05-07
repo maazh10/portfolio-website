@@ -140,3 +140,4 @@ dist/
 certs/
 acme/
 vhost/
+html/
