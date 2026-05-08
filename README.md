@@ -1,4 +1,4 @@
-# maazh.tech
+# Personal Portfolio
 
 Personal site built with [Astro](https://astro.build)
 
