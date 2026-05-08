@@ -116,7 +116,8 @@ import { SITE_TITLE } from "../consts";
     }
 
     nav a:hover {
-      color: var(--text-primary);
+      color: var(--accent);
+      font-weight: 600;
       background: color-mix(in srgb, var(--bg-primary) 55%, transparent);
     }
 
@@ -271,5 +272,6 @@ import { SITE_TITLE } from "../consts";
     });
   }
 
+  updateActiveLink();
   document.addEventListener("astro:page-load", updateActiveLink);
 </script>
