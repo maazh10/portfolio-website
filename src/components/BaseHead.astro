@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { ClientRouter } from "astro:transitions";
 
 interface Props {
   title: string;
@@ -30,7 +31,6 @@ const {
 <!-- Font preloads -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
 <link
   href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap"
   rel="stylesheet"
@@ -58,6 +58,8 @@ const {
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image, Astro.url)} />
 
+<ClientRouter />
+
 <!-- Dark Mode Script -->
 <script is:inline>
   (function () {
@@ -81,7 +83,6 @@ const {
         setTheme(savedTheme);
         return;
       }
-
       if (shouldUseDarkMode()) {
         setTheme("dark");
       } else {
@@ -106,16 +107,18 @@ const {
       }
     }, 60000);
 
-    document.addEventListener("DOMContentLoaded", function () {
+    function attachToggleListeners() {
       const toggles = document.querySelectorAll(
-        ".theme-toggle, .theme-toggle-minimal, #theme-toggle"
+        ".theme-toggle, .theme-toggle-minimal, #theme-toggle",
       );
-
       toggles.forEach((toggle) => {
-        if (toggle) {
-          toggle.addEventListener("click", toggleTheme);
-        }
+        // Remove first to avoid double-binding on initial load
+        toggle.removeEventListener("click", toggleTheme);
+        toggle.addEventListener("click", toggleTheme);
       });
-    });
+    }
+
+    document.addEventListener("DOMContentLoaded", attachToggleListeners);
+    document.addEventListener("astro:page-load", attachToggleListeners);
   })();
 </script>
