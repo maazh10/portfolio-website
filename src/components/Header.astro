@@ -213,13 +213,13 @@ import { SITE_TITLE } from "../consts";
     }
 
     .sun-icon {
-      opacity: 1;
+      opacity: 0;
       transform: rotate(0deg);
     }
 
     .moon-icon {
-      opacity: 0;
-      transform: rotate(180deg);
+      opacity: 1;
+      transform: rotate(0deg);
     }
 
     :root[data-theme="dark"] .theme-toggle,
@@ -230,13 +230,13 @@ import { SITE_TITLE } from "../consts";
 
     :root[data-theme="dark"] .sun-icon,
     html[data-theme="dark"] .sun-icon {
-      opacity: 0;
+      opacity: 1;
       transform: rotate(-180deg);
     }
 
     :root[data-theme="dark"] .moon-icon,
     html[data-theme="dark"] .moon-icon {
-      opacity: 1;
+      opacity: 0;
       transform: rotate(0deg);
       color: #ffffff;
     }
