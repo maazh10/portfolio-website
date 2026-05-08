@@ -12,7 +12,6 @@ RUN npm run build
 
 FROM nginx:alpine AS runtime
 
-# Full site at document root: `/` (home) and `/blog/*` (posts), matching Astro `base: ''`.
 COPY --from=build /app/dist /usr/share/nginx/html
 
 EXPOSE 80
