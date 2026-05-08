@@ -468,7 +468,11 @@ const heroImageOg = `${cdnBase}hero/hero3.jpg`;
     </main>
     <Footer />
     <script is:inline define:vars={{ heroCarouselUrls }}>
-      (function () {
+      function initHeroCarousel() {
+        if (window.heroCarouselInterval) {
+          clearInterval(window.heroCarouselInterval);
+        }
+
         var urls = heroCarouselUrls;
         if (!urls || urls.length < 2) return;
         var root = document.querySelector(".heroImage");
@@ -536,8 +540,12 @@ const heroImageOg = `${cdnBase}hero/hero3.jpg`;
           }
         }
 
-        setInterval(tick, 2500);
-      })();
+        window.heroCarouselInterval = setInterval(tick, 2500);
+      }
+
+      initHeroCarousel();
+      
+      document.addEventListener("astro:page-load", initHeroCarousel);
     </script>
   </body>
 </html>
