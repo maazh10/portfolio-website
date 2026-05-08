@@ -1,6 +1,6 @@
 # Personal Portfolio
 
-Personal site built with [Astro](https://astro.build)
+My personal website & blog built with [Astro](https://astro.build)
 
 **Live:** https://maazh.tech  
 
@@ -20,7 +20,7 @@ npm run preview
 
 ## Docker
 
-Static site is built in the `Dockerfile` and served with nginx. For local proxy testing:
+Static site is built using Docker and served with nginx on a Google Cloud VM. For local proxy testing:
 
 ```bash
 docker-compose up
