@@ -260,6 +260,25 @@ const heroImageOg = `${cdnBase}hero/hero3.jpg`;
         background: rgba(var(--gray-dark), 35%);
       }
 
+      .signature {
+        margin-top: 2rem;
+        width: 100px;
+        height: auto;
+        display: none;
+      }
+      .signature-light {
+        display: block;
+      }
+      .signature-dark {
+        display: none;
+      }
+      [data-theme="dark"] .signature-light {
+        display: none;
+      }
+      [data-theme="dark"] .signature-dark {
+        display: block;
+      }
+
       @media (min-width: 980px) {
         main {
           width: 1200px;
@@ -271,6 +290,9 @@ const heroImageOg = `${cdnBase}hero/hero3.jpg`;
         .grid2 {
           grid-template-columns: 1fr 1fr;
           gap: 1.25rem;
+        }
+        .signature {
+          display: block;
         }
       }
     </style>
@@ -366,6 +388,22 @@ const heroImageOg = `${cdnBase}hero/hero3.jpg`;
                 ></path></svg
               >
             </a>
+          </div>
+          <div class="signature">
+            <img
+              class="signature-light"
+              src="https://pub-8d4c1f26a27d41ffb9985a84b03a8038.r2.dev/portfolio/hero/signature_b.png"
+              alt="Signature"
+              loading="lazy"
+              decoding="async"
+            />
+            <img
+              class="signature-dark"
+              src="https://pub-8d4c1f26a27d41ffb9985a84b03a8038.r2.dev/portfolio/hero/signature_w.png"
+              alt="Signature"
+              loading="lazy"
+              decoding="async"
+            />
           </div>
         </div>
 
