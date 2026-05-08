@@ -112,13 +112,15 @@ const {
         ".theme-toggle, .theme-toggle-minimal, #theme-toggle",
       );
       toggles.forEach((toggle) => {
-        // Remove first to avoid double-binding on initial load
         toggle.removeEventListener("click", toggleTheme);
         toggle.addEventListener("click", toggleTheme);
       });
     }
 
     document.addEventListener("DOMContentLoaded", attachToggleListeners);
-    document.addEventListener("astro:page-load", attachToggleListeners);
+    document.addEventListener("astro:page-load", () => {
+      attachToggleListeners();
+      applyTheme();
+    });
   })();
 </script>
