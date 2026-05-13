@@ -18,7 +18,8 @@
     0 16px 32px rgba(var(--gray), 33%);
 
   /* Light mode colors */
-  --bg-primary: #f8f8ff;
+  --bg-color: #f8f8ff;
+  --bg-primary: var(--bg-color);
   --bg-secondary: linear-gradient(var(--gray-gradient)) no-repeat;
   --text-primary: rgb(var(--gray-dark));
   --text-secondary: rgb(var(--black));
@@ -31,6 +32,7 @@
 /* Dark mode colors */
 [data-theme="dark"] {
   --accent: #4a5eff;
+  --bg-color: #0a0a0f;
   --bg-primary: linear-gradient(135deg, #0a0a0f, #111827, #1e293b);
   --bg-secondary: linear-gradient(rgba(40, 40, 40, 0.5), #1a1a1a) no-repeat;
   --text-primary: #e0e0e0;
@@ -46,16 +48,30 @@ body {
   margin: 0;
   padding: 0;
   text-align: left;
-  background: var(--bg-primary);
+  background-color: var(--bg-color);
+  background-image: var(--bg-primary);
+  background-attachment: fixed;
   word-wrap: break-word;
   overflow-wrap: break-word;
   color: var(--text-primary);
   font-size: 20px;
   line-height: 1.7;
   transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
+
+/* Optimize View Transitions */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 200ms;
+}
+
+[data-theme="dark"]::view-transition-old(root),
+[data-theme="dark"]::view-transition-new(root) {
+  animation-duration: 200ms;
+}
+
 main {
   width: 720px;
   max-width: calc(100% - 2em);

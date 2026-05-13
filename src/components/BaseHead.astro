@@ -117,10 +117,10 @@ const {
       });
     }
 
-    document.addEventListener("DOMContentLoaded", attachToggleListeners);
-    document.addEventListener("astro:page-load", () => {
-      attachToggleListeners();
-      applyTheme();
-    });
+    applyTheme();
+
+    document.addEventListener("astro:after-swap", applyTheme);
+    
+    document.addEventListener("astro:page-load", attachToggleListeners);
   })();
 </script>

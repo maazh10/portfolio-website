@@ -50,14 +50,14 @@ import { SITE_TITLE } from "../consts";
       z-index: 50;
       margin: 0;
       padding: 0 1em;
-      background: color-mix(in srgb, var(--bg-primary) 80%, transparent);
+      background: color-mix(in srgb, var(--bg-color) 80%, transparent);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid rgba(var(--gray), 18%);
       box-shadow: 0 2px 16px rgba(var(--black), 8%);
       transition:
-        background-color 0.3s ease,
-        border-color 0.3s ease;
+        background-color 0.2s ease,
+        border-color 0.2s ease;
     }
 
     h2 {
@@ -89,7 +89,7 @@ import { SITE_TITLE } from "../consts";
       align-items: center;
       gap: 4px;
       justify-self: center;
-      background: var(--bg-primary);
+      background: var(--bg-color);
       border: 1px solid rgba(var(--gray), 15%);
       border-radius: 999px;
       padding: 4px;
@@ -118,7 +118,7 @@ import { SITE_TITLE } from "../consts";
     nav a:hover {
       color: var(--accent);
       font-weight: 600;
-      background: color-mix(in srgb, var(--bg-primary) 55%, transparent);
+      background: color-mix(in srgb, var(--bg-color) 55%, transparent);
     }
 
     nav a.active {
@@ -274,5 +274,6 @@ import { SITE_TITLE } from "../consts";
   }
 
   updateActiveLink();
+  document.addEventListener("astro:after-swap", updateActiveLink);
   document.addEventListener("astro:page-load", updateActiveLink);
 </script>
