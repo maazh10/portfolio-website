@@ -61,7 +61,6 @@ body {
     color 0.2s ease;
 }
 
-/* Optimize View Transitions */
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation-duration: 200ms;
