@@ -5,7 +5,8 @@
     "startDate": "Aug. 2024",
     "endDate": "Present",
     "experiences": [
-      "Refreshed a legacy Angular dashboard and built a platform-wide search feature for an RBC IS client portal.",
+      "Designed and implemented a microfrontend architecture for a navigation modernization initiative, enabling independent deployments with a multi-bundle build setup",
+      "Refreshed a legacy Angular dashboard and built a platform-wide search feature for a financial services' client portal.",
       "Resolved a major performance bottleneck, cutting load times from 20s to under a second across platform apps.",
       "Built a Master Data Management system for an insurance broker to automate data ingestion, cleansing, and approvals.",
       "Designed an automated schema deployment framework to streamline database migrations to improve a client's deployment efficiency."
