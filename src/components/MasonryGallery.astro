@@ -169,6 +169,9 @@ const galleryId = `masonry-${Math.random().toString(36).slice(2, 8)}`;
     const items = Array.from(gallery.querySelectorAll('.masonry-item'));
     const images = items.map((item) => item.querySelector('img'));
 
+    items.forEach((item) => item.classList.remove('visible'));
+    document.getElementById(`loading-${galleryId}`)?.classList.remove('hidden');
+
     let loaded = 0;
     const total = images.length;
 
@@ -191,10 +194,16 @@ const galleryId = `masonry-${Math.random().toString(36).slice(2, 8)}`;
     });
 
     let resizeTimer;
-    window.addEventListener('resize', () => {
+    const resizeHandler = () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(layout, 100);
-    });
+    };
+    window.addEventListener('resize', resizeHandler);
+
+    // Cleanup function for when component unmounts
+    return () => {
+      window.removeEventListener('resize', resizeHandler);
+    };
   }
 
   if (document.readyState === 'loading') {
@@ -202,4 +211,12 @@ const galleryId = `masonry-${Math.random().toString(36).slice(2, 8)}`;
   } else {
     init();
   }
+
+  // Re-initialize when navigating back to this page (Astro view transitions)
+  document.addEventListener('astro:after-swap', () => {
+    const gallery = document.getElementById(galleryId);
+    if (gallery) {
+      init();
+    }
+  });
 </script>
