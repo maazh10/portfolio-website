@@ -6,7 +6,7 @@ pubDate: 'Nov 17 2024'
 heroImage: 'https://pub-8d4c1f26a27d41ffb9985a84b03a8038.r2.dev/blog/1/cover.jpg'
 ---
 
-# Why?
+## Why?
 
 If I'm ever lying awake in bed at night or sitting idle on my couch on a Sunday morning, there’s usually a lot of interesting thoughts or ideas going around in my mind. It might be a personal dilemma, a world issue, a problem I’m envisioning but can’t seem to find a breakthrough for, my next big project idea, or something else entirely.
 
@@ -28,7 +28,7 @@ The possibilities are endless, but my primary aim is simple:
 
 <br>
 
-# How?
+## How?
 
 Now onto the more interesting bit. As this is my first blog post, I thought it would be fitting to start off by writing about an interesting technical problem I had to solve to get this blog up and running.
 
