@@ -8,6 +8,9 @@ RUN npm install
 
 COPY . .
 
+ARG PUBLIC_IMAGE_CDN_ORIGIN
+ENV PUBLIC_IMAGE_CDN_ORIGIN=$PUBLIC_IMAGE_CDN_ORIGIN
+
 RUN npm run build
 
 FROM nginx:alpine AS runtime

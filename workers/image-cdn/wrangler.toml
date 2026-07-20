@@ -1,0 +1,18 @@
+name = "portfolio-image-cdn"
+main = "src/index.ts"
+compatibility_date = "2024-09-23"
+
+# Replace with your R2 bucket name from the Cloudflare dashboard.
+[[r2_buckets]]
+binding = "BUCKET"
+bucket_name = "portfolio-website"
+
+[images]
+binding = "IMAGES"
+
+[cache]
+enabled = true
+
+[vars]
+# Optional: restrict CORS to your site origin.
+ALLOWED_ORIGIN = "https://maazh.tech"

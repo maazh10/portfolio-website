@@ -20,7 +20,9 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Build portfolio image
-        run: docker build . --file Dockerfile --tag $PORTFOLIO_IMAGE_NAME
+        run: >
+          docker build . --file Dockerfile --tag $PORTFOLIO_IMAGE_NAME
+          --build-arg PUBLIC_IMAGE_CDN_ORIGIN=${{ secrets.PUBLIC_IMAGE_CDN_ORIGIN }}
 
       - name: Log into GitHub Container Registry
         run: echo "${{ secrets.CR_PAT }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin

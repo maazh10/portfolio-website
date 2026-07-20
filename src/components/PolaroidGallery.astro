@@ -1,4 +1,10 @@
 ---
+import {
+  getResizedImageUrl,
+  getSrcSet,
+  GALLERY_IMAGE_SIZES,
+} from "../utils/images";
+
 interface Props {
   images: Array<{
     src: string;
@@ -21,7 +27,14 @@ const shuffledImages = [...images].sort(() => Math.random() - 0.5);
         class="polaroid-item"
         style={`--delay: ${index * 0.05}s`}
       >
-        <img src={image.src} alt={image.alt} loading="lazy" />
+        <img
+          src={getResizedImageUrl(image.src, 500)}
+          srcset={getSrcSet(image.src)}
+          sizes={GALLERY_IMAGE_SIZES}
+          alt={image.alt}
+          loading="lazy"
+          decoding="async"
+        />
       </a>
     ))
   }

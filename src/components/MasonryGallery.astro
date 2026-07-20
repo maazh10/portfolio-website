@@ -1,4 +1,10 @@
 ---
+import {
+  getResizedImageUrl,
+  getSrcSet,
+  GALLERY_IMAGE_SIZES,
+} from "../utils/images";
+
 interface Props {
   images: Array<{
     src: string;
@@ -22,9 +28,16 @@ const galleryId = `masonry-${Math.random().toString(36).slice(2, 8)}`;
         target="_blank"
         rel="noopener noreferrer"
         class="masonry-item"
-        style={`--delay: ${index * 0.04}s`}
+        style={`--delay: ${Math.min(index, 12) * 0.04}s`}
       >
-        <img src={image.src} alt={image.alt} loading="lazy" />
+        <img
+          src={getResizedImageUrl(image.src)}
+          srcset={getSrcSet(image.src)}
+          sizes={GALLERY_IMAGE_SIZES}
+          alt={image.alt}
+          loading="lazy"
+          decoding="async"
+        />
       </a>
     ))
   }
@@ -130,7 +143,7 @@ const galleryId = `masonry-${Math.random().toString(36).slice(2, 8)}`;
     const gallery = document.getElementById(galleryId);
     if (!gallery) return;
 
-    const items = Array.from(gallery.querySelectorAll('.masonry-item'));
+    const items = Array.from(gallery.querySelectorAll(".masonry-item"));
     const gap = 12;
     const cols = getColumnCount();
     const totalWidth = gallery.clientWidth;
@@ -157,63 +170,68 @@ const galleryId = `masonry-${Math.random().toString(36).slice(2, 8)}`;
 
   function hideLoadingIndicator() {
     const loadingIndicator = document.getElementById(`loading-${galleryId}`);
-    if (loadingIndicator) {
-      loadingIndicator.classList.add('hidden');
-    }
+    loadingIndicator?.classList.add("hidden");
   }
 
   function init() {
     const gallery = document.getElementById(galleryId);
     if (!gallery) return;
 
-    const items = Array.from(gallery.querySelectorAll('.masonry-item'));
-    const images = items.map((item) => item.querySelector('img'));
+    const items = Array.from(gallery.querySelectorAll(".masonry-item"));
+    const images = items.map((item) => item.querySelector("img"));
 
-    items.forEach((item) => item.classList.remove('visible'));
-    document.getElementById(`loading-${galleryId}`)?.classList.remove('hidden');
+    items.forEach((item) => item.classList.remove("visible"));
+    document.getElementById(`loading-${galleryId}`)?.classList.remove("hidden");
 
     let loaded = 0;
     const total = images.length;
+    let spinnerHidden = false;
 
-    function onLoad() {
+    function onLoad(item) {
       loaded++;
+      item.classList.add("visible");
       layout();
-      if (loaded === total) {
-        items.forEach((item) => item.classList.add('visible'));
+
+      if (!spinnerHidden) {
+        spinnerHidden = true;
         hideLoadingIndicator();
       }
     }
 
-    images.forEach((img) => {
-      if (img.complete) {
-        onLoad();
+    images.forEach((img, index) => {
+      const item = items[index];
+
+      if (img.complete && img.naturalWidth > 0) {
+        onLoad(item);
       } else {
-        img.addEventListener('load', onLoad);
-        img.addEventListener('error', onLoad);
+        img.addEventListener("load", () => onLoad(item), { once: true });
+        img.addEventListener("error", () => onLoad(item), { once: true });
       }
     });
+
+    if (loaded === total) {
+      hideLoadingIndicator();
+    }
 
     let resizeTimer;
     const resizeHandler = () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(layout, 100);
     };
-    window.addEventListener('resize', resizeHandler);
+    window.addEventListener("resize", resizeHandler);
 
-    // Cleanup function for when component unmounts
     return () => {
-      window.removeEventListener('resize', resizeHandler);
+      window.removeEventListener("resize", resizeHandler);
     };
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
   } else {
     init();
   }
 
-  // Re-initialize when navigating back to this page (Astro view transitions)
-  document.addEventListener('astro:after-swap', () => {
+  document.addEventListener("astro:after-swap", () => {
     const gallery = document.getElementById(galleryId);
     if (gallery) {
       init();
