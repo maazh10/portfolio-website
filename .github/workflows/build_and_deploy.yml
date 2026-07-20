@@ -58,6 +58,13 @@ jobs:
           key: ${{ secrets.KEY }}
           script: |
             cd portfolio-website
-            docker-compose down --remove-orphans
+
+            docker stop nginx-proxy nginx-proxy-acme portfolio-app 2>/dev/null || true
+            docker rm nginx-proxy nginx-proxy-acme portfolio-app 2>/dev/null || true
+
+            docker network ls --format '{{.ID}} {{.Name}}' \
+              | awk '$2 == "portfolio-website_default" {print $1}' \
+              | xargs -r docker network rm 2>/dev/null || true
+
             docker-compose pull
             docker-compose up -d
