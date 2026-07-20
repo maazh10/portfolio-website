@@ -38,7 +38,3 @@ services:
     environment:
       - VIRTUAL_HOST=maazh.tech
       - LETSENCRYPT_HOST=maazh.tech
-
-networks:
-  default:
-    name: portfolio-website_default

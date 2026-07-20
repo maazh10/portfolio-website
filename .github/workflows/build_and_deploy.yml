@@ -58,13 +58,9 @@ jobs:
           key: ${{ secrets.KEY }}
           script: |
             cd portfolio-website
-
-            docker stop nginx-proxy nginx-proxy-acme portfolio-app 2>/dev/null || true
-            docker rm nginx-proxy nginx-proxy-acme portfolio-app 2>/dev/null || true
-
-            docker network ls --format '{{.ID}} {{.Name}}' \
-              | awk '$2 == "portfolio-website_default" {print $1}' \
-              | xargs -r docker network rm 2>/dev/null || true
-
-            docker-compose pull
-            docker-compose up -d
+            docker compose --project-name portfolio-website down --remove-orphans || true
+            for net in $(docker network ls --filter "name=^portfolio-website_default$" -q); do
+              docker network rm "$net" >/dev/null 2>&1 || true
+            done
+            docker compose --project-name portfolio-website pull
+            docker compose --project-name portfolio-website up -d --force-recreate
