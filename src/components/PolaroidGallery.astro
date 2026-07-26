@@ -1,6 +1,7 @@
 ---
 import {
   getResizedImageUrl,
+  getFullSizeImageUrl,
   getSrcSet,
   GALLERY_IMAGE_SIZES,
 } from "../utils/images";
@@ -21,14 +22,14 @@ const shuffledImages = [...images].sort(() => Math.random() - 0.5);
   {
     shuffledImages.map((image, index) => (
       <a
-        href={image.src}
+        href={getFullSizeImageUrl(image.src)}
         target="_blank"
         rel="noopener noreferrer"
         class="polaroid-item"
         style={`--delay: ${index * 0.05}s`}
       >
         <img
-          src={getResizedImageUrl(image.src, 500)}
+          src={getResizedImageUrl(image.src)}
           srcset={getSrcSet(image.src)}
           sizes={GALLERY_IMAGE_SIZES}
           alt={image.alt}

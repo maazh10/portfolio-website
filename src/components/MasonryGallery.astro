@@ -1,6 +1,7 @@
 ---
 import {
   getResizedImageUrl,
+  getFullSizeImageUrl,
   getSrcSet,
   GALLERY_IMAGE_SIZES,
 } from "../utils/images";
@@ -24,7 +25,7 @@ const galleryId = `masonry-${Math.random().toString(36).slice(2, 8)}`;
   {
     images.map((image, index) => (
       <a
-        href={image.src}
+        href={getFullSizeImageUrl(image.src)}
         target="_blank"
         rel="noopener noreferrer"
         class="masonry-item"

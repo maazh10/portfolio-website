@@ -1,11 +1,18 @@
-import { IMAGE_CDN_ORIGIN, R2_PUBLIC_BASE } from "../consts";
+import { IMAGE_CDN_ORIGIN } from "../consts";
 
-const THUMBNAIL_WIDTHS = [400, 600, 900] as const;
-const DEFAULT_THUMBNAIL_WIDTH = 600;
-const DEFAULT_QUALITY = 75;
+const THUMBNAIL_WIDTHS = [400, 600] as const;
+const PREVIEW_WIDTH = 600;
+const PREVIEW_QUALITY = 75;
+
+export function getImageUrl(path: string): string {
+  const normalizedBase = IMAGE_CDN_ORIGIN.replace(/\/$/, "");
+  const normalizedPath = path.replace(/^\/+/, "");
+
+  return `${normalizedBase}/${normalizedPath}`;
+}
 
 export function r2KeyFromUrl(url: string): string | null {
-  const normalizedBase = R2_PUBLIC_BASE.replace(/\/$/, "");
+  const normalizedBase = IMAGE_CDN_ORIGIN.replace(/\/$/, "");
   const normalizedUrl = url.replace(/\/$/, "");
 
   if (!normalizedUrl.startsWith(normalizedBase)) {
@@ -15,10 +22,19 @@ export function r2KeyFromUrl(url: string): string | null {
   return normalizedUrl.slice(normalizedBase.length).replace(/^\//, "");
 }
 
+export function getFullSizeImageUrl(originalUrl: string): string {
+  const key = r2KeyFromUrl(originalUrl);
+  if (!key || !IMAGE_CDN_ORIGIN) {
+    return originalUrl;
+  }
+
+  return `${IMAGE_CDN_ORIGIN}/${key}`;
+}
+
 export function getResizedImageUrl(
   originalUrl: string,
-  width: number = DEFAULT_THUMBNAIL_WIDTH,
-  quality: number = DEFAULT_QUALITY,
+  width: number = PREVIEW_WIDTH,
+  quality: number = PREVIEW_QUALITY,
 ): string {
   const key = r2KeyFromUrl(originalUrl);
   if (!key || !IMAGE_CDN_ORIGIN) {

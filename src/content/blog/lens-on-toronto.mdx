@@ -3,10 +3,11 @@ title: 'Lens on Toronto'
 type: 'photo'
 description: "A visual journey through Toronto's stunning landscapes and cityscapes"
 pubDate: 'May 21 2025'
-heroImage: 'https://pub-8d4c1f26a27d41ffb9985a84b03a8038.r2.dev/blog/3/cover.jpg'
+heroImage: 'blog/3/cover.jpg'
 ---
 
 import Slideshow from '../../components/Slideshow.astro';
+import { getImageUrl } from '../../utils/images';
 
 Toronto is a mesmerizing blend of modern architecture, natural beauty, and cultural diversity. Having lived here for almost 4 years now, I still find myself in awe of the city's iconic skyline and vibrant neighborhoods. Every time I spot the CN Tower in the distance, perhaps from a new perspective, I still pull out my phone to take a picture, feeling like a tourist every time.
 
@@ -17,7 +18,7 @@ Here I'm sharing some of my favorite shots from these outings. I've included the
 <hr />
 
 <Slideshow 
-  imagePaths={["https://pub-8d4c1f26a27d41ffb9985a84b03a8038.r2.dev/blog/3/IMG_0034.jpg"]}
+  imagePaths={[getImageUrl('blog/3/IMG_0034.jpg')]}
   titles={["Skyline #1"]}
   locations={["Chester Hill Lookout"]}
   times={["7:40 PM"]}
@@ -28,7 +29,7 @@ Here I'm sharing some of my favorite shots from these outings. I've included the
 <hr />
 
 <Slideshow 
-  imagePaths={["https://pub-8d4c1f26a27d41ffb9985a84b03a8038.r2.dev/blog/3/IMG_0099.jpg"]}
+  imagePaths={[getImageUrl('blog/3/IMG_0099.jpg')]}
   titles={["Skyline #2"]}
   locations={["Trinity Bellwoods Park"]}
   times={["7:09 PM"]}
@@ -40,8 +41,8 @@ Here I'm sharing some of my favorite shots from these outings. I've included the
 
 <Slideshow 
   imagePaths={[
-    "https://pub-8d4c1f26a27d41ffb9985a84b03a8038.r2.dev/blog/3/IMG_0118.jpg",
-    "https://pub-8d4c1f26a27d41ffb9985a84b03a8038.r2.dev/blog/3/IMG_0122.jpg"
+    getImageUrl('blog/3/IMG_0118.jpg'),
+    getImageUrl('blog/3/IMG_0122.jpg')
   ]}
   titles={["Scarborough Bluffs", "Scarborough Bluffs"]}
   locations={["Scarborough Bluffs Park", "Scarborough Bluffs Park"]}
@@ -53,7 +54,7 @@ Here I'm sharing some of my favorite shots from these outings. I've included the
 <hr />
 
 <Slideshow 
-  imagePaths={["https://pub-8d4c1f26a27d41ffb9985a84b03a8038.r2.dev/blog/3/IMG_0136.jpg"]}
+  imagePaths={[getImageUrl('blog/3/IMG_0136.jpg')]}
   titles={["St. James Cathedral"]}
   locations={["St. James Park"]}
   times={["7:49 PM"]}
@@ -64,7 +65,7 @@ Here I'm sharing some of my favorite shots from these outings. I've included the
 <hr />
 
 <Slideshow 
-  imagePaths={["https://pub-8d4c1f26a27d41ffb9985a84b03a8038.r2.dev/blog/3/IMG_0143.jpg"]}
+  imagePaths={[getImageUrl('blog/3/IMG_0143.jpg')]}
   titles={["St. Lawrence Market"]}
   locations={["Jarvis St. & Front St. E"]}
   times={["7:56 PM"]}
@@ -76,8 +77,8 @@ Here I'm sharing some of my favorite shots from these outings. I've included the
 
 <Slideshow 
   imagePaths={[
-    "https://pub-8d4c1f26a27d41ffb9985a84b03a8038.r2.dev/blog/3/IMG_0154.jpg",
-    "https://pub-8d4c1f26a27d41ffb9985a84b03a8038.r2.dev/blog/3/IMG_0276.jpg"
+    getImageUrl('blog/3/IMG_0154.jpg'),
+    getImageUrl('blog/3/IMG_0276.jpg')
   ]}
   titles={["Dominion Public Building", "Dominion Public Building"]}
   locations={["Front St. W", "Front St. W"]}
@@ -89,7 +90,7 @@ Here I'm sharing some of my favorite shots from these outings. I've included the
 <hr />
 
 <Slideshow 
-  imagePaths={["https://pub-8d4c1f26a27d41ffb9985a84b03a8038.r2.dev/blog/3/IMG_0157.jpg"]}
+  imagePaths={[getImageUrl('blog/3/IMG_0157.jpg')]}
   titles={["Harbourfront"]}
   locations={["Harbour Square Park"]}
   times={["8:22 PM"]}
@@ -100,7 +101,7 @@ Here I'm sharing some of my favorite shots from these outings. I've included the
 <hr />
 
 <Slideshow 
-  imagePaths={["https://pub-8d4c1f26a27d41ffb9985a84b03a8038.r2.dev/blog/3/IMG_0162.jpg"]}
+  imagePaths={[getImageUrl('blog/3/IMG_0162.jpg')]}
   titles={["The Empress of Canada"]}
   locations={["Harbour Square"]}
   times={["8:30 PM"]}
@@ -111,7 +112,7 @@ Here I'm sharing some of my favorite shots from these outings. I've included the
 <hr />
 
 <Slideshow 
-  imagePaths={["https://pub-8d4c1f26a27d41ffb9985a84b03a8038.r2.dev/blog/3/IMG_0172.jpg"]}
+  imagePaths={[getImageUrl('blog/3/IMG_0172.jpg')]}
   titles={["Skyline #3"]}
   locations={["Lower Simcoe St."]}
   times={["8:41 PM"]}
@@ -122,7 +123,7 @@ Here I'm sharing some of my favorite shots from these outings. I've included the
 <hr />
 
 <Slideshow 
-  imagePaths={["https://pub-8d4c1f26a27d41ffb9985a84b03a8038.r2.dev/blog/3/IMG_0180.jpg"]}
+  imagePaths={[getImageUrl('blog/3/IMG_0180.jpg')]}
   titles={["Scotiabank Arena"]}
   locations={["Raptors Way"]}
   times={["8:47 PM"]}
@@ -133,7 +134,7 @@ Here I'm sharing some of my favorite shots from these outings. I've included the
 <hr />
 
 <Slideshow 
-  imagePaths={["https://pub-8d4c1f26a27d41ffb9985a84b03a8038.r2.dev/blog/3/IMG_0182.jpg"]}
+  imagePaths={[getImageUrl('blog/3/IMG_0182.jpg')]}
   titles={["Skyline #4"]}
   locations={["Union Station Gate 5"]}
   times={["8:48 PM"]}
@@ -144,7 +145,7 @@ Here I'm sharing some of my favorite shots from these outings. I've included the
 <hr />
 
 <Slideshow 
-  imagePaths={["https://pub-8d4c1f26a27d41ffb9985a84b03a8038.r2.dev/blog/3/IMG_0185.jpg"]}
+  imagePaths={[getImageUrl('blog/3/IMG_0185.jpg')]}
   titles={["Skyline #5"]}
   locations={["Raptors Way"]}
   times={["8:51 PM"]}
@@ -155,7 +156,7 @@ Here I'm sharing some of my favorite shots from these outings. I've included the
 <hr />
 
 <Slideshow 
-  imagePaths={["https://pub-8d4c1f26a27d41ffb9985a84b03a8038.r2.dev/blog/3/IMG_0186.jpg"]}
+  imagePaths={[getImageUrl('blog/3/IMG_0186.jpg')]}
   titles={["Union Station"]}
   locations={["Union Station/ScotiaBank Arena"]}
   times={["8:52 PM"]}
@@ -166,7 +167,7 @@ Here I'm sharing some of my favorite shots from these outings. I've included the
 <hr />
 
 <Slideshow 
-  imagePaths={["https://pub-8d4c1f26a27d41ffb9985a84b03a8038.r2.dev/blog/3/IMG_0198.jpg"]}
+  imagePaths={[getImageUrl('blog/3/IMG_0198.jpg')]}
   titles={["Sankofa Square (formerly Yonge-Dundas Square)"]}
   locations={["Victoria St. & Dundas St. E"]}
   times={["6:47 PM"]}
@@ -177,7 +178,7 @@ Here I'm sharing some of my favorite shots from these outings. I've included the
 <hr />
 
 <Slideshow 
-  imagePaths={["https://pub-8d4c1f26a27d41ffb9985a84b03a8038.r2.dev/blog/3/IMG_0204.jpg"]}
+  imagePaths={[getImageUrl('blog/3/IMG_0204.jpg')]}
   titles={["Legislative Assembly of Ontario"]}
   locations={["Queen's Park"]}
   times={["7:09 PM"]}
@@ -188,7 +189,7 @@ Here I'm sharing some of my favorite shots from these outings. I've included the
 <hr />
 
 <Slideshow 
-  imagePaths={["https://pub-8d4c1f26a27d41ffb9985a84b03a8038.r2.dev/blog/3/IMG_0213.jpg"]}
+  imagePaths={[getImageUrl('blog/3/IMG_0213.jpg')]}
   titles={["University of Toronto"]}
   locations={["King's College Circle"]}
   times={["7:14 PM"]}
@@ -199,7 +200,7 @@ Here I'm sharing some of my favorite shots from these outings. I've included the
 <hr />
 
 <Slideshow 
-  imagePaths={["https://pub-8d4c1f26a27d41ffb9985a84b03a8038.r2.dev/blog/3/IMG_0219.jpg"]}
+  imagePaths={[getImageUrl('blog/3/IMG_0219.jpg')]}
   titles={["Skyline #6"]}
   locations={["King's College Circle"]}
   times={["7:18 PM"]}
@@ -210,7 +211,7 @@ Here I'm sharing some of my favorite shots from these outings. I've included the
 <hr />
 
 <Slideshow 
-  imagePaths={["https://pub-8d4c1f26a27d41ffb9985a84b03a8038.r2.dev/blog/3/IMG_0228.jpg"]}
+  imagePaths={[getImageUrl('blog/3/IMG_0228.jpg')]}
   titles={["Skyline #7"]}
   locations={["Simcoe St. & King St. W"]}
   times={["7:39 PM"]}
@@ -221,7 +222,7 @@ Here I'm sharing some of my favorite shots from these outings. I've included the
 <hr />
 
 <Slideshow 
-  imagePaths={["https://pub-8d4c1f26a27d41ffb9985a84b03a8038.r2.dev/blog/3/IMG_0233.jpg"]}
+  imagePaths={[getImageUrl('blog/3/IMG_0233.jpg')]}
   titles={["Skyline #8"]}
   locations={["Sir Isaac Brock Bridge"]}
   times={["8:00 PM"]}
@@ -232,7 +233,7 @@ Here I'm sharing some of my favorite shots from these outings. I've included the
 <hr />
 
 <Slideshow 
-  imagePaths={["https://pub-8d4c1f26a27d41ffb9985a84b03a8038.r2.dev/blog/3/IMG_0244.jpg"]}
+  imagePaths={[getImageUrl('blog/3/IMG_0244.jpg')]}
   titles={["Skyline #9"]}
   locations={["Polson Pier"]}
   times={["8:40 PM"]}
@@ -243,7 +244,7 @@ Here I'm sharing some of my favorite shots from these outings. I've included the
 <hr />
 
 <Slideshow 
-  imagePaths={["https://pub-8d4c1f26a27d41ffb9985a84b03a8038.r2.dev/blog/3/IMG_0253.jpg"]}
+  imagePaths={[getImageUrl('blog/3/IMG_0253.jpg')]}
   titles={["Cherry St. South Bridge"]}
   locations={["Cherry St."]}
   times={["8:59 PM"]}
@@ -254,7 +255,7 @@ Here I'm sharing some of my favorite shots from these outings. I've included the
 <hr />
 
 <Slideshow 
-  imagePaths={["https://pub-8d4c1f26a27d41ffb9985a84b03a8038.r2.dev/blog/3/IMG_0259.jpg"]}
+  imagePaths={[getImageUrl('blog/3/IMG_0259.jpg')]}
   titles={["Distillery District"]}
   locations={["Distillery District"]}
   times={["9:14 PM"]}
@@ -265,7 +266,7 @@ Here I'm sharing some of my favorite shots from these outings. I've included the
 <hr />
 
 <Slideshow 
-  imagePaths={["https://pub-8d4c1f26a27d41ffb9985a84b03a8038.r2.dev/blog/3/IMG_0281.jpg"]}
+  imagePaths={[getImageUrl('blog/3/IMG_0281.jpg')]}
   titles={["Union Station"]}
   locations={["Union Station TTC Entrance"]}
   times={["9:47 PM"]}
@@ -276,7 +277,7 @@ Here I'm sharing some of my favorite shots from these outings. I've included the
 <hr />
 
 <Slideshow 
-  imagePaths={["https://pub-8d4c1f26a27d41ffb9985a84b03a8038.r2.dev/blog/3/IMG_0335.jpg"]}
+  imagePaths={[getImageUrl('blog/3/IMG_0335.jpg')]}
   titles={["Graffiti Alley"]}
   locations={["Graffiti Alley"]}
   times={["6:54 PM"]}
@@ -287,7 +288,7 @@ Here I'm sharing some of my favorite shots from these outings. I've included the
 <hr />
 
 <Slideshow 
-  imagePaths={["https://pub-8d4c1f26a27d41ffb9985a84b03a8038.r2.dev/blog/3/IMG_0357.jpg"]}
+  imagePaths={[getImageUrl('blog/3/IMG_0357.jpg')]}
   titles={["Queen Street West"]}
   locations={["Bathurst St. & Queen St. W"]}
   times={["7:24 PM"]}
@@ -298,7 +299,7 @@ Here I'm sharing some of my favorite shots from these outings. I've included the
 <hr />
 
 <Slideshow 
-  imagePaths={["https://pub-8d4c1f26a27d41ffb9985a84b03a8038.r2.dev/blog/3/IMG_0369.jpg"]}
+  imagePaths={[getImageUrl('blog/3/IMG_0369.jpg')]}
   titles={["City Hall"]}
   locations={["Nathan Phillips Square"]}
   times={["8:29 PM"]}
@@ -309,7 +310,7 @@ Here I'm sharing some of my favorite shots from these outings. I've included the
 <hr />
 
 <Slideshow 
-  imagePaths={["https://pub-8d4c1f26a27d41ffb9985a84b03a8038.r2.dev/blog/3/IMG_0374.jpg"]}
+  imagePaths={[getImageUrl('blog/3/IMG_0374.jpg')]}
   titles={["Old City Hall"]}
   locations={["Nathan Phillips Square"]}
   times={["8:30 PM"]}
@@ -324,6 +325,6 @@ Here I'm sharing some of my favorite shots from these outings. I've included the
 Finally, since it didn't really fit in with the rest of the photos, here's a bonus shot of a squirrel I took, while walking down King's College Road, I still wanted to share. Thanks for reading 😊
 
 <Slideshow 
-  imagePaths={["https://pub-8d4c1f26a27d41ffb9985a84b03a8038.r2.dev/blog/3/IMG_0222.jpg"]}
+  imagePaths={[getImageUrl('blog/3/IMG_0222.jpg')]}
   alt="squirrel"
 />

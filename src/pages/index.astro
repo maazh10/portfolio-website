@@ -7,9 +7,9 @@ import education from "../data/education.json";
 import experience from "../data/experience.json";
 import projects from "../data/projects.json";
 import socials from "../data/socials.json";
+import { getImageUrl } from "../utils/images";
 
-const cdnBase =
-  "https://pub-8d4c1f26a27d41ffb9985a84b03a8038.r2.dev/portfolio/";
+const cdnBase = getImageUrl("portfolio/");
 const heroCarouselUrls = Array.from(
   { length: 6 },
   (_, i) => `${cdnBase}hero/hero${i + 1}.jpg`,
