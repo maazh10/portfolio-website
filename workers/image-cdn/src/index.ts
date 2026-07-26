@@ -48,25 +48,45 @@ export default {
       return new Response("Not found", { status: 404 });
     }
 
-    const width = parseInt(url.searchParams.get("w") ?? "600", 10);
-    const quality = parseInt(url.searchParams.get("q") ?? "75", 10);
     const formatParam = url.searchParams.get("f") ?? "auto";
-
-    if (!Number.isFinite(width) || width < 1 || width > 4096) {
-      return new Response('Invalid "w" parameter', { status: 400 });
-    }
 
     const object = await env.BUCKET.get(key);
     if (!object) {
       return new Response("Not found", { status: 404 });
     }
 
+    const widthParam = url.searchParams.get("w");
+    const qualityParam = url.searchParams.get("q");
+
+    if (!widthParam && !qualityParam) {
+      const response = new Response(
+        request.method === "HEAD" ? null : object.body,
+        {
+          status: 200,
+          headers: {
+            "Content-Type":
+              object.httpMetadata?.contentType ?? "image/jpeg",
+            "Cache-Control": CACHE_CONTROL,
+            Vary: "Accept",
+          },
+        },
+      );
+      return cors(response, env);
+    }
+
+    const transformedWidth = parseInt(widthParam ?? "600", 10);
+    const transformedQuality = parseInt(qualityParam ?? "75", 10);
+
+    if (!Number.isFinite(transformedWidth) || transformedWidth < 1 || transformedWidth > 4096) {
+      return new Response('Invalid "w" parameter', { status: 400 });
+    }
+
     const transformed = (
       await env.IMAGES.input(object.body)
-        .transform({ width, fit: "scale-down" })
+        .transform({ width: transformedWidth, fit: "scale-down" })
         .output({
           format: outputFormat(request, formatParam),
-          quality,
+          quality: transformedQuality,
         })
     ).response();
 
