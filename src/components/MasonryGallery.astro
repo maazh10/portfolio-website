@@ -10,13 +10,36 @@ interface Props {
   images: Array<{
     src: string;
     alt: string;
+    region?: string;
   }>;
   columns?: number;
+  tabs?: string[];
 }
 
-const { images, columns = 3 } = Astro.props;
+const { images, columns = 3, tabs } = Astro.props;
 const galleryId = `masonry-${Math.random().toString(36).slice(2, 8)}`;
+const hasTabs = Boolean(tabs && tabs.length > 0);
+const tabOptions = hasTabs ? ["All", ...tabs!] : [];
 ---
+
+{
+  hasTabs && (
+    <div class="gallery-tabs" role="tablist">
+      {tabOptions.map((tab, index) => (
+        <button
+          type="button"
+          class="gallery-tab"
+          class:list={{ active: index === 0 }}
+          data-region={tab}
+          role="tab"
+          aria-selected={index === 0}
+        >
+          {tab}
+        </button>
+      ))}
+    </div>
+  )
+}
 
 <div class="masonry-gallery" id={galleryId} style={`--columns: ${columns}`}>
   <div class="gallery-loading" id={`loading-${galleryId}`}>
@@ -29,6 +52,7 @@ const galleryId = `masonry-${Math.random().toString(36).slice(2, 8)}`;
         target="_blank"
         rel="noopener noreferrer"
         class="masonry-item"
+        data-region={image.region}
         style={`--delay: ${Math.min(index, 12) * 0.04}s`}
       >
         <img
@@ -45,6 +69,38 @@ const galleryId = `masonry-${Math.random().toString(36).slice(2, 8)}`;
 </div>
 
 <style>
+  .gallery-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    border-bottom: 1px solid rgba(var(--gray), 20%);
+  }
+
+  .gallery-tab {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.75rem 0.25rem;
+    font-family: "Roboto", sans-serif;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .gallery-tab:hover {
+    color: var(--text-primary);
+  }
+
+  .gallery-tab.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
   .masonry-gallery {
     position: relative;
     padding: 2rem 1rem;
@@ -106,6 +162,10 @@ const galleryId = `masonry-${Math.random().toString(36).slice(2, 8)}`;
     animation-delay: var(--delay, 0s);
   }
 
+  .masonry-item.filtered-out {
+    display: none;
+  }
+
   .masonry-item img {
     width: 100%;
     height: auto;
@@ -144,7 +204,9 @@ const galleryId = `masonry-${Math.random().toString(36).slice(2, 8)}`;
     const gallery = document.getElementById(galleryId);
     if (!gallery) return;
 
-    const items = Array.from(gallery.querySelectorAll(".masonry-item"));
+    const items = Array.from(
+      gallery.querySelectorAll(".masonry-item:not(.filtered-out)"),
+    );
     const gap = 12;
     const cols = getColumnCount();
     const totalWidth = gallery.clientWidth;
@@ -166,7 +228,34 @@ const galleryId = `masonry-${Math.random().toString(36).slice(2, 8)}`;
       colHeights[colIndex] += item.offsetHeight + gap;
     });
 
-    gallery.style.height = `${Math.max(...colHeights)}px`;
+    gallery.style.height = items.length ? `${Math.max(...colHeights)}px` : "0";
+  }
+
+  function initTabs() {
+    const gallery = document.getElementById(galleryId);
+    const tabsContainer = gallery?.previousElementSibling;
+    if (!gallery || !tabsContainer?.classList.contains("gallery-tabs")) return;
+
+    const tabButtons = Array.from(tabsContainer.querySelectorAll(".gallery-tab"));
+    const items = Array.from(gallery.querySelectorAll(".masonry-item"));
+
+    tabButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const region = button.dataset.region;
+
+        tabButtons.forEach((btn) => {
+          btn.classList.toggle("active", btn === button);
+          btn.setAttribute("aria-selected", String(btn === button));
+        });
+
+        items.forEach((item) => {
+          const matches = region === "All" || item.dataset.region === region;
+          item.classList.toggle("filtered-out", !matches);
+        });
+
+        layout();
+      });
+    });
   }
 
   function hideLoadingIndicator() {
@@ -227,15 +316,20 @@ const galleryId = `masonry-${Math.random().toString(36).slice(2, 8)}`;
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
+    document.addEventListener("DOMContentLoaded", () => {
+      init();
+      initTabs();
+    });
   } else {
     init();
+    initTabs();
   }
 
   document.addEventListener("astro:after-swap", () => {
     const gallery = document.getElementById(galleryId);
     if (gallery) {
       init();
+      initTabs();
     }
   });
 </script>

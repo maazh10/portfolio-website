@@ -1,0 +1,52 @@
+---
+import BaseHead from "../../components/BaseHead.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import MasonryGallery from "../../components/MasonryGallery.astro";
+import { SITE_TITLE } from "../../consts";
+import { getPhotographyImages } from "../../utils/photography";
+
+const { images, regions } = getPhotographyImages();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead
+      title={`Photography | ${SITE_TITLE}`}
+      description="A collection of my photos from around the world."
+      favicon="📸"
+    />
+    <style>
+      main {
+        max-width: calc(100% - 2em);
+        margin: auto;
+        padding: 6.5rem 0 3em;
+      }
+      .page-intro {
+        width: 960px;
+        max-width: calc(100% - 2em);
+        margin: 0 auto;
+        padding: 0 1em 1.5em;
+      }
+      .page-intro h1 {
+        margin: 0 0 0.5rem;
+      }
+      .page-intro p {
+        margin: 0;
+        color: var(--text-muted);
+      }
+    </style>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <div class="page-intro">
+        <h1>Photography</h1>
+        <p>I like to taking photos of nature, architecture, and landscapes.</p>
+      </div>
+      <MasonryGallery images={images} tabs={regions} columns={3} />
+    </main>
+    <Footer />
+  </body>
+</html>
