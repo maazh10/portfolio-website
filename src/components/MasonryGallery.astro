@@ -53,6 +53,7 @@ const tabOptions = hasTabs ? ["All", ...tabs!] : [];
         rel="noopener noreferrer"
         class="masonry-item"
         data-region={image.region}
+        data-original-index={index}
         style={`--delay: ${Math.min(index, 12) * 0.04}s`}
       >
         <img
@@ -73,7 +74,8 @@ const tabOptions = hasTabs ? ["All", ...tabs!] : [];
     display: flex;
     justify-content: center;
     gap: 1.5rem;
-    max-width: 1400px;
+    width: calc(100% - 1rem);
+    max-width: none;
     margin: 0 auto;
     padding: 0 1rem;
     border-bottom: 1px solid rgba(var(--gray), 20%);
@@ -103,8 +105,9 @@ const tabOptions = hasTabs ? ["All", ...tabs!] : [];
 
   .masonry-gallery {
     position: relative;
-    padding: 2rem 1rem;
-    max-width: 1400px;
+    width: calc(100% - 1rem);
+    max-width: none;
+    padding: 2rem 0.5rem;
     margin: 0 auto;
   }
 
@@ -231,6 +234,48 @@ const tabOptions = hasTabs ? ["All", ...tabs!] : [];
     gallery.style.height = items.length ? `${Math.max(...colHeights)}px` : "0";
   }
 
+  function shuffleArray(items) {
+    const shuffled = [...items];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  }
+
+  function reorderItemsForRegion(region) {
+    const gallery = document.getElementById(galleryId);
+    if (!gallery) return;
+
+    const items = Array.from(gallery.querySelectorAll(".masonry-item"));
+    if (!items.length) return;
+
+    const orderedItems = items.map((item, index) => {
+      if (!item.dataset.originalIndex) {
+        item.dataset.originalIndex = String(index);
+      }
+      return item;
+    });
+
+    if (region === "All") {
+      const visibleItems = orderedItems.filter(
+        (item) => !item.classList.contains("filtered-out"),
+      );
+      const hiddenItems = orderedItems.filter((item) =>
+        item.classList.contains("filtered-out"),
+      );
+      gallery.replaceChildren(...shuffleArray(visibleItems), ...hiddenItems);
+      return;
+    }
+
+    gallery.replaceChildren(
+      ...orderedItems.sort(
+        (a, b) =>
+          Number(a.dataset.originalIndex) - Number(b.dataset.originalIndex),
+      ),
+    );
+  }
+
   function initTabs() {
     const gallery = document.getElementById(galleryId);
     const tabsContainer = gallery?.previousElementSibling;
@@ -239,21 +284,30 @@ const tabOptions = hasTabs ? ["All", ...tabs!] : [];
     const tabButtons = Array.from(tabsContainer.querySelectorAll(".gallery-tab"));
     const items = Array.from(gallery.querySelectorAll(".masonry-item"));
 
+    const updateActiveRegion = (region) => {
+      tabButtons.forEach((btn) => {
+        const isActive = btn.dataset.region === region;
+        btn.classList.toggle("active", isActive);
+        btn.setAttribute("aria-selected", String(isActive));
+      });
+
+      items.forEach((item) => {
+        const matches = region === "All" || item.dataset.region === region;
+        item.classList.toggle("filtered-out", !matches);
+      });
+
+      reorderItemsForRegion(region);
+      layout();
+    };
+
+    const activeTab = tabButtons.find((button) => button.classList.contains("active")) ?? tabButtons[0];
+    if (activeTab) {
+      updateActiveRegion(activeTab.dataset.region || "All");
+    }
+
     tabButtons.forEach((button) => {
       button.addEventListener("click", () => {
-        const region = button.dataset.region;
-
-        tabButtons.forEach((btn) => {
-          btn.classList.toggle("active", btn === button);
-          btn.setAttribute("aria-selected", String(btn === button));
-        });
-
-        items.forEach((item) => {
-          const matches = region === "All" || item.dataset.region === region;
-          item.classList.toggle("filtered-out", !matches);
-        });
-
-        layout();
+        updateActiveRegion(button.dataset.region || "All");
       });
     });
   }
