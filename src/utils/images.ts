@@ -4,9 +4,9 @@ const THUMBNAIL_WIDTHS = [400, 600] as const;
 const PREVIEW_WIDTH = 600;
 const PREVIEW_QUALITY = 75;
 
-export function getImageUrl(path: string): string {
+export function getImageUrl(path: string | undefined): string {
   const normalizedBase = IMAGE_CDN_ORIGIN.replace(/\/$/, "");
-  const normalizedPath = path.replace(/^\/+/, "");
+  const normalizedPath = path?.replace(/^\/+/, "") || "";
 
   return `${normalizedBase}/${normalizedPath}`;
 }
