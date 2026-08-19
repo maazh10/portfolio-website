@@ -27,6 +27,18 @@ const posts = (await getCollection("blog")).sort(
         margin: auto;
         padding: 6.5rem 1em 3em;
       }
+      .page-intro {
+        padding: 0 0 1.5em;
+        margin-bottom: 1.5em;
+        border-bottom: 1px solid rgba(var(--gray), 20%);
+      }
+      .page-intro h1 {
+        margin: 0 0 0.5rem;
+      }
+      .page-intro p {
+        margin: 0;
+        color: var(--text-muted);
+      }
       ul {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -89,6 +101,10 @@ const posts = (await getCollection("blog")).sort(
   <body>
     <Header />
     <main>
+      <div class="page-intro">
+        <h1>Blog</h1>
+        <p>Travel photo blogs and whatever else is on my mind.</p>
+      </div>
       <section>
         <ul>
           {
