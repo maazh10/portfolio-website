@@ -5,7 +5,7 @@
     "startDate": "Aug. 2024",
     "endDate": "Present",
     "experiences": [
-      "Designed and implemented a microfrontend architecture for a navigation modernization initiative, enabling independent deployments with a multi-bundle build setup",
+      "Architected and implemented a microfrontend system for a navigation modernization initiative, using a multi-bundle build pattern across apps to enable independent, decoupled deployments across teams.",
       "Refreshed a legacy Angular dashboard and built a platform-wide search feature for a financial services' client portal.",
       "Resolved a major performance bottleneck, cutting load times from 20s to under a second across platform apps.",
       "Built a Master Data Management system for an insurance broker to automate data ingestion, cleansing, and approvals.",
