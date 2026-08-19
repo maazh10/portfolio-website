@@ -246,14 +246,30 @@ import { SITE_TITLE } from "../consts";
     }
 
     @media (max-width: 720px) {
+      header {
+        padding: 0 0.75rem;
+      }
       nav {
-        grid-template-columns: auto 1fr auto;
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        gap: 0.4rem;
       }
       .brand {
         padding-left: 0;
       }
       .internal-links {
         justify-self: center;
+        min-width: 0;
+      }
+      nav a {
+        min-width: 0;
+        padding: 0.3em 0.55em;
+        font-size: 0.8rem;
+      }
+      .brand a {
+        font-size: 0.65rem;
+        padding: 0;
+        min-width: 0;
+        white-space: nowrap;
       }
       .social-links {
         display: none;
