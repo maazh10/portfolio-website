@@ -57,4 +57,4 @@ export function getSrcSet(originalUrl: string): string {
 }
 
 export const GALLERY_IMAGE_SIZES =
-  "(max-width: 480px) 100vw, (max-width: 900px) 50vw, 33vw";
+  "(max-width: 900px) 50vw, 33vw";

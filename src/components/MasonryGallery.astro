@@ -198,7 +198,6 @@ const tabOptions = hasTabs ? ["All", ...tabs!] : [];
 <script define:vars={{ galleryId, defaultColumns: columns }}>
   function getColumnCount() {
     const w = window.innerWidth;
-    if (w <= 480) return 1;
     if (w <= 900) return 2;
     return defaultColumns;
   }
@@ -210,7 +209,7 @@ const tabOptions = hasTabs ? ["All", ...tabs!] : [];
     const items = Array.from(
       gallery.querySelectorAll(".masonry-item:not(.filtered-out)"),
     );
-    const gap = 12;
+    const gap = window.innerWidth <= 900 ? 8 : 12;
     const cols = getColumnCount();
     const totalWidth = gallery.clientWidth;
     const colWidth = (totalWidth - gap * (cols - 1)) / cols;
