@@ -16,9 +16,15 @@ interface Props {
 
 const { images, columns = 3 } = Astro.props;
 const galleryId = `masonry-${Math.random().toString(36).slice(2, 8)}`;
+
+const placeholderHeight = Math.ceil(images.length / columns) * 280;
 ---
 
-<div class="masonry-gallery" id={galleryId} style={`--columns: ${columns}`}>
+<div
+  class="masonry-gallery"
+  id={galleryId}
+  style={`--columns: ${columns}; --placeholder-height: ${placeholderHeight}px`}
+>
   <div class="gallery-loading" id={`loading-${galleryId}`}>
     <div class="spinner"></div>
   </div>
@@ -50,8 +56,9 @@ const galleryId = `masonry-${Math.random().toString(36).slice(2, 8)}`;
     position: relative;
     width: calc(100% - 1rem);
     max-width: none;
-    padding: 2rem 0.5rem;
+    padding: 0 0.5rem;
     margin: 0 auto;
+    min-height: var(--placeholder-height, 0px);
   }
 
   .gallery-loading {
@@ -99,8 +106,9 @@ const galleryId = `masonry-${Math.random().toString(36).slice(2, 8)}`;
     border-radius: 3px;
     cursor: pointer;
     opacity: 0;
-    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                filter 0.4s ease;
+    transition:
+      transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+      filter 0.4s ease;
   }
 
   .masonry-item.visible {
@@ -117,8 +125,9 @@ const galleryId = `masonry-${Math.random().toString(36).slice(2, 8)}`;
     height: auto;
     display: block;
     filter: brightness(0.97);
-    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                filter 0.4s ease;
+    transition:
+      transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+      filter 0.4s ease;
   }
 
   .masonry-item:hover img {
@@ -139,112 +148,170 @@ const galleryId = `masonry-${Math.random().toString(36).slice(2, 8)}`;
 </style>
 
 <script define:vars={{ galleryId, defaultColumns: columns }}>
-  function getColumnCount() {
-    const w = window.innerWidth;
-    if (w <= 900) return 2;
-    return defaultColumns;
-  }
+  (function () {
+    let resizeTimer = null;
+    let resizeHandler = null;
 
-  function layout() {
-    const gallery = document.getElementById(galleryId);
-    if (!gallery) return;
+    function getColumnCount() {
+      const w = window.innerWidth;
+      if (w <= 900) return 2;
+      return defaultColumns;
+    }
 
-    const items = Array.from(
-      gallery.querySelectorAll(".masonry-item:not(.filtered-out)"),
-    );
-    const gap = window.innerWidth <= 900 ? 8 : 12;
-    const cols = getColumnCount();
-    const totalWidth = gallery.clientWidth;
-    const colWidth = (totalWidth - gap * (cols - 1)) / cols;
+    function layout() {
+      const gallery = document.getElementById(galleryId);
+      if (!gallery) return;
 
-    const colHeights = Array(cols).fill(0);
+      const items = Array.from(
+        gallery.querySelectorAll(".masonry-item:not(.filtered-out)"),
+      );
+      const gap = window.innerWidth <= 900 ? 8 : 12;
+      const cols = getColumnCount();
+      const totalWidth = gallery.clientWidth;
+      const colWidth = (totalWidth - gap * (cols - 1)) / cols;
 
-    items.forEach((item) => {
-      const minHeight = Math.min(...colHeights);
-      const colIndex = colHeights.indexOf(minHeight);
+      const colHeights = Array(cols).fill(0);
+      const colLastItems = Array(cols).fill(null);
 
-      const x = colIndex * (colWidth + gap);
-      const y = colHeights[colIndex];
+      items.forEach((item) => {
+        item.style.height = "";
+        const img = item.querySelector("img");
+        if (img) {
+          img.style.height = "";
+          img.style.objectFit = "";
+          img.style.objectPosition = "";
+        }
+      });
 
-      item.style.width = `${colWidth}px`;
-      item.style.left = `${x}px`;
-      item.style.top = `${y}px`;
+      items.forEach((item) => {
+        const minHeight = Math.min(...colHeights);
+        const colIndex = colHeights.indexOf(minHeight);
 
-      colHeights[colIndex] += item.offsetHeight + gap;
-    });
+        const x = colIndex * (colWidth + gap);
+        const y = colHeights[colIndex];
 
-    gallery.style.height = items.length ? `${Math.max(...colHeights)}px` : "0";
-  }
+        item.style.width = `${colWidth}px`;
+        item.style.left = `${x}px`;
+        item.style.top = `${y}px`;
 
-  function hideLoadingIndicator() {
-    const loadingIndicator = document.getElementById(`loading-${galleryId}`);
-    loadingIndicator?.classList.add("hidden");
-  }
+        colHeights[colIndex] += item.offsetHeight + gap;
+        colLastItems[colIndex] = item;
+      });
 
-  function init() {
-    const gallery = document.getElementById(galleryId);
-    if (!gallery) return;
+      if (!items.length) {
+        gallery.style.height = "0";
+        return;
+      }
 
-    const items = Array.from(gallery.querySelectorAll(".masonry-item"));
-    const images = items.map((item) => item.querySelector("img"));
+      const maxH = Math.max(...colHeights);
+      gallery.style.height = `${maxH}px`;
 
-    items.forEach((item) => item.classList.remove("visible"));
-    document.getElementById(`loading-${galleryId}`)?.classList.remove("hidden");
+      colLastItems.forEach((item, col) => {
+        if (!item) return;
+        const shortfall = maxH - colHeights[col];
+        if (shortfall <= 0) return;
 
-    let loaded = 0;
-    const total = images.length;
-    let spinnerHidden = false;
+        item.style.height = `${item.offsetHeight + shortfall}px`;
+        const img = item.querySelector("img");
+        if (img) {
+          img.style.height = "100%";
+          img.style.objectFit = "cover";
+          img.style.objectPosition = "center";
+        }
+      });
+    }
 
-    function onLoad(item) {
-      loaded++;
-      item.classList.add("visible");
-      layout();
+    function hideLoadingIndicator() {
+      const loadingIndicator = document.getElementById(`loading-${galleryId}`);
+      loadingIndicator?.classList.add("hidden");
+    }
 
-      if (!spinnerHidden) {
-        spinnerHidden = true;
+    function init() {
+      const gallery = document.getElementById(galleryId);
+      if (!gallery) return;
+
+      const items = Array.from(gallery.querySelectorAll(".masonry-item"));
+      const images = items.map((item) => item.querySelector("img"));
+
+      items.forEach((item) => item.classList.remove("visible"));
+      document
+        .getElementById(`loading-${galleryId}`)
+        ?.classList.remove("hidden");
+
+      let loaded = 0;
+      const total = images.length;
+      let spinnerHidden = false;
+
+      function onLoad(item) {
+        loaded++;
+        item.classList.add("visible");
+        layout();
+
+        if (!spinnerHidden) {
+          spinnerHidden = true;
+          hideLoadingIndicator();
+        }
+
+        if (loaded === total) {
+          // All images have loaded and layout() has set the final stable
+          // height. Safe to clear the placeholder now — actual height will
+          // be >= placeholder so there is no visual collapse.
+          gallery.style.setProperty("--placeholder-height", "0px");
+        }
+      }
+
+      images.forEach((img, index) => {
+        const item = items[index];
+
+        if (img.complete && img.naturalWidth > 0) {
+          onLoad(item);
+        } else {
+          img.addEventListener("load", () => onLoad(item), { once: true });
+          img.addEventListener("error", () => onLoad(item), { once: true });
+        }
+      });
+
+      if (loaded === total) {
         hideLoadingIndicator();
       }
+
+      if (resizeHandler) {
+        window.removeEventListener("resize", resizeHandler);
+      }
+      resizeHandler = () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(layout, 100);
+      };
+      window.addEventListener("resize", resizeHandler);
     }
 
-    images.forEach((img, index) => {
-      const item = items[index];
+    function scheduleInit() {
+      const gallery = document.getElementById(galleryId);
+      if (!gallery) return;
 
-      if (img.complete && img.naturalWidth > 0) {
-        onLoad(item);
-      } else {
-        img.addEventListener("load", () => onLoad(item), { once: true });
-        img.addEventListener("error", () => onLoad(item), { once: true });
+      const io = new IntersectionObserver(
+        (entries) => {
+          if (entries[0].isIntersecting) {
+            io.disconnect();
+            init();
+          }
+        },
+        { rootMargin: "200px 0px" },
+      );
+
+      io.observe(gallery);
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", scheduleInit);
+    } else {
+      scheduleInit();
+    }
+
+    document.addEventListener("astro:after-swap", () => {
+      if (document.getElementById(galleryId)) {
+        scheduleInit();
       }
     });
-
-    if (loaded === total) {
-      hideLoadingIndicator();
-    }
-
-    let resizeTimer;
-    const resizeHandler = () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(layout, 100);
-    };
-    window.addEventListener("resize", resizeHandler);
-
-    return () => {
-      window.removeEventListener("resize", resizeHandler);
-    };
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", () => {
-      init();
-    });
-  } else {
-    init();
-  }
-
-  document.addEventListener("astro:after-swap", () => {
-    const gallery = document.getElementById(galleryId);
-    if (gallery) {
-      init();
-    }
-  });
+  })();
 </script>

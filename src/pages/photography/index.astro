@@ -7,6 +7,16 @@ import { SITE_TITLE } from "../../consts";
 import { getPhotographyImages } from "../../utils/photography";
 
 const { images, regions } = getPhotographyImages();
+
+const BATCH_SIZE = 30;
+
+function chunkArray<T>(arr: T[], size: number): T[][] {
+  const out: T[][] = [];
+  for (let i = 0; i < arr.length; i += size) out.push(arr.slice(i, i + size));
+  return out;
+}
+
+const imageChunks = chunkArray(images, BATCH_SIZE);
 ---
 
 <!doctype html>
@@ -57,7 +67,9 @@ const { images, regions } = getPhotographyImages();
         color: var(--text-muted);
         border-bottom: 2px solid transparent;
         margin-bottom: -1px;
-        transition: color 0.2s ease, border-color 0.2s ease;
+        transition:
+          color 0.2s ease,
+          border-color 0.2s ease;
       }
       .gallery-tab:hover {
         color: var(--text-primary);
@@ -87,58 +99,64 @@ const { images, regions } = getPhotographyImages();
         </p>
       </div>
       <div class="gallery-tabs" role="tablist">
-        {["All", ...regions].map((region, index) => (
-          <button
-            type="button"
-            class="gallery-tab"
-            class:list={{ active: index === 0 }}
-            data-region={region}
-            role="tab"
-            aria-selected={index === 0}
-            aria-controls={`gallery-${region}`}
-          >
-            {region}
-          </button>
-        ))}
+        {
+          ["All", ...regions].map((region, index) => (
+            <button
+              type="button"
+              class="gallery-tab"
+              class:list={{ active: index === 0 }}
+              data-region={region}
+              role="tab"
+              aria-selected={index === 0}
+              aria-controls={`gallery-${region}`}
+            >
+              {region}
+            </button>
+          ))
+        }
       </div>
       <div class="gallery-panel" id="gallery-All" data-region="All">
-        <MasonryGallery images={images} columns={3} />
+        {
+          imageChunks.map((chunk) => (
+            <MasonryGallery images={chunk} columns={3} />
+          ))
+        }
       </div>
-      {regions.map((region) => (
-        <div class="gallery-panel" id={`gallery-${region}`} data-region={region} hidden>
-          <MasonryGallery
-            images={images.filter((image) => image.region === region)}
-            columns={3}
-          />
-        </div>
-      ))}
+      {
+        regions.map((region) => {
+          const regionChunks = chunkArray(
+            images.filter((image) => image.region === region),
+            BATCH_SIZE,
+          );
+          return (
+            <div
+              class="gallery-panel"
+              id={`gallery-${region}`}
+              data-region={region}
+              hidden
+            >
+              {regionChunks.map((chunk) => (
+                <MasonryGallery images={chunk} columns={3} />
+              ))}
+            </div>
+          );
+        })
+      }
     </main>
     <Footer />
   </body>
 </html>
 
 <script>
+  history.scrollRestoration = "manual";
+  window.scrollTo(0, 0);
+
   const tabs = Array.from(
     document.querySelectorAll<HTMLButtonElement>(".gallery-tab"),
   );
   const panels = Array.from(
     document.querySelectorAll<HTMLElement>(".gallery-panel"),
   );
-  const allGallery = document.querySelector<HTMLElement>(
-    "#gallery-All .masonry-gallery",
-  );
-
-  if (allGallery) {
-    const items = Array.from(allGallery.querySelectorAll(".masonry-item"));
-
-    for (let index = items.length - 1; index > 0; index--) {
-      const randomIndex = Math.floor(Math.random() * (index + 1));
-      [items[index], items[randomIndex]] = [items[randomIndex], items[index]];
-    }
-
-    allGallery.replaceChildren(...items);
-    window.dispatchEvent(new Event("resize"));
-  }
 
   tabs.forEach((tab) => {
     tab.addEventListener("click", () => {
