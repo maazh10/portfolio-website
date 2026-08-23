@@ -12,22 +12,15 @@ interface Props {
     alt: string;
   }>;
   columns?: number;
+  shuffle?: boolean;
 }
 
-const { images, columns = 3 } = Astro.props;
+const { images, columns = 3, shuffle = false } = Astro.props;
 const galleryId = `masonry-${Math.random().toString(36).slice(2, 8)}`;
-
-const placeholderHeight = Math.ceil(images.length / columns) * 280;
+const skeletonHeights = [200, 260, 220, 300, 240, 280, 210, 270, 230, 250];
 ---
 
-<div
-  class="masonry-gallery"
-  id={galleryId}
-  style={`--columns: ${columns}; --placeholder-height: ${placeholderHeight}px`}
->
-  <div class="gallery-loading" id={`loading-${galleryId}`}>
-    <div class="spinner"></div>
-  </div>
+<div class="masonry-gallery" id={galleryId} style={`--columns: ${columns}`}>
   {
     images.map((image, index) => (
       <a
@@ -36,14 +29,14 @@ const placeholderHeight = Math.ceil(images.length / columns) * 280;
         rel="noopener noreferrer"
         class="masonry-item"
         data-original-index={index}
-        style={`--delay: ${Math.min(index, 12) * 0.04}s`}
+        style={`--delay: ${Math.min(index, 12) * 0.04}s; --skeleton-height: ${skeletonHeights[index % skeletonHeights.length]}px`}
       >
+        <div class="skeleton" aria-hidden="true" />
         <img
-          src={getResizedImageUrl(image.src)}
-          srcset={getSrcSet(image.src)}
+          data-src={getResizedImageUrl(image.src)}
+          data-srcset={getSrcSet(image.src)}
           sizes={GALLERY_IMAGE_SIZES}
           alt={image.alt}
-          loading="lazy"
           decoding="async"
         />
       </a>
@@ -58,45 +51,7 @@ const placeholderHeight = Math.ceil(images.length / columns) * 280;
     max-width: none;
     padding: 0 0.5rem;
     margin: 0 auto;
-    min-height: var(--placeholder-height, 0px);
-  }
-
-  .gallery-loading {
-    position: absolute;
-    top: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 100;
-    opacity: 1;
-    transition: opacity 0.3s ease;
-  }
-
-  .gallery-loading.hidden {
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  .spinner {
-    width: 48px;
-    height: 48px;
-    border: 3px solid rgba(var(--gray), 0.1);
-    border-top: 3px solid var(--accent);
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-  }
-
-  [data-theme="dark"] .spinner {
-    border: 3px solid rgba(255, 255, 255, 0.1);
-    border-top: 3px solid var(--accent);
-  }
-
-  @keyframes spin {
-    to {
-      transform: rotate(360deg);
-    }
+    min-height: 120px;
   }
 
   .masonry-item {
@@ -109,6 +64,56 @@ const placeholderHeight = Math.ceil(images.length / columns) * 280;
     transition:
       transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
       filter 0.4s ease;
+  }
+
+  .masonry-item.loading,
+  .masonry-item.visible {
+    opacity: 1;
+  }
+
+  .skeleton {
+    width: 100%;
+    height: var(--skeleton-height, 240px);
+    border-radius: 3px;
+    background: linear-gradient(
+      90deg,
+      rgba(var(--gray), 0.08) 0%,
+      rgba(var(--gray), 0.18) 50%,
+      rgba(var(--gray), 0.08) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s ease-in-out infinite;
+  }
+
+  [data-theme="dark"] .skeleton {
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.04) 0%,
+      rgba(255, 255, 255, 0.1) 50%,
+      rgba(255, 255, 255, 0.04) 100%
+    );
+    background-size: 200% 100%;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+
+  .masonry-item.loading img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+  }
+
+  .masonry-item.visible .skeleton {
+    display: none;
   }
 
   .masonry-item.visible {
@@ -126,6 +131,7 @@ const placeholderHeight = Math.ceil(images.length / columns) * 280;
     display: block;
     filter: brightness(0.97);
     transition:
+      opacity 0.35s ease,
       transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
       filter 0.4s ease;
   }
@@ -147,10 +153,62 @@ const placeholderHeight = Math.ceil(images.length / columns) * 280;
   }
 </style>
 
-<script define:vars={{ galleryId, defaultColumns: columns }}>
+<script define:vars={{ galleryId, defaultColumns: columns, shuffle }}>
   (function () {
     let resizeTimer = null;
     let resizeHandler = null;
+    let loadComplete = false;
+
+    function startImageLoad(img) {
+      if (!img || img.src) return;
+
+      const src = img.dataset.src;
+      if (!src) return;
+
+      img.src = src;
+
+      const srcset = img.dataset.srcset;
+      if (srcset) {
+        img.srcset = srcset;
+      }
+    }
+
+    function relayout() {
+      const gallery = document.getElementById(galleryId);
+      if (!gallery) return;
+
+      gallery.querySelectorAll(".masonry-item").forEach((item) => {
+        const img = item.querySelector("img");
+        if (
+          !item.classList.contains("visible") &&
+          img?.complete &&
+          img.naturalWidth > 0
+        ) {
+          item.classList.remove("loading");
+          item.classList.add("visible");
+        }
+      });
+
+      layout();
+    }
+
+    function shuffleItems() {
+      const gallery = document.getElementById(galleryId);
+      if (!gallery) return;
+
+      const items = Array.from(gallery.querySelectorAll(".masonry-item"));
+      for (let i = items.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [items[i], items[j]] = [items[j], items[i]];
+      }
+
+      items.forEach((item, index) => {
+        gallery.appendChild(item);
+        item.style.setProperty("--delay", `${Math.min(index, 12) * 0.04}s`);
+      });
+
+      layout();
+    }
 
     function getColumnCount() {
       const w = window.innerWidth;
@@ -206,6 +264,11 @@ const placeholderHeight = Math.ceil(images.length / columns) * 280;
       const maxH = Math.max(...colHeights);
       gallery.style.height = `${maxH}px`;
 
+      if (!loadComplete) {
+        const currentMin = parseInt(gallery.style.minHeight, 10) || 0;
+        gallery.style.minHeight = `${Math.max(maxH, currentMin)}px`;
+      }
+
       colLastItems.forEach((item, col) => {
         if (!item) return;
         const shortfall = maxH - colHeights[col];
@@ -221,42 +284,37 @@ const placeholderHeight = Math.ceil(images.length / columns) * 280;
       });
     }
 
-    function hideLoadingIndicator() {
-      const loadingIndicator = document.getElementById(`loading-${galleryId}`);
-      loadingIndicator?.classList.add("hidden");
-    }
-
     function init() {
       const gallery = document.getElementById(galleryId);
       if (!gallery) return;
 
+      if (shuffle) {
+        shuffleItems();
+      }
+
       const items = Array.from(gallery.querySelectorAll(".masonry-item"));
       const images = items.map((item) => item.querySelector("img"));
 
-      items.forEach((item) => item.classList.remove("visible"));
-      document
-        .getElementById(`loading-${galleryId}`)
-        ?.classList.remove("hidden");
+      items.forEach((item) => {
+        item.classList.remove("visible");
+        item.classList.add("loading");
+      });
+
+      layout();
+      images.forEach((img) => startImageLoad(img));
 
       let loaded = 0;
       const total = images.length;
-      let spinnerHidden = false;
 
       function onLoad(item) {
         loaded++;
+        item.classList.remove("loading");
         item.classList.add("visible");
         layout();
 
-        if (!spinnerHidden) {
-          spinnerHidden = true;
-          hideLoadingIndicator();
-        }
-
         if (loaded === total) {
-          // All images have loaded and layout() has set the final stable
-          // height. Safe to clear the placeholder now — actual height will
-          // be >= placeholder so there is no visual collapse.
-          gallery.style.setProperty("--placeholder-height", "0px");
+          loadComplete = true;
+          gallery.style.minHeight = "";
         }
       }
 
@@ -270,10 +328,6 @@ const placeholderHeight = Math.ceil(images.length / columns) * 280;
           img.addEventListener("error", () => onLoad(item), { once: true });
         }
       });
-
-      if (loaded === total) {
-        hideLoadingIndicator();
-      }
 
       if (resizeHandler) {
         window.removeEventListener("resize", resizeHandler);
@@ -300,6 +354,30 @@ const placeholderHeight = Math.ceil(images.length / columns) * 280;
       );
 
       io.observe(gallery);
+    }
+
+    if (shuffle) {
+      const registerShuffleListener = () => {
+        const gallery = document.getElementById(galleryId);
+        gallery?.addEventListener("masonry-shuffle", shuffleItems);
+      };
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", registerShuffleListener);
+      } else {
+        registerShuffleListener();
+      }
+    }
+
+    const registerRelayoutListener = () => {
+      const gallery = document.getElementById(galleryId);
+      gallery?.addEventListener("masonry-relayout", relayout);
+    };
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", registerRelayoutListener);
+    } else {
+      registerRelayoutListener();
     }
 
     if (document.readyState === "loading") {

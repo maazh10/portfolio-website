@@ -8,7 +8,7 @@ import { getPhotographyImages } from "../../utils/photography";
 
 const { images, regions } = getPhotographyImages();
 
-const BATCH_SIZE = 30;
+const BATCH_SIZE = 10;
 
 function chunkArray<T>(arr: T[], size: number): T[][] {
   const out: T[][] = [];
@@ -27,6 +27,26 @@ const imageChunks = chunkArray(images, BATCH_SIZE);
       description="A collection of my photos from around the world."
       favicon="📸"
     />
+    <script is:inline>
+      if ("scrollRestoration" in history) {
+        history.scrollRestoration = "manual";
+      }
+      window.scrollTo(0, 0);
+      window.addEventListener(
+        "pageshow",
+        () => {
+          window.scrollTo(0, 0);
+        },
+        { once: true },
+      );
+      window.addEventListener(
+        "load",
+        () => {
+          window.scrollTo(0, 0);
+        },
+        { once: true },
+      );
+    </script>
     <style>
       main {
         width: calc(100% - 6rem);
@@ -147,16 +167,42 @@ const imageChunks = chunkArray(images, BATCH_SIZE);
   </body>
 </html>
 
-<script>
-  history.scrollRestoration = "manual";
-  window.scrollTo(0, 0);
+<script define:vars={{ batchSize: BATCH_SIZE }}>
+  const tabs = Array.from(document.querySelectorAll(".gallery-tab"));
+  const panels = Array.from(document.querySelectorAll(".gallery-panel"));
 
-  const tabs = Array.from(
-    document.querySelectorAll<HTMLButtonElement>(".gallery-tab"),
-  );
-  const panels = Array.from(
-    document.querySelectorAll<HTMLElement>(".gallery-panel"),
-  );
+  function shuffleAllGallery() {
+    const panel = document.getElementById("gallery-All");
+    if (!panel) return;
+
+    const galleries = Array.from(panel.querySelectorAll(".masonry-gallery"));
+    const allItems = galleries.flatMap((gallery) =>
+      Array.from(gallery.querySelectorAll(".masonry-item")),
+    );
+
+    for (let i = allItems.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [allItems[i], allItems[j]] = [allItems[j], allItems[i]];
+    }
+
+    galleries.forEach((gallery, index) => {
+      gallery
+        .querySelectorAll(".masonry-item")
+        .forEach((item) => item.remove());
+
+      const chunk = allItems.slice(index * batchSize, (index + 1) * batchSize);
+
+      chunk.forEach((item, itemIndex) => {
+        item.style.setProperty("--delay", `${Math.min(itemIndex, 12) * 0.04}s`);
+        gallery.appendChild(item);
+      });
+
+      gallery.dispatchEvent(new CustomEvent("masonry-relayout"));
+    });
+  }
+
+  shuffleAllGallery();
+  window.scrollTo(0, 0);
 
   tabs.forEach((tab) => {
     tab.addEventListener("click", () => {
@@ -171,6 +217,10 @@ const imageChunks = chunkArray(images, BATCH_SIZE);
       panels.forEach((panel) => {
         panel.hidden = panel.dataset.region !== region;
       });
+
+      if (region === "All") {
+        shuffleAllGallery();
+      }
 
       window.dispatchEvent(new Event("resize"));
     });
