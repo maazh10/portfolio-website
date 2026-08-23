@@ -37,6 +37,38 @@ const { images, regions } = getPhotographyImages();
         margin: 0;
         color: var(--text-muted);
       }
+      .gallery-tabs {
+        display: flex;
+        justify-content: flex-start;
+        gap: 1.5rem;
+        width: 100%;
+        max-width: none;
+        margin: 0 0 1.5rem;
+        padding: 0 0.5rem;
+        border-bottom: 1px solid rgba(var(--gray), 20%);
+      }
+      .gallery-tab {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0.75rem 0.25rem;
+        font-family: "Roboto", sans-serif;
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        border-bottom: 2px solid transparent;
+        margin-bottom: -1px;
+        transition: color 0.2s ease, border-color 0.2s ease;
+      }
+      .gallery-tab:hover {
+        color: var(--text-primary);
+      }
+      .gallery-tab.active {
+        color: var(--accent);
+        border-bottom-color: var(--accent);
+      }
+      .gallery-panel[hidden] {
+        display: none;
+      }
       @media (max-width: 720px) {
         main {
           width: calc(100% - 1.5rem);
@@ -54,8 +86,75 @@ const { images, regions } = getPhotographyImages();
           sometimes people.
         </p>
       </div>
-      <MasonryGallery images={images} tabs={regions} columns={3} />
+      <div class="gallery-tabs" role="tablist">
+        {["All", ...regions].map((region, index) => (
+          <button
+            type="button"
+            class="gallery-tab"
+            class:list={{ active: index === 0 }}
+            data-region={region}
+            role="tab"
+            aria-selected={index === 0}
+            aria-controls={`gallery-${region}`}
+          >
+            {region}
+          </button>
+        ))}
+      </div>
+      <div class="gallery-panel" id="gallery-All" data-region="All">
+        <MasonryGallery images={images} columns={3} />
+      </div>
+      {regions.map((region) => (
+        <div class="gallery-panel" id={`gallery-${region}`} data-region={region} hidden>
+          <MasonryGallery
+            images={images.filter((image) => image.region === region)}
+            columns={3}
+          />
+        </div>
+      ))}
     </main>
     <Footer />
   </body>
 </html>
+
+<script>
+  const tabs = Array.from(
+    document.querySelectorAll<HTMLButtonElement>(".gallery-tab"),
+  );
+  const panels = Array.from(
+    document.querySelectorAll<HTMLElement>(".gallery-panel"),
+  );
+  const allGallery = document.querySelector<HTMLElement>(
+    "#gallery-All .masonry-gallery",
+  );
+
+  if (allGallery) {
+    const items = Array.from(allGallery.querySelectorAll(".masonry-item"));
+
+    for (let index = items.length - 1; index > 0; index--) {
+      const randomIndex = Math.floor(Math.random() * (index + 1));
+      [items[index], items[randomIndex]] = [items[randomIndex], items[index]];
+    }
+
+    allGallery.replaceChildren(...items);
+    window.dispatchEvent(new Event("resize"));
+  }
+
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      const region = tab.dataset.region || "All";
+
+      tabs.forEach((button) => {
+        const isActive = button === tab;
+        button.classList.toggle("active", isActive);
+        button.setAttribute("aria-selected", String(isActive));
+      });
+
+      panels.forEach((panel) => {
+        panel.hidden = panel.dataset.region !== region;
+      });
+
+      window.dispatchEvent(new Event("resize"));
+    });
+  });
+</script>

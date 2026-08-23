@@ -10,36 +10,13 @@ interface Props {
   images: Array<{
     src: string;
     alt: string;
-    region?: string;
   }>;
   columns?: number;
-  tabs?: string[];
 }
 
-const { images, columns = 3, tabs } = Astro.props;
+const { images, columns = 3 } = Astro.props;
 const galleryId = `masonry-${Math.random().toString(36).slice(2, 8)}`;
-const hasTabs = Boolean(tabs && tabs.length > 0);
-const tabOptions = hasTabs ? ["All", ...tabs!] : [];
 ---
-
-{
-  hasTabs && (
-    <div class="gallery-tabs" role="tablist">
-      {tabOptions.map((tab, index) => (
-        <button
-          type="button"
-          class="gallery-tab"
-          class:list={{ active: index === 0 }}
-          data-region={tab}
-          role="tab"
-          aria-selected={index === 0}
-        >
-          {tab}
-        </button>
-      ))}
-    </div>
-  )
-}
 
 <div class="masonry-gallery" id={galleryId} style={`--columns: ${columns}`}>
   <div class="gallery-loading" id={`loading-${galleryId}`}>
@@ -52,7 +29,6 @@ const tabOptions = hasTabs ? ["All", ...tabs!] : [];
         target="_blank"
         rel="noopener noreferrer"
         class="masonry-item"
-        data-region={image.region}
         data-original-index={index}
         style={`--delay: ${Math.min(index, 12) * 0.04}s`}
       >
@@ -70,39 +46,6 @@ const tabOptions = hasTabs ? ["All", ...tabs!] : [];
 </div>
 
 <style>
-  .gallery-tabs {
-    display: flex;
-    justify-content: flex-start;
-    gap: 1.5rem;
-    width: 100%;
-    max-width: none;
-    margin: 0 0 1.5rem;
-    padding: 0;
-    border-bottom: 1px solid rgba(var(--gray), 20%);
-  }
-
-  .gallery-tab {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0.75rem 0.25rem;
-    font-family: "Roboto", sans-serif;
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    border-bottom: 2px solid transparent;
-    margin-bottom: -1px;
-    transition: color 0.2s ease, border-color 0.2s ease;
-  }
-
-  .gallery-tab:hover {
-    color: var(--text-primary);
-  }
-
-  .gallery-tab.active {
-    color: var(--accent);
-    border-bottom-color: var(--accent);
-  }
-
   .masonry-gallery {
     position: relative;
     width: calc(100% - 1rem);
@@ -233,84 +176,6 @@ const tabOptions = hasTabs ? ["All", ...tabs!] : [];
     gallery.style.height = items.length ? `${Math.max(...colHeights)}px` : "0";
   }
 
-  function shuffleArray(items) {
-    const shuffled = [...items];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    return shuffled;
-  }
-
-  function reorderItemsForRegion(region) {
-    const gallery = document.getElementById(galleryId);
-    if (!gallery) return;
-
-    const items = Array.from(gallery.querySelectorAll(".masonry-item"));
-    if (!items.length) return;
-
-    const orderedItems = items.map((item, index) => {
-      if (!item.dataset.originalIndex) {
-        item.dataset.originalIndex = String(index);
-      }
-      return item;
-    });
-
-    if (region === "All") {
-      const visibleItems = orderedItems.filter(
-        (item) => !item.classList.contains("filtered-out"),
-      );
-      const hiddenItems = orderedItems.filter((item) =>
-        item.classList.contains("filtered-out"),
-      );
-      gallery.replaceChildren(...shuffleArray(visibleItems), ...hiddenItems);
-      return;
-    }
-
-    gallery.replaceChildren(
-      ...orderedItems.sort(
-        (a, b) =>
-          Number(a.dataset.originalIndex) - Number(b.dataset.originalIndex),
-      ),
-    );
-  }
-
-  function initTabs() {
-    const gallery = document.getElementById(galleryId);
-    const tabsContainer = gallery?.previousElementSibling;
-    if (!gallery || !tabsContainer?.classList.contains("gallery-tabs")) return;
-
-    const tabButtons = Array.from(tabsContainer.querySelectorAll(".gallery-tab"));
-    const items = Array.from(gallery.querySelectorAll(".masonry-item"));
-
-    const updateActiveRegion = (region) => {
-      tabButtons.forEach((btn) => {
-        const isActive = btn.dataset.region === region;
-        btn.classList.toggle("active", isActive);
-        btn.setAttribute("aria-selected", String(isActive));
-      });
-
-      items.forEach((item) => {
-        const matches = region === "All" || item.dataset.region === region;
-        item.classList.toggle("filtered-out", !matches);
-      });
-
-      reorderItemsForRegion(region);
-      layout();
-    };
-
-    const activeTab = tabButtons.find((button) => button.classList.contains("active")) ?? tabButtons[0];
-    if (activeTab) {
-      updateActiveRegion(activeTab.dataset.region || "All");
-    }
-
-    tabButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        updateActiveRegion(button.dataset.region || "All");
-      });
-    });
-  }
-
   function hideLoadingIndicator() {
     const loadingIndicator = document.getElementById(`loading-${galleryId}`);
     loadingIndicator?.classList.add("hidden");
@@ -371,18 +236,15 @@ const tabOptions = hasTabs ? ["All", ...tabs!] : [];
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", () => {
       init();
-      initTabs();
     });
   } else {
     init();
-    initTabs();
   }
 
   document.addEventListener("astro:after-swap", () => {
     const gallery = document.getElementById(galleryId);
     if (gallery) {
       init();
-      initTabs();
     }
   });
 </script>
