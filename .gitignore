@@ -136,6 +136,9 @@ dist/
 
 .DS_Store
 
+# Wrangler local dev state
+.wrangler/
+
 # nginx
 certs/
 acme/
