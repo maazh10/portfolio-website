@@ -63,6 +63,7 @@ export function setupMasonryGallery(
   let resizeTimer: ReturnType<typeof setTimeout> | null = null;
   let resizeHandler: (() => void) | null = null;
   let loadComplete = false;
+  let initialized = false;
 
   function startImageLoad(img: HTMLImageElement) {
     if (!img || img.src) return;
@@ -199,6 +200,8 @@ export function setupMasonryGallery(
   function init() {
     const gallery = document.getElementById(galleryId);
     if (!gallery) return;
+    if (initialized) return;
+    initialized = true;
 
     if (shuffle) shuffleItems();
 
@@ -292,6 +295,10 @@ export function setupMasonryGallery(
   } else {
     registerRelayout();
   }
+
+  document
+    .getElementById(galleryId)
+    ?.addEventListener("masonry-init", init);
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", scheduleInit);

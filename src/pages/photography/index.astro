@@ -275,6 +275,7 @@ import "../../styles/masonry.css";
           gallery.appendChild(item);
         });
 
+      gallery.dispatchEvent(new CustomEvent("masonry-init"));
       gallery.dispatchEvent(new CustomEvent("masonry-relayout"));
     });
   }
