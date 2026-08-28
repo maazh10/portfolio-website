@@ -10,6 +10,8 @@ interface Props {
   images: Array<{
     src: string;
     alt: string;
+    width?: number;
+    height?: number;
   }>;
   columns?: number;
   shuffle?: boolean;
@@ -35,7 +37,7 @@ const skeletonHeights = [200, 260, 220, 300, 240, 280, 210, 270, 230, 250];
         rel="noopener noreferrer"
         class="masonry-item"
         data-original-index={index}
-        style={`--delay: ${Math.min(index, 12) * 0.04}s; --skeleton-height: ${skeletonHeights[index % skeletonHeights.length]}px`}
+        style={`--delay: ${Math.min(index, 12) * 0.04}s; ${image.width && image.height ? `--skeleton-aspect-ratio: ${image.width} / ${image.height}` : `--skeleton-height: ${skeletonHeights[index % skeletonHeights.length]}px`}`}
       >
         <div class="skeleton" aria-hidden="true" />
         <img

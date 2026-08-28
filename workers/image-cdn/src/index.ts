@@ -60,7 +60,7 @@ async function handleManifest(
 ): Promise<Response> {
   let manifest = await readCachedManifest(env.BUCKET);
 
-  if (!manifest) {
+  if (!manifest || manifest.version !== 3) {
     manifest = await buildManifest(env.BUCKET);
     await writeManifest(env.BUCKET, manifest);
   }

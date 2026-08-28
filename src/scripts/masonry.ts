@@ -12,6 +12,7 @@ export function createMasonryItem(
   sizes: string,
   alt: string,
   index: number,
+  dimensions?: { width: number; height: number },
 ): HTMLElement {
   const a = document.createElement("a");
   a.href = fullSizeUrl;
@@ -20,10 +21,17 @@ export function createMasonryItem(
   a.className = "masonry-item";
   a.dataset.originalIndex = String(index);
   a.style.setProperty("--delay", `${Math.min(index, 12) * 0.04}s`);
-  a.style.setProperty(
-    "--skeleton-height",
-    `${SKELETON_HEIGHTS[index % SKELETON_HEIGHTS.length]}px`,
-  );
+  if (dimensions) {
+    a.style.setProperty(
+      "--skeleton-aspect-ratio",
+      `${dimensions.width} / ${dimensions.height}`,
+    );
+  } else {
+    a.style.setProperty(
+      "--skeleton-height",
+      `${SKELETON_HEIGHTS[index % SKELETON_HEIGHTS.length]}px`,
+    );
+  }
 
   const skeleton = document.createElement("div");
   skeleton.className = "skeleton";

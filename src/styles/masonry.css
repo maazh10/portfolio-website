@@ -26,7 +26,8 @@
 
 .skeleton {
   width: 100%;
-  height: var(--skeleton-height, 240px);
+  height: var(--skeleton-height, auto);
+  aspect-ratio: var(--skeleton-aspect-ratio, auto);
   border-radius: 3px;
   background: linear-gradient(
     90deg,
@@ -56,7 +57,6 @@
     background-position: -200% 0;
   }
 }
-
 .masonry-item.loading img {
   position: absolute;
   inset: 0;
@@ -67,11 +67,6 @@
 
 .masonry-item.visible .skeleton {
   display: none;
-}
-
-.masonry-item.visible {
-  animation: fadeIn 0.5s ease-out forwards;
-  animation-delay: var(--delay, 0s);
 }
 
 .masonry-item.filtered-out {
@@ -94,13 +89,3 @@
   filter: brightness(1.03);
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}

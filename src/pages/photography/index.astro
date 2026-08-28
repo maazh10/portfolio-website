@@ -199,7 +199,12 @@ import "../../styles/masonry.css";
 
   function buildGalleryPanel(
     panelId: string,
-    images: Array<{ path: string; uploadedAt: string }>,
+    images: Array<{
+      path: string;
+      uploadedAt: string;
+      width?: number;
+      height?: number;
+    }>,
     region: string,
   ): HTMLElement {
     const panel = document.createElement("div");
@@ -226,6 +231,9 @@ import "../../styles/masonry.css";
             GALLERY_IMAGE_SIZES,
             `Photo from ${region}`,
             index,
+            image.width && image.height
+              ? { width: image.width, height: image.height }
+              : undefined,
           ),
         );
       });

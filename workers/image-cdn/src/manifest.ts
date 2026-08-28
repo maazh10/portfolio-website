@@ -1,3 +1,5 @@
+import { getImageDimensions } from "./image-dimensions";
+
 const IMAGE_EXTENSIONS = new Set([".jpg", ".jpeg", ".png", ".webp", ".avif"]);
 const MANIFEST_KEY = "photography/manifest.json";
 const PHOTOGRAPHY_PREFIX = "photography/";
@@ -5,6 +7,8 @@ const PHOTOGRAPHY_PREFIX = "photography/";
 export interface ManifestImage {
   path: string;
   uploadedAt: string;
+  width?: number;
+  height?: number;
 }
 
 export interface ManifestRegion {
@@ -13,6 +17,7 @@ export interface ManifestRegion {
 }
 
 export interface Manifest {
+  version: 3;
   generatedAt: string;
   regions: ManifestRegion[];
 }
@@ -65,9 +70,11 @@ export async function buildManifest(bucket: R2Bucket): Promise<Manifest> {
       if (filename.startsWith(".") || filename.startsWith("_")) continue;
       if (!isImageFile(filename)) continue;
 
+      const dimensions = await getImageDimensions(bucket, obj.key);
       images.push({
         path: obj.key,
         uploadedAt: obj.uploaded.toISOString(),
+        ...dimensions,
       });
     }
 
@@ -81,6 +88,7 @@ export async function buildManifest(bucket: R2Bucket): Promise<Manifest> {
   regions.sort((a, b) => a.id.localeCompare(b.id));
 
   return {
+    version: 3,
     generatedAt: new Date().toISOString(),
     regions,
   };
