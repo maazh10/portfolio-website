@@ -141,6 +141,11 @@ export function setupMasonryGallery(
         img.style.objectFit = "";
         img.style.objectPosition = "";
       }
+      const skeleton = item.querySelector<HTMLElement>(".skeleton");
+      if (skeleton) {
+        skeleton.style.height = "";
+        skeleton.style.aspectRatio = "";
+      }
     });
 
     items.forEach((item) => {
@@ -166,6 +171,7 @@ export function setupMasonryGallery(
     if (!loadComplete) {
       const currentMin = parseInt(gallery.style.minHeight, 10) || 0;
       gallery.style.minHeight = `${Math.max(maxH, currentMin)}px`;
+      return;
     }
 
     colLastItems.forEach((item, col) => {
@@ -179,6 +185,13 @@ export function setupMasonryGallery(
         img.style.height = "100%";
         img.style.objectFit = "cover";
         img.style.objectPosition = "center";
+      }
+      if (item.classList.contains("loading")) {
+        const skeleton = item.querySelector<HTMLElement>(".skeleton");
+        if (skeleton) {
+          skeleton.style.height = "100%";
+          skeleton.style.aspectRatio = "auto";
+        }
       }
     });
   }
@@ -209,13 +222,14 @@ export function setupMasonryGallery(
       loaded++;
       item.classList.remove("loading");
       item.classList.add("visible");
-      layout();
 
       if (loaded === total) {
         loadComplete = true;
         const gallery = document.getElementById(galleryId);
         if (gallery) gallery.style.minHeight = "";
       }
+
+      layout();
     }
 
     images.forEach((img, index) => {
