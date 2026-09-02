@@ -141,6 +141,34 @@ import "../../styles/masonry.css";
           width: calc(100% - 1.5rem);
         }
       }
+      .gallery-spinner {
+        width: calc(100% - 1rem);
+        padding: 0 0.5rem;
+        margin: 2rem auto 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 200px;
+      }
+      .spinner {
+        width: 40px;
+        height: 40px;
+        border: 3px solid rgba(var(--gray), 20%);
+        border-top-color: var(--accent);
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      #gallery-loading {
+        display: none;
+      }
+      #gallery-loading.visible {
+        display: block;
+      }
     </style>
   </head>
   <body>
@@ -155,6 +183,10 @@ import "../../styles/masonry.css";
       </div>
 
       <div class="gallery-tabs" id="gallery-tabs" role="tablist"></div>
+
+      <div id="gallery-spinner" class="gallery-spinner">
+        <div class="spinner"></div>
+      </div>
 
       <div id="gallery-loading">
         <div class="gallery-skeleton">
@@ -187,15 +219,7 @@ import "../../styles/masonry.css";
   } from "../../scripts/masonry";
   import { IMAGE_CDN_ORIGIN } from "../../consts";
 
-  const BATCH_SIZE = 30;
   const MANIFEST_URL = `${IMAGE_CDN_ORIGIN}/photography/manifest.json`;
-
-  function chunkArray<T>(arr: T[], size: number): T[][] {
-    const out: T[][] = [];
-    for (let i = 0; i < arr.length; i += size)
-      out.push(arr.slice(i, i + size));
-    return out;
-  }
 
   function buildGalleryPanel(
     panelId: string,
@@ -212,35 +236,31 @@ import "../../styles/masonry.css";
     panel.id = panelId;
     panel.dataset.region = region;
 
-    chunkArray(images, BATCH_SIZE).forEach((chunk) => {
-      const galleryId = `masonry-${Math.random().toString(36).slice(2, 8)}`;
-      const galleryEl = document.createElement("div");
-      galleryEl.className = "masonry-gallery";
-      galleryEl.id = galleryId;
-      galleryEl.dataset.columns = "3";
-      galleryEl.dataset.shuffle = "false";
-      galleryEl.style.setProperty("--columns", "3");
+    const galleryId = `masonry-${Math.random().toString(36).slice(2, 8)}`;
+    const galleryEl = document.createElement("div");
+    galleryEl.className = "masonry-gallery";
+    galleryEl.id = galleryId;
+    galleryEl.dataset.columns = "3";
+    galleryEl.style.setProperty("--columns", "3");
 
-      chunk.forEach((image, index) => {
-        const cdnUrl = getImageUrl(image.path);
-        galleryEl.appendChild(
-          createMasonryItem(
-            getFullSizeImageUrl(cdnUrl),
-            getResizedImageUrl(cdnUrl),
-            getSrcSet(cdnUrl),
-            GALLERY_IMAGE_SIZES,
-            `Photo from ${region}`,
-            index,
-            image.width && image.height
-              ? { width: image.width, height: image.height }
-              : undefined,
-          ),
-        );
-      });
-
-      panel.appendChild(galleryEl);
+    images.forEach((image, index) => {
+      const cdnUrl = getImageUrl(image.path);
+      galleryEl.appendChild(
+        createMasonryItem(
+          getFullSizeImageUrl(cdnUrl),
+          getResizedImageUrl(cdnUrl),
+          getSrcSet(cdnUrl),
+          GALLERY_IMAGE_SIZES,
+          `Photo from ${region}`,
+          index,
+          image.width && image.height
+            ? { width: image.width, height: image.height }
+            : undefined,
+        ),
+      );
     });
 
+    panel.appendChild(galleryEl);
     return panel;
   }
 
@@ -248,36 +268,29 @@ import "../../styles/masonry.css";
     const panel = document.getElementById("gallery-All");
     if (!panel) return;
 
-    const galleries = Array.from(
-      panel.querySelectorAll<HTMLElement>(".masonry-gallery"),
-    );
-    const allItems = galleries.flatMap((gallery) =>
-      Array.from(gallery.querySelectorAll<HTMLElement>(".masonry-item")),
+    const gallery = panel.querySelector<HTMLElement>(".masonry-gallery");
+    if (!gallery) return;
+
+    const allItems = Array.from(
+      gallery.querySelectorAll<HTMLElement>(".masonry-item"),
     );
 
+    // Fisher-Yates shuffle
     for (let i = allItems.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [allItems[i], allItems[j]] = [allItems[j], allItems[i]];
     }
 
-    galleries.forEach((gallery, index) => {
-      gallery
-        .querySelectorAll(".masonry-item")
-        .forEach((item) => item.remove());
+    // Remove and re-add items in shuffled order
+    allItems.forEach((item) => item.remove());
 
-      allItems
-        .slice(index * BATCH_SIZE, (index + 1) * BATCH_SIZE)
-        .forEach((item, itemIndex) => {
-          item.style.setProperty(
-            "--delay",
-            `${Math.min(itemIndex, 12) * 0.04}s`,
-          );
-          gallery.appendChild(item);
-        });
-
-      gallery.dispatchEvent(new CustomEvent("masonry-init"));
-      gallery.dispatchEvent(new CustomEvent("masonry-relayout"));
+    allItems.forEach((item, index) => {
+      item.style.setProperty("--delay", `${Math.min(index, 12) * 0.04}s`);
+      gallery.appendChild(item);
     });
+
+    gallery.dispatchEvent(new CustomEvent("masonry-init"));
+    gallery.dispatchEvent(new CustomEvent("masonry-relayout"));
   }
 
   function buildTabsAndPanels(manifest: Manifest) {
@@ -347,6 +360,7 @@ import "../../styles/masonry.css";
   async function loadGallery() {
     const tabsEl = document.getElementById("gallery-tabs");
     const panelsEl = document.getElementById("gallery-panels");
+    const spinnerEl = document.getElementById("gallery-spinner");
     const loadingEl = document.getElementById("gallery-loading");
 
     if (!tabsEl || !panelsEl) return;
@@ -360,18 +374,21 @@ import "../../styles/masonry.css";
 
       tabsEl.replaceChildren();
       panelsEl.replaceChildren();
-      loadingEl?.remove();
+      spinnerEl?.remove();
+      loadingEl?.classList.add("visible");
 
       buildTabsAndPanels(manifest);
+      loadingEl?.remove();
     } catch {
       panelsEl.dataset.galleryReady = "false";
+      spinnerEl?.remove();
       if (loadingEl) {
+        loadingEl.classList.add("visible");
         loadingEl.innerHTML =
           '<p class="gallery-status">Gallery temporarily unavailable. Please try again later.</p>';
       }
     }
   }
 
-  // Required for ClientRouter: module scripts are not re-run on soft navigations.
   document.addEventListener("astro:page-load", loadGallery);
 </script>
