@@ -5,6 +5,14 @@ export interface MasonryOptions {
 
 const SKELETON_HEIGHTS = [200, 260, 220, 300, 240, 280, 210, 270, 230, 250];
 
+function imageIsFullyLoaded(img: HTMLImageElement) {
+  if (!img.complete || img.naturalWidth <= 0) return false;
+  if (img.dataset.progressiveMedium) {
+    return img.currentSrc === img.dataset.progressiveMedium;
+  }
+  return true;
+}
+
 export function createMasonryItem(
   fullSizeUrl: string,
   resizedUrl: string,
@@ -13,6 +21,7 @@ export function createMasonryItem(
   alt: string,
   index: number,
   dimensions?: { width: number; height: number },
+  progressiveImages?: { low: string; medium: string },
 ): HTMLElement {
   const a = document.createElement("a");
   a.href = fullSizeUrl;
@@ -38,11 +47,19 @@ export function createMasonryItem(
   skeleton.setAttribute("aria-hidden", "true");
 
   const img = document.createElement("img");
-  img.dataset.src = resizedUrl;
-  img.dataset.srcset = srcset;
+  
+  if (progressiveImages) {
+    img.dataset.progressiveLow = progressiveImages.low;
+    img.dataset.progressiveMedium = progressiveImages.medium;
+  } else {
+    img.dataset.src = resizedUrl;
+    img.dataset.srcset = srcset;
+  }
+  
   img.sizes = sizes;
   img.alt = alt;
   img.decoding = "async";
+  img.loading = "lazy";
 
   a.appendChild(skeleton);
   a.appendChild(img);
@@ -66,7 +83,32 @@ export function setupMasonryGallery(
   let initialized = false;
 
   function startImageLoad(img: HTMLImageElement) {
-    if (!img || img.src) return;
+    if (!img) return;
+
+    if (img.dataset.progressiveLow) {
+      const low = img.dataset.progressiveLow;
+      const medium = img.dataset.progressiveMedium;
+
+      if (!img.src || img.src === window.location.href) {
+        img.src = low;
+      }
+
+      if (medium && !img.dataset.progressiveUpgradeBound) {
+        img.dataset.progressiveUpgradeBound = "true";
+        img.addEventListener(
+          "load",
+          () => {
+            if (img.currentSrc && img.currentSrc !== medium) {
+              img.src = medium;
+            }
+          },
+          { once: true },
+        );
+      }
+      return;
+    }
+
+    if (img.src) return;
     const src = img.dataset.src;
     if (!src) return;
     img.src = src;
@@ -77,14 +119,13 @@ export function setupMasonryGallery(
   function relayout() {
     const gallery = document.getElementById(galleryId);
     if (!gallery) return;
+    if (gallery.hidden || gallery.offsetParent === null || gallery.clientWidth === 0) return;
 
     gallery.querySelectorAll<HTMLElement>(".masonry-item").forEach((item) => {
       const img = item.querySelector("img");
-      if (
-        !item.classList.contains("visible") &&
-        img?.complete &&
-        img.naturalWidth > 0
-      ) {
+      if (!img) return;
+
+      if (imageIsFullyLoaded(img)) {
         item.classList.remove("loading");
         item.classList.add("visible");
       }
@@ -120,6 +161,7 @@ export function setupMasonryGallery(
   function layout() {
     const gallery = document.getElementById(galleryId);
     if (!gallery) return;
+    if (gallery.hidden || gallery.offsetParent === null || gallery.clientWidth === 0) return;
 
     const items = Array.from(
       gallery.querySelectorAll<HTMLElement>(
@@ -222,6 +264,9 @@ export function setupMasonryGallery(
     const total = images.length;
 
     function onLoad(item: HTMLElement) {
+      if (item.dataset.imageLoaded === "true") return;
+      item.dataset.imageLoaded = "true";
+
       loaded++;
       item.classList.remove("loading");
       item.classList.add("visible");
@@ -237,6 +282,22 @@ export function setupMasonryGallery(
 
     images.forEach((img, index) => {
       const item = items[index];
+
+      if (imageIsFullyLoaded(img)) {
+        onLoad(item);
+        return;
+      }
+
+      if (img.dataset.progressiveMedium) {
+        img.addEventListener("load", () => {
+          if (imageIsFullyLoaded(img)) {
+            onLoad(item);
+          }
+        });
+        img.addEventListener("error", () => onLoad(item), { once: true });
+        return;
+      }
+
       if (img.complete && img.naturalWidth > 0) {
         onLoad(item);
       } else {

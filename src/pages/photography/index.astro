@@ -212,6 +212,7 @@ import "../../styles/masonry.css";
     getFullSizeImageUrl,
     getSrcSet,
     GALLERY_IMAGE_SIZES,
+    getProgressiveImageSources,
   } from "../../utils/images";
   import {
     setupMasonryGallery,
@@ -220,6 +221,14 @@ import "../../styles/masonry.css";
   import { IMAGE_CDN_ORIGIN } from "../../consts";
 
   const MANIFEST_URL = `${IMAGE_CDN_ORIGIN}/photography/manifest.json`;
+  const BATCH_SIZE = 30;
+
+  function chunkArray<T>(arr: T[], size: number): T[][] {
+    const out: T[][] = [];
+    for (let i = 0; i < arr.length; i += size)
+      out.push(arr.slice(i, i + size));
+    return out;
+  }
 
   function buildGalleryPanel(
     panelId: string,
@@ -236,15 +245,45 @@ import "../../styles/masonry.css";
     panel.id = panelId;
     panel.dataset.region = region;
 
-    const galleryId = `masonry-${Math.random().toString(36).slice(2, 8)}`;
-    const galleryEl = document.createElement("div");
-    galleryEl.className = "masonry-gallery";
-    galleryEl.id = galleryId;
-    galleryEl.dataset.columns = "3";
-    galleryEl.style.setProperty("--columns", "3");
+    chunkArray(images, BATCH_SIZE).forEach((chunk, chunkIndex) => {
+      const galleryId = `masonry-${Math.random().toString(36).slice(2, 8)}`;
+      const galleryEl = document.createElement("div");
+      galleryEl.className = "masonry-gallery";
+      galleryEl.id = galleryId;
+      galleryEl.dataset.columns = "3";
+      galleryEl.dataset.loaded = "false";
+      galleryEl.style.setProperty("--columns", "3");
+      galleryEl.style.minHeight = "200px";
 
-    images.forEach((image, index) => {
+      galleryEl.dataset.chunkIndex = String(chunkIndex);
+      galleryEl.dataset.chunkData = JSON.stringify(chunk);
+      galleryEl.dataset.region = region;
+
+      panel.appendChild(galleryEl);
+    });
+
+    return panel;
+  }
+
+  function loadGalleryChunk(
+    galleryEl: HTMLElement,
+    chunkData: Array<{
+      path: string;
+      uploadedAt: string;
+      width?: number;
+      height?: number;
+    }>,
+    region: string,
+  ) {
+    if (galleryEl.dataset.loaded === "true") return;
+    galleryEl.dataset.loaded = "true";
+
+    const chunkIndex = parseInt(galleryEl.dataset.chunkIndex ?? "0", 10);
+
+    chunkData.forEach((image, index) => {
+      const absoluteIndex = chunkIndex * BATCH_SIZE + index;
       const cdnUrl = getImageUrl(image.path);
+      const progressiveImages = getProgressiveImageSources(cdnUrl);
       galleryEl.appendChild(
         createMasonryItem(
           getFullSizeImageUrl(cdnUrl),
@@ -252,27 +291,33 @@ import "../../styles/masonry.css";
           getSrcSet(cdnUrl),
           GALLERY_IMAGE_SIZES,
           `Photo from ${region}`,
-          index,
+          absoluteIndex,
           image.width && image.height
             ? { width: image.width, height: image.height }
             : undefined,
+          progressiveImages,
         ),
       );
     });
 
-    panel.appendChild(galleryEl);
-    return panel;
+    setupMasonryGallery(galleryEl.id);
   }
 
   function shuffleAllGallery() {
     const panel = document.getElementById("gallery-All");
     if (!panel) return;
 
-    const gallery = panel.querySelector<HTMLElement>(".masonry-gallery");
-    if (!gallery) return;
+    const galleries = Array.from(
+      panel.querySelectorAll<HTMLElement>(".masonry-gallery"),
+    );
 
-    const allItems = Array.from(
-      gallery.querySelectorAll<HTMLElement>(".masonry-item"),
+    const loadedGalleries = galleries.filter(
+      (g) => g.dataset.loaded === "true",
+    );
+    if (loadedGalleries.length === 0) return;
+
+    const allItems = loadedGalleries.flatMap((gallery) =>
+      Array.from(gallery.querySelectorAll<HTMLElement>(".masonry-item")),
     );
 
     // Fisher-Yates shuffle
@@ -281,16 +326,131 @@ import "../../styles/masonry.css";
       [allItems[i], allItems[j]] = [allItems[j], allItems[i]];
     }
 
-    // Remove and re-add items in shuffled order
-    allItems.forEach((item) => item.remove());
+    loadedGalleries.forEach((gallery, index) => {
+      gallery
+        .querySelectorAll(".masonry-item")
+        .forEach((item) => item.remove());
 
-    allItems.forEach((item, index) => {
-      item.style.setProperty("--delay", `${Math.min(index, 12) * 0.04}s`);
-      gallery.appendChild(item);
+      allItems
+        .slice(index * BATCH_SIZE, (index + 1) * BATCH_SIZE)
+        .forEach((item, itemIndex) => {
+          item.style.setProperty(
+            "--delay",
+            `${Math.min(itemIndex, 12) * 0.04}s`,
+          );
+          gallery.appendChild(item);
+        });
+
+      gallery.dispatchEvent(new CustomEvent("masonry-init"));
+      gallery.dispatchEvent(new CustomEvent("masonry-relayout"));
     });
+  }
 
-    gallery.dispatchEvent(new CustomEvent("masonry-init"));
-    gallery.dispatchEvent(new CustomEvent("masonry-relayout"));
+  function shuffleRegionGalleries(panelId: string) {
+    const panel = document.getElementById(panelId);
+    if (!panel) return;
+
+    const galleries = Array.from(
+      panel.querySelectorAll<HTMLElement>(".masonry-gallery"),
+    );
+
+    const loadedGalleries = galleries.filter(
+      (g) => g.dataset.loaded === "true",
+    );
+    if (loadedGalleries.length === 0) return;
+
+    const allItems = loadedGalleries.flatMap((gallery) =>
+      Array.from(gallery.querySelectorAll<HTMLElement>(".masonry-item")),
+    );
+
+    for (let i = allItems.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [allItems[i], allItems[j]] = [allItems[j], allItems[i]];
+    }
+
+    loadedGalleries.forEach((gallery, index) => {
+      gallery
+        .querySelectorAll(".masonry-item")
+        .forEach((item) => item.remove());
+
+      allItems
+        .slice(index * BATCH_SIZE, (index + 1) * BATCH_SIZE)
+        .forEach((item, itemIndex) => {
+          item.style.setProperty(
+            "--delay",
+            `${Math.min(itemIndex, 12) * 0.04}s`,
+          );
+          gallery.appendChild(item);
+        });
+
+      gallery.dispatchEvent(new CustomEvent("masonry-init"));
+      gallery.dispatchEvent(new CustomEvent("masonry-relayout"));
+    });
+  }
+
+  function shuffleAndDistributeAll(
+    allImages: Array<{
+      path: string;
+      uploadedAt: string;
+      width?: number;
+      height?: number;
+    }>,
+  ) {
+    const shuffled = [...allImages];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+
+    const panel = document.getElementById("gallery-All");
+    if (!panel) return;
+
+    const firstGallery = panel.querySelector<HTMLElement>(
+      ".masonry-gallery[data-loaded='false']",
+    );
+    if (!firstGallery) return;
+
+    const firstBatch = shuffled.slice(0, BATCH_SIZE);
+    loadGalleryChunk(firstGallery, firstBatch, "All");
+
+    const allGalleries = Array.from(
+      panel.querySelectorAll<HTMLElement>(".masonry-gallery"),
+    );
+    allGalleries.forEach((gallery, index) => {
+      if (index > 0) {
+        const start = index * BATCH_SIZE;
+        const end = start + BATCH_SIZE;
+        gallery.dataset.chunkData = JSON.stringify(shuffled.slice(start, end));
+      }
+    });
+  }
+
+  function shuffleAndDistributeRegion(
+    panelId: string,
+    images: Array<{
+      path: string;
+      uploadedAt: string;
+      width?: number;
+      height?: number;
+    }>,
+  ) {
+    const shuffled = [...images];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+
+    const panel = document.getElementById(panelId);
+    if (!panel) return;
+
+    const allGalleries = Array.from(
+      panel.querySelectorAll<HTMLElement>(".masonry-gallery"),
+    );
+    allGalleries.forEach((gallery, index) => {
+      const start = index * BATCH_SIZE;
+      const end = start + BATCH_SIZE;
+      gallery.dataset.chunkData = JSON.stringify(shuffled.slice(start, end));
+    });
   }
 
   function buildTabsAndPanels(manifest: Manifest) {
@@ -298,6 +458,23 @@ import "../../styles/masonry.css";
     const panelsEl = document.getElementById("gallery-panels")!;
     const regions = manifest.regions;
     const allImages = regions.flatMap((r) => r.images);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const galleryEl = entry.target as HTMLElement;
+            if (galleryEl.dataset.loaded !== "true" && galleryEl.dataset.chunkData) {
+              const chunkData = JSON.parse(galleryEl.dataset.chunkData);
+              const region = galleryEl.dataset.region || "All";
+              loadGalleryChunk(galleryEl, chunkData, region);
+              observer.unobserve(galleryEl);
+            }
+          }
+        });
+      },
+      { rootMargin: "50px" },
+    );
 
     function activateTab(region: string) {
       tabsEl.querySelectorAll<HTMLElement>(".gallery-tab").forEach((btn) => {
@@ -307,10 +484,36 @@ import "../../styles/masonry.css";
       });
 
       panelsEl.querySelectorAll<HTMLElement>(".gallery-panel").forEach((p) => {
-        p.hidden = p.dataset.region !== region;
+        const isMatch = p.dataset.region === region;
+        p.hidden = !isMatch;
+
+        if (isMatch) {
+          p.querySelectorAll<HTMLElement>(".masonry-item").forEach((item) => {
+            const img = item.querySelector("img");
+            if (!img) return;
+
+            const fullyLoaded =
+              !!img.complete &&
+              img.naturalWidth > 0 &&
+              (!img.dataset.progressiveMedium ||
+                img.currentSrc === img.dataset.progressiveMedium);
+
+            item.classList.toggle("visible", fullyLoaded);
+            item.classList.toggle("loading", !fullyLoaded);
+            item.dataset.imageLoaded = fullyLoaded ? "true" : "false";
+          });
+        }
       });
 
-      if (region === "All") shuffleAllGallery();
+      const activePanel = document.getElementById(`gallery-${region}`);
+      if (activePanel) {
+        requestAnimationFrame(() => {
+          activePanel.querySelectorAll<HTMLElement>(".masonry-gallery").forEach((gallery) => {
+            gallery.dispatchEvent(new CustomEvent("masonry-relayout"));
+          });
+        });
+      }
+
       window.dispatchEvent(new Event("resize"));
     }
 
@@ -343,18 +546,21 @@ import "../../styles/masonry.css";
       );
       panel.hidden = true;
       panelsEl.appendChild(panel);
+
+      shuffleAndDistributeRegion(`gallery-${region.id}`, region.images);
     });
 
     panelsEl
-      .querySelectorAll<HTMLElement>(
-        ".masonry-gallery:not([data-masonry-ready])",
-      )
-      .forEach((el) => {
-        el.dataset.masonryReady = "true";
-        setupMasonryGallery(el.id);
+      .querySelectorAll<HTMLElement>(".masonry-gallery")
+      .forEach((el, index) => {
+        if (index > 0) {
+          observer.observe(el);
+        }
       });
 
-    shuffleAllGallery();
+    setTimeout(() => {
+      shuffleAndDistributeAll(allImages);
+    }, 0);
   }
 
   async function loadGallery() {
