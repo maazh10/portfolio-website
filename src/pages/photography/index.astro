@@ -150,6 +150,15 @@ import "../../styles/masonry.css";
         align-items: center;
         min-height: 200px;
       }
+      .gallery-more-loading {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 96px;
+      }
+      .gallery-more-loading[hidden] {
+        display: none;
+      }
       .spinner {
         width: 40px;
         height: 40px;
@@ -250,6 +259,7 @@ import "../../styles/masonry.css";
       const galleryEl = document.createElement("div");
       galleryEl.className = "masonry-gallery";
       galleryEl.id = galleryId;
+      galleryEl.hidden = chunkIndex > 0;
       galleryEl.dataset.columns = "3";
       galleryEl.dataset.loaded = "false";
       galleryEl.style.setProperty("--columns", "3");
@@ -261,6 +271,13 @@ import "../../styles/masonry.css";
 
       panel.appendChild(galleryEl);
     });
+
+    const moreLoading = document.createElement("div");
+    moreLoading.className = "gallery-more-loading";
+    moreLoading.hidden = true;
+    moreLoading.innerHTML =
+      '<div class="spinner" role="status" aria-label="Loading more photos"></div>';
+    panel.appendChild(moreLoading);
 
     return panel;
   }
@@ -277,6 +294,15 @@ import "../../styles/masonry.css";
   ) {
     if (galleryEl.dataset.loaded === "true") return;
     galleryEl.dataset.loaded = "true";
+    galleryEl.hidden = false;
+    galleryEl.dataset.waiting = "false";
+    galleryEl.setAttribute("aria-busy", "true");
+    const panel = galleryEl.parentElement;
+    const moreLoading = panel?.querySelector<HTMLElement>(".gallery-more-loading");
+    const nextGallery = galleryEl.nextElementSibling as HTMLElement | null;
+    if (moreLoading) {
+      moreLoading.hidden = !nextGallery?.classList.contains("masonry-gallery");
+    }
 
     const chunkIndex = parseInt(galleryEl.dataset.chunkIndex ?? "0", 10);
 
@@ -301,6 +327,15 @@ import "../../styles/masonry.css";
     });
 
     setupMasonryGallery(galleryEl.id);
+  }
+
+  function previousGallery(galleryEl: HTMLElement): HTMLElement | null {
+    return galleryEl.previousElementSibling as HTMLElement | null;
+  }
+
+  function canLoadGallery(galleryEl: HTMLElement): boolean {
+    const previous = previousGallery(galleryEl);
+    return !previous || previous.dataset.completed === "true";
   }
 
   function shuffleAllGallery() {
@@ -459,22 +494,43 @@ import "../../styles/masonry.css";
     const regions = manifest.regions;
     const allImages = regions.flatMap((r) => r.images);
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const galleryEl = entry.target as HTMLElement;
-            if (galleryEl.dataset.loaded !== "true" && galleryEl.dataset.chunkData) {
-              const chunkData = JSON.parse(galleryEl.dataset.chunkData);
-              const region = galleryEl.dataset.region || "All";
-              loadGalleryChunk(galleryEl, chunkData, region);
-              observer.unobserve(galleryEl);
-            }
-          }
-        });
-      },
-      { rootMargin: "50px" },
-    );
+    function loadNextGallery(galleryEl: HTMLElement) {
+      const nextGallery = galleryEl.nextElementSibling as HTMLElement | null;
+      if (!nextGallery?.classList.contains("masonry-gallery")) return;
+
+      const chunkData = JSON.parse(nextGallery.dataset.chunkData ?? "[]");
+      const region = nextGallery.dataset.region || "All";
+      loadGalleryChunk(nextGallery, chunkData, region);
+    }
+
+    panelsEl.addEventListener("masonry-loaded", (event) => {
+      const galleryEl = event.target as HTMLElement;
+      galleryEl.dataset.completed = "true";
+      galleryEl.dataset.waiting = "false";
+      galleryEl.setAttribute("aria-busy", "false");
+      const panel = galleryEl.parentElement;
+      const moreLoading = panel?.querySelector<HTMLElement>(
+        ".gallery-more-loading",
+      );
+      const nextGallery = galleryEl.nextElementSibling as HTMLElement | null;
+      const hasNextGallery = nextGallery?.classList.contains("masonry-gallery");
+      if (hasNextGallery) {
+        loadNextGallery(galleryEl);
+      }
+
+      if (moreLoading) {
+        moreLoading.hidden = !hasNextGallery;
+      }
+    });
+
+    function startPanel(panel: HTMLElement) {
+      const firstGallery = panel.querySelector<HTMLElement>(".masonry-gallery");
+      if (!firstGallery || firstGallery.dataset.loaded === "true") return;
+
+      const chunkData = JSON.parse(firstGallery.dataset.chunkData ?? "[]");
+      const region = firstGallery.dataset.region || "All";
+      loadGalleryChunk(firstGallery, chunkData, region);
+    }
 
     function activateTab(region: string) {
       tabsEl.querySelectorAll<HTMLElement>(".gallery-tab").forEach((btn) => {
@@ -507,6 +563,7 @@ import "../../styles/masonry.css";
 
       const activePanel = document.getElementById(`gallery-${region}`);
       if (activePanel) {
+        startPanel(activePanel);
         requestAnimationFrame(() => {
           activePanel.querySelectorAll<HTMLElement>(".masonry-gallery").forEach((gallery) => {
             gallery.dispatchEvent(new CustomEvent("masonry-relayout"));
@@ -549,14 +606,6 @@ import "../../styles/masonry.css";
 
       shuffleAndDistributeRegion(`gallery-${region.id}`, region.images);
     });
-
-    panelsEl
-      .querySelectorAll<HTMLElement>(".masonry-gallery")
-      .forEach((el, index) => {
-        if (index > 0) {
-          observer.observe(el);
-        }
-      });
 
     setTimeout(() => {
       shuffleAndDistributeAll(allImages);

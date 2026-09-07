@@ -274,7 +274,10 @@ export function setupMasonryGallery(
       if (loaded === total) {
         loadComplete = true;
         const gallery = document.getElementById(galleryId);
-        if (gallery) gallery.style.minHeight = "";
+        if (gallery) {
+          gallery.style.minHeight = "";
+          gallery.dispatchEvent(new CustomEvent("masonry-loaded", { bubbles: true }));
+        }
       }
 
       layout();
