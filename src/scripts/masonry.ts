@@ -79,7 +79,6 @@ export function setupMasonryGallery(
 
   let resizeTimer: ReturnType<typeof setTimeout> | null = null;
   let resizeHandler: (() => void) | null = null;
-  let loadComplete = false;
   let initialized = false;
 
   function startImageLoad(img: HTMLImageElement) {
@@ -174,7 +173,7 @@ export function setupMasonryGallery(
     const colWidth = (totalWidth - gap * (cols - 1)) / cols;
 
     const colHeights = Array<number>(cols).fill(0);
-    const colLastItems = Array<HTMLElement | null>(cols).fill(null);
+    const colLastItems = new Array<HTMLElement | null>(cols).fill(null);
 
     items.forEach((item) => {
       item.style.height = "";
@@ -211,31 +210,12 @@ export function setupMasonryGallery(
     const maxH = Math.max(...colHeights);
     gallery.style.height = `${maxH}px`;
 
-    if (!loadComplete) {
-      const currentMin = parseInt(gallery.style.minHeight, 10) || 0;
-      gallery.style.minHeight = `${Math.max(maxH, currentMin)}px`;
-      return;
-    }
-
     colLastItems.forEach((item, col) => {
       if (!item) return;
       const shortfall = maxH - colHeights[col];
       if (shortfall <= 0) return;
 
       item.style.height = `${item.offsetHeight + shortfall}px`;
-      const img = item.querySelector("img");
-      if (img) {
-        img.style.height = "100%";
-        img.style.objectFit = "cover";
-        img.style.objectPosition = "center";
-      }
-      if (item.classList.contains("loading")) {
-        const skeleton = item.querySelector<HTMLElement>(".skeleton");
-        if (skeleton) {
-          skeleton.style.height = "100%";
-          skeleton.style.aspectRatio = "auto";
-        }
-      }
     });
   }
 
@@ -272,7 +252,6 @@ export function setupMasonryGallery(
       item.classList.add("visible");
 
       if (loaded === total) {
-        loadComplete = true;
         const gallery = document.getElementById(galleryId);
         if (gallery) {
           gallery.style.minHeight = "";

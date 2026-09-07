@@ -37,6 +37,7 @@
   );
   background-size: 200% 100%;
   animation: shimmer 1.5s ease-in-out infinite;
+  transition: opacity 0.35s ease;
 }
 
 [data-theme="dark"] .skeleton {
@@ -57,31 +58,29 @@
     background-position: -200% 0;
   }
 }
-.masonry-item.loading img {
+.masonry-item img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
+  object-fit: cover;
   opacity: 0;
-}
-
-.masonry-item.visible .skeleton {
-  display: none;
-}
-
-.masonry-item.filtered-out {
-  display: none;
-}
-
-.masonry-item img {
-  width: 100%;
-  height: auto;
-  display: block;
-  filter: brightness(0.97);
   transition:
     opacity 0.35s ease,
     transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
     filter 0.4s ease;
+}
+
+.masonry-item.visible .skeleton {
+  opacity: 0;
+}
+
+.masonry-item.visible img {
+  opacity: 1;
+}
+
+.masonry-item.filtered-out {
+  display: none;
 }
 
 .masonry-item:hover img {
