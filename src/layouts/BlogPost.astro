@@ -4,7 +4,7 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import FormattedDate from "../components/FormattedDate.astro";
-import { getImageUrl } from "../utils/images";
+import { getImageUrl, getResizedImageUrl } from "../utils/images";
 
 type Props = CollectionEntry<"blog">["data"];
 
@@ -12,7 +12,9 @@ const { title, type, description, pubDate, updatedDate, heroImage } =
   Astro.props;
 
 const favicon = type === "photo" ? "📸" : "📝";
-const resolvedHeroImage = heroImage ? getImageUrl(heroImage) : heroImage;
+const resolvedHeroImage = heroImage
+  ? getResizedImageUrl(getImageUrl(heroImage), 1020, 75)
+  : heroImage;
 ---
 
 <html lang="en">
