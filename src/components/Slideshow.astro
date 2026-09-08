@@ -56,15 +56,17 @@ function getTimeColor(timeString: string): string {
 <div class="slideshow-container">
   <div class="custom-swiper">
     <div class="custom-swiper-wrapper">
-      {
-        imagePaths.map((imagePath, index) => (
-          <div class="custom-swiper-slide" data-index={index}>
-            <a target="_blank" href={imagePath}>
-              <img src={imagePath} alt={alt} loading="lazy" />
-            </a>
-          </div>
-        ))
-      }
+      <div class="custom-swiper-track">
+        {
+          imagePaths.map((imagePath, index) => (
+            <div class="custom-swiper-slide" data-index={index}>
+              <a target="_blank" href={imagePath}>
+                <img src={imagePath} alt={alt} loading="lazy" />
+              </a>
+            </div>
+          ))
+        }
+      </div>
     </div>
     {
       imagePaths.length > 1 && (
@@ -170,11 +172,20 @@ function getTimeColor(timeString: string): string {
   }
 
   .custom-swiper {
+    display: grid;
+    grid-template-columns: 48px minmax(0, 1fr) 48px;
+    gap: 24px;
     position: relative;
-    overflow: hidden;
+    align-items: center;
   }
 
   .custom-swiper-wrapper {
+    grid-column: 2;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .custom-swiper-track {
     display: flex;
     transition: transform 0.5s ease-in-out;
   }
@@ -218,9 +229,8 @@ function getTimeColor(timeString: string): string {
 
   .custom-swiper-button-prev,
   .custom-swiper-button-next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    position: static;
+    align-self: center;
     background: rgba(0, 0, 0, 0.7);
     color: #fff;
     border: none;
@@ -247,19 +257,34 @@ function getTimeColor(timeString: string): string {
   }
 
   .custom-swiper-button-prev {
-    left: 16px;
+    grid-column: 1;
+    grid-row: 1;
   }
 
   .custom-swiper-button-next {
-    right: 16px;
+    grid-column: 3;
+    grid-row: 1;
   }
 
   .custom-swiper-button-prev:hover,
   .custom-swiper-button-next:hover {
     background: #2337ff;
     color: #fff;
-    transform: translateY(-50%) scale(1.1);
+    transform: scale(1.1);
     box-shadow: 0 4px 16px rgba(0, 123, 255, 0.25);
+  }
+
+  @media (max-width: 700px) {
+    .custom-swiper {
+      grid-template-columns: 40px minmax(0, 1fr) 40px;
+      gap: 8px;
+    }
+
+    .custom-swiper-button-prev,
+    .custom-swiper-button-next {
+      width: 40px;
+      height: 40px;
+    }
   }
 
   .photo-details {
@@ -300,11 +325,16 @@ function getTimeColor(timeString: string): string {
 </style>
 
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
+  let slideshowCleanups: (() => void)[] = [];
+
+  function initializeSlideshows() {
+    slideshowCleanups.forEach((cleanup) => cleanup());
+    slideshowCleanups = [];
+
     const slideshows = document.querySelectorAll(".slideshow-container");
 
     slideshows.forEach((slideshow) => {
-      const wrapper = slideshow.querySelector(".custom-swiper-wrapper");
+      const wrapper = slideshow.querySelector(".custom-swiper-track");
       const slides = Array.from(
         slideshow.querySelectorAll(".custom-swiper-slide")
       );
@@ -347,24 +377,38 @@ function getTimeColor(timeString: string): string {
         if (autoplayInterval !== null) window.clearInterval(autoplayInterval);
       }
 
+      function handleNext() {
+        goToSlide(currentIndex + 1);
+        startAutoplay();
+      }
+
+      function handlePrevious() {
+        goToSlide(currentIndex - 1);
+        startAutoplay();
+      }
+
       if (nextBtn) {
-        nextBtn.addEventListener("click", () => {
-          goToSlide(currentIndex + 1);
-          startAutoplay();
-        });
+        nextBtn.addEventListener("click", handleNext);
       }
 
       if (prevBtn) {
-        prevBtn.addEventListener("click", () => {
-          goToSlide(currentIndex - 1);
-          startAutoplay();
-        });
+        prevBtn.addEventListener("click", handlePrevious);
       }
 
       slideshow.addEventListener("mouseenter", stopAutoplay);
       slideshow.addEventListener("mouseleave", startAutoplay);
 
+      slideshowCleanups.push(() => {
+        stopAutoplay();
+        nextBtn?.removeEventListener("click", handleNext);
+        prevBtn?.removeEventListener("click", handlePrevious);
+        slideshow.removeEventListener("mouseenter", stopAutoplay);
+        slideshow.removeEventListener("mouseleave", startAutoplay);
+      });
+
       startAutoplay();
     });
-  });
+  }
+
+  document.addEventListener("astro:page-load", initializeSlideshows);
 </script>
