@@ -1,4 +1,6 @@
 ---
+import { getResizedImageUrl } from "../utils/images";
+
 type Props = {
   titles?: string[];
   locations?: string[];
@@ -61,7 +63,11 @@ function getTimeColor(timeString: string): string {
           imagePaths.map((imagePath, index) => (
             <div class="custom-swiper-slide" data-index={index}>
               <a target="_blank" href={imagePath}>
-                <img src={imagePath} alt={alt} loading="lazy" />
+                <img
+                  src={getResizedImageUrl(imagePath, 600)}
+                  alt={alt}
+                  loading="lazy"
+                />
               </a>
             </div>
           ))
