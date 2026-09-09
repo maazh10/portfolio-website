@@ -1,0 +1,89 @@
+---
+title: "The Joy of Building for Fun"
+type: "text"
+description: "A personal blog that started as a portfolio for job searching has grown into a personal project I actually care about. This is a technical write-up on some photography-related features I built for the site recently, and what I learned from the experience."
+pubDate: "Sep 9 2026"
+heroImage: "blog/10/cover.jpg"
+---
+
+import { getImageUrl } from '../../utils/images';
+
+With the rise of AI tools and LLMs in general, I think there's been a rise in the number of side projects and people trying to kickstart ideas they've had for years, or take a shot at their next startup. As much as I love building software and enjoy the thrill of solving challenging problems, I've struggled to get inspired to start a toy project of my own. I fully believe hobby projects should be something you want to build to solve a problem for yourself, or a very specific problem in the world that you care about, so naturally, making money as a motivator has never worked for me. And generally, I've just struggled to find that one inspiring idea that will push me to use my free time outside of work to build it.
+
+Now, as a full-time software engineer, I've also had the chance to work on some very large-scale initiatives recently, which came with a fun set of problems I got to work on directly. That's also partly why my appetite for working on cool problems is mostly fulfilled at work.
+
+However, there is one little project of mine that I haven't abandoned. It may not be as flashy as all the fancy stuff people are building with LLMs these days, but I'm particularly proud of what I've achieved with it, and it actually involved a fair bit of complexity and some interesting challenges along the way that may not be immediately obvious. And believe it or not, that project is this very website you're reading on.
+
+## From Portfolio to Personal Project
+
+A little bit of history: I initially built a "portfolio" website back in 2024 when I was a new grad searching for my first full-time job. At the time, I didn't care much for it, since I was just looking to build something to impress the next recruiter, which is never a great motivator for me. I watched the first YouTube tutorial I could find to get a decent template for the site, then filled the page with different sections about myself (About, Education, Experience, etc.). I made it slightly more interesting by turning the hosting into a challenge for myself. Applying some knowledge from a third-year web dev course I took in university, I got the app deployed on a Google Cloud VM instance with a proper CI/CD setup using GitHub Actions.
+
+Fast-forward about a year, I was already working at my first full-time job and didn't really pay much attention to my portfolio anymore. Occasionally, I'd come back to update some content, kind of like a resume. But around this time, I had the inspiration to start writing blogs, this time motivated from within, to write about what was on my mind or just share knowledge with the world. I wasn't pressured in any way to build or maintain this "portfolio"; I was free to build and use it at my own leisure. Another motivation was wanting one consolidated place to post and display my photos. So I did exactly that: I created a separate deployable app in Astro JS just for blogging, and posted my first entry about how I'd built it: [First Blog](/blog/first-blog).
+
+And that brings us back to today. Over the past few months, I've done extensive work on this website that I originally built just to "impress employers." With the help of AI tools like Copilot, I was able to get there much faster and more effectively, without having to write a lot of code by hand.
+
+As fun as the challenge of deploying two separate apps under one host had been, it started to feel a bit bloated, and the old React UI I'd basically copied from a template was starting to feel a bit garish for my taste. Since I'm no designer, I used Google Stitch to generate a more modern-looking UI for the main portfolio page. I was pretty happy with the color scheme and font choices, with a few small tweaks of my own on top. I then used Copilot to migrate the old React app (after cutting a lot of content from the portfolio) into the Astro app, simplified the CI workflow down to a single deployment, and finally deprecated the old React app. It was pretty straightforward, and I got it working within a day.
+
+I'm much more of a photographer than a writer. Actually, I like to tell stories and make memories through photos more than through words. I learned this pretty quickly once I bought a digital camera and started taking more photos than ever. I'd post the best ones on social platforms like Instagram, but I also wanted to keep a record of them on my own website. So I started posting blogs that were mostly just composed of photos I'd taken over a season or on a particular trip. As you'd expect, I ended up with a lot more "photo" blogs than written ones. I tried a few variations of these, with different components to hold the photos: a slideshow of three or four images with a title and description of where they were taken, or a randomized masonry gallery containing a dump of 40-50 photos.
+
+## Building an Image CDN
+
+Once I started uploading a lot of images to my blogs, I had to rely on object storage to actually host them. I began using a Cloudflare R2 bucket for all my photos, uploaded as full-size JPGs. My initial, naive design was simply a public R2 bucket, with my blogs referencing the image paths directly from the bucket's public URL. As you'd expect, that came with a huge performance problem waiting to happen. For example, my Europe blog from this year ([From Barça to Roma](/blog/from-barca-to-roma)) contains a single massive gallery of around 80 photos. With each image roughly 3-4 MB in size, you can imagine how poorly that page would perform on a slow connection.
+
+To solve this, I needed a way to serve a smaller version of any image in the bucket on demand. Keep in mind this gallery is massive, meaning each image takes up maybe 200-300px on the page at most, so a full-size image, usually 2000-3000px wide, is overkill. After some back-and-forth with an LLM, we landed on a solution that integrated well with Cloudflare, where my bucket was already hosted. Here's what it looked like once implemented:
+
+- Deployed a Cloudflare Worker between the client and the R2 bucket.
+- The worker is simply a Node script that fetches a requested image from the R2 bucket given a path, and takes three optional query parameters:
+  - `w`: width of the image, e.g., `w=600` returns the image shrunk to 600px wide
+  - `q`: quality of the image, or the aggressiveness of the JPG compression
+  - `f`: format of the image, useful for converting a JPG into a different format like WebP
+- Connected the worker to my own domain under a subdomain: https://img.maazh.tech
+- Updated all photo-related components to use this new CDN URL instead of the R2 bucket directly, requesting a smaller version of the image, usually `w=600`
+- Made the R2 bucket private, so that all images must go through the worker to be served.
+
+> Once fully implemented, this setup improved the performance of all photo blogs enormously, even on the slowest connections.
+
+## Making Photography Automatic
+
+Until recently, I was pretty happy with how I used my portfolio and blogs to occasionally share photos. But lately it started to feel like a chore to publish a new blog post for every new set of photos. Inspired by the blogs of other photographers I follow, I noticed a lot of them have a standalone page just for photos, serving as a "photo portfolio", while blogs are reserved for writing or sharing thoughts. I liked this idea a lot and wanted to build something similar, since I already had a masonry gallery component originally built for my photo blogs. I created a new [Photography](/photography) page with a tab layout split by region, heavily inspired by [David Imel's Photography Page](https://www.davidimel.com/photography/). Another major pain point I wanted to solve was avoiding a redeployment every time I wanted to publish new images. If an image is uploaded to the R2 bucket, it should just show up on the page automatically. I'll break the implementation of this feature into two parts below.
+
+### Automatic Updates 
+
+First, to implement automatic updates from the R2 bucket to the page, I needed three things: an event listener for write/delete events in the R2 bucket, a message queue to buffer each event, and a manifest file that gets updated according to each event received from the queue. Here's what the final implementation looks like:
+
+- Deployed a queue on Cloudflare.
+- Set up an event notification in the R2 bucket, under the path where I upload my photos, to send metadata about any write/delete events to the queue.
+- Updated the image CDN worker from the previous steps to also serve a `manifest.json` (built from all images under that path in the bucket) and update it based on events coming from the queue.
+- Used the manifest as the source of truth for which images should load on the photography page.
+- **Note:** The manifest contains an object for each image: its file name, the region it belongs to, and its dimensions which will come in handy for something later.
+
+### Performance Improvements
+
+And, as you'd expect, this page came with a huge performance cost of its own. Even though I'm only requesting a much smaller version of each photo, roughly 80KB each, the page is now an ever-growing collection of over 200 images already, and it only gets worse as I add more. Even with roughly 200 images on the first pass, the page was considerably slow due to the sheer number of network calls, and at times images would just fail to load due to rate limits from Cloudflare. This problem took a lot of back-and-forth with LLMs, several approaches, and a fair amount of refinement to get to the current version. Here's ultimately how I solved it:
+
+- Instead of loading one massive gallery with all the images, I broke it up into multiple gallery components in chunks of about 30 photos each. I updated the gallery UI so it always resolves into a rectangular shape with no padding at the top or bottom, so the user can't tell where one gallery ends and the next begins.
+- Used a `srcset` so an even smaller version (`w=300`) loads first, followed by a slightly better version (`w=600`), so that on extremely slow connections, something appears before the better version arrives.
+- Added a skeleton loading UX to indicate individual images being loaded. The dimensions included in the manifest are useful here, letting the skeleton render at the correct aspect ratio while the actual image loads.
+- Made each gallery's loading dependent on the one above it. If the first 30 images haven't loaded yet, there's no point loading the next 30. This keeps network intensity low and helps with the rate-limiting problem, while a loading spinner below the currently-loading gallery still signals that more photos are on the way.
+
+> The last point was the biggest performance win: it kept network intensity low and eliminated the rate-limiting problem.
+
+Here's a peak at the final component diagram from the Cloudflare console:
+<figure class="architecture-diagram">
+  <a href={getImageUrl('blog/10/diagram.png')} target="_blank" rel="noopener noreferrer">
+    <img src={getImageUrl('blog/10/diagram.png')} alt="Cloudflare component diagram" loading="lazy" />
+  </a>
+  <figcaption>Cloudflare component diagram for the image and manifest pipeline.</figcaption>
+</figure>
+
+## What I Learned
+
+As a result, I now have a fully functioning, reasonably performant photography portfolio page, and I never need to redeploy or write a new blog post just to share some photos. I can upload images to the R2 bucket from my phone, and within a few minutes they show up on the page.
+
+This was a pretty technically intensive write-up, but I wanted to share the behind-the-scenes of something that seems relatively simple at a glance. This isn't a side hustle that will make me the next millionaire, or a flashy app bolted onto 20 kinds of AI tools. It's a little static website (well, not so static anymore) that's grown from a quickly whipped-up brag page for job searching into something I actually care about and put effort into maintaining.
+
+I'm sure there's plenty of over-engineering here, or at least a lot that could be simplified in the code, especially since we all know how defensively AI-generated code tends to be written. But this project isn't supposed to be perfect, and no one except me will probably ever care about what I've built here. I think that's part of why I've enjoyed the past few months of building this so much: I only worked on it when I genuinely felt like it, and there were plenty of days when I didn't. Engineering is most fun when you're building something you care about, and your only motivation is your own desire to do it, nothing else.
+
+From this experience, and many others outside this project, I've also learned the power of AI tools when used pragmatically. I'd never get the same sense of achievement if I asked some super-intelligent model to build this entire thing in one shot. Not only would I not learn a single thing, it just wouldn't be fun, which was the entire point. I think LLMs are great learning tools and great for automating hours of work, but the actual problem-solving and the iterative process of building something is why I love software engineering so much, even with LLMs in the loop. Through this tiny project, I can confidently say I learned a lot while also solving a problem I'd had for months; and most importantly, I had a lot of fun doing it.
+
+I don't expect anyone to make it this far, but if you did, I hope you learned something new, or that it deepened your appreciation for the craft, even just a little.
